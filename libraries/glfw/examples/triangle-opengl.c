@@ -69,11 +69,6 @@ static const char* fragment_shader_text =
 "    fragment = vec4(color, 1.0);\n"
 "}\n";
 
-static void error_callback(int error, const char* description)
-{
-    fprintf(stderr, "Error: %s\n", description);
-}
-
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -82,8 +77,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 int main(void)
 {
-    glfwSetErrorCallback(error_callback);
-
     if (!glfwInit())
         exit(EXIT_FAILURE);
 

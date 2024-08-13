@@ -1566,30 +1566,6 @@ typedef void* (* GLFWreallocatefun)(void* block, size_t size, void* user);
  */
 typedef void (* GLFWdeallocatefun)(void* block, void* user);
 
-/*! @brief The function pointer type for error callbacks.
- *
- *  This is the function pointer type for error callbacks.  An error callback
- *  function has the following signature:
- *  @code
- *  void callback_name(int error_code, const char* description)
- *  @endcode
- *
- *  @param[in] error_code An [error code](@ref errors).  Future releases may add
- *  more error codes.
- *  @param[in] description A UTF-8 encoded string describing the error.
- *
- *  @pointer_lifetime The error description string is valid until the callback
- *  function returns.
- *
- *  @sa @ref error_handling
- *  @sa @ref glfwSetErrorCallback
- *
- *  @since Added in version 3.0.
- *
- *  @ingroup init
- */
-typedef void (* GLFWerrorfun)(int error_code, const char* description);
-
 /*! @brief The function pointer type for window position callbacks.
  *
  *  This is the function pointer type for window position callbacks.  A window
@@ -2456,52 +2432,6 @@ GLFWAPI const char* glfwGetVersionString(void);
  *  @ingroup init
  */
 GLFWAPI int glfwGetError(const char** description);
-
-/*! @brief Sets the error callback.
- *
- *  This function sets the error callback, which is called with an error code
- *  and a human-readable description each time a GLFW error occurs.
- *
- *  The error code is set before the callback is called.  Calling @ref
- *  glfwGetError from the error callback will return the same value as the error
- *  code argument.
- *
- *  The error callback is called on the thread where the error occurred.  If you
- *  are using GLFW from multiple threads, your error callback needs to be
- *  written accordingly.
- *
- *  Because the description string may have been generated specifically for that
- *  error, it is not guaranteed to be valid after the callback has returned.  If
- *  you wish to use it after the callback returns, you need to make a copy.
- *
- *  Once set, the error callback remains set even after the library has been
- *  terminated.
- *
- *  @param[in] callback The new callback, or `NULL` to remove the currently set
- *  callback.
- *  @return The previously set callback, or `NULL` if no callback was set.
- *
- *  @callback_signature
- *  @code
- *  void callback_name(int error_code, const char* description)
- *  @endcode
- *  For more information about the callback parameters, see the
- *  [callback pointer type](@ref GLFWerrorfun).
- *
- *  @errors None.
- *
- *  @remark This function may be called before @ref glfwInit.
- *
- *  @thread_safety This function must only be called from the main thread.
- *
- *  @sa @ref error_handling
- *  @sa @ref glfwGetError
- *
- *  @since Added in version 3.0.
- *
- *  @ingroup init
- */
-GLFWAPI GLFWerrorfun glfwSetErrorCallback(GLFWerrorfun callback);
 
 /*! @brief Returns the currently selected platform.
  *
