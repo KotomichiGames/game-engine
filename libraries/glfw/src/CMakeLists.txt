@@ -20,15 +20,6 @@ else()
                                 posix_time.c posix_thread.c)
 endif()
 
-add_custom_target(update_mappings
-    COMMAND "${CMAKE_COMMAND}" -P "${GLFW_SOURCE_DIR}/CMake/GenerateMappings.cmake" mappings.h.in mappings.h
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMENT "Updating gamepad mappings from upstream repository"
-    SOURCES mappings.h.in "${GLFW_SOURCE_DIR}/CMake/GenerateMappings.cmake"
-    VERBATIM)
-
-set_target_properties(update_mappings PROPERTIES FOLDER "GLFW3")
-
 if (GLFW_BUILD_COCOA)
     target_compile_definitions(glfw PRIVATE _GLFW_COCOA)
     target_sources(glfw PRIVATE cocoa_platform.h cocoa_joystick.h cocoa_init.m
@@ -352,18 +343,5 @@ foreach(arg ${glfw_PKG_LIBS})
     string(APPEND libs " ${arg}")
 endforeach()
 
-set(GLFW_PKG_CONFIG_REQUIRES_PRIVATE "${deps}" CACHE INTERNAL
-    "GLFW pkg-config Requires.private")
-set(GLFW_PKG_CONFIG_LIBS_PRIVATE "${libs}" CACHE INTERNAL
-    "GLFW pkg-config Libs.private")
-
-configure_file("${GLFW_SOURCE_DIR}/CMake/glfw3.pc.in" glfw3.pc @ONLY)
-
-if (GLFW_INSTALL)
-    install(TARGETS glfw
-            EXPORT glfwTargets
-            RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-            LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
-endif()
-
+set(GLFW_PKG_CONFIG_REQUIRES_PRIVATE "${deps}" CACHE INTERNAL "GLFW pkg-config Requires.private")
+set(GLFW_PKG_CONFIG_LIBS_PRIVATE "${libs}" CACHE INTERNAL "GLFW pkg-config Libs.private")
