@@ -37,7 +37,6 @@ add_executable(joysticks WIN32 MACOSX_BUNDLE joysticks.c ${GLAD_GL})
 add_executable(tearing WIN32 MACOSX_BUNDLE tearing.c ${GLAD_GL})
 add_executable(threads WIN32 MACOSX_BUNDLE threads.c ${TINYCTHREAD} ${GLAD_GL})
 add_executable(timeout WIN32 MACOSX_BUNDLE timeout.c ${GLAD_GL})
-add_executable(title WIN32 MACOSX_BUNDLE title.c ${GLAD_GL})
 add_executable(triangle-vulkan WIN32 triangle-vulkan.c ${GLAD_VULKAN})
 add_executable(window WIN32 MACOSX_BUNDLE window.c ${GLAD_GL})
 
@@ -49,7 +48,7 @@ if (RT_LIBRARY)
 endif()
 
 set(GUI_ONLY_BINARIES empty gamma icon inputlag joysticks tearing threads
-    timeout title triangle-vulkan window)
+    timeout triangle-vulkan window)
 set(CONSOLE_BINARIES allocator clipboard events msaa glfwinfo iconify monitors
     reopen cursor)
 
