@@ -7,9 +7,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 string(COMPARE EQUAL "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}" GLFW_STANDALONE)
 
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
-option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" ${GLFW_STANDALONE})
-option(GLFW_BUILD_TESTS "Build the GLFW test programs" ${GLFW_STANDALONE})
-option(GLFW_INSTALL "Generate installation target" ON)
 
 include(CMakeDependentOption)
 
@@ -50,15 +47,4 @@ if (MSVC AND NOT USE_MSVC_RUNTIME_LIBRARY_DLL)
     endif()
 endif()
 
-#--------------------------------------------------------------------
-# Add subdirectories
-#--------------------------------------------------------------------
 add_subdirectory(src)
-
-if (GLFW_BUILD_EXAMPLES)
-    add_subdirectory(examples)
-endif()
-
-if (GLFW_BUILD_TESTS)
-    add_subdirectory(tests)
-endif()
