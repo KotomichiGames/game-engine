@@ -317,7 +317,6 @@ typedef struct GLFWmonitor GLFWmonitor;
 typedef struct GLFWwindow  GLFWwindow;
 typedef struct GLFWcursor  GLFWcursor;
 
-typedef void (* GLFWwindowposfun)(GLFWwindow* window, int xpos, int ypos);
 typedef void (* GLFWwindowsizefun)(GLFWwindow* window, int width, int height);
 typedef void (* GLFWwindowclosefun)(GLFWwindow* window);
 typedef void (* GLFWwindowrefreshfun)(GLFWwindow* window);
@@ -391,7 +390,6 @@ void glfwSetWindowShouldClose(GLFWwindow* window, int value);
 void glfwSetWindowTitle(GLFWwindow* window, const char* title);
 void glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
 
-void glfwSetWindowPos(GLFWwindow* window, int xpos, int ypos);
 void glfwGetWindowSize(GLFWwindow* window, int* width, int* height);
 
 void glfwSetWindowSizeLimits(GLFWwindow* window, int minwidth, int minheight, int maxwidth, int maxheight);
@@ -418,7 +416,6 @@ void glfwSetWindowAttrib(GLFWwindow* window, int attrib, int value);
 void glfwSetWindowUserPointer(GLFWwindow* window, void* pointer);
 void* glfwGetWindowUserPointer(GLFWwindow* window);
 
-GLFWwindowposfun glfwSetWindowPosCallback(GLFWwindow* window, GLFWwindowposfun callback);
 GLFWwindowsizefun glfwSetWindowSizeCallback(GLFWwindow* window, GLFWwindowsizefun callback);
 GLFWwindowclosefun glfwSetWindowCloseCallback(GLFWwindow* window, GLFWwindowclosefun callback);
 GLFWwindowrefreshfun glfwSetWindowRefreshCallback(GLFWwindow* window, GLFWwindowrefreshfun callback);
