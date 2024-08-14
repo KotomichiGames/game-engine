@@ -314,7 +314,6 @@ typedef void (* GLFWwindowfocusfun)(GLFWwindow* window, int focused);
 typedef void (* GLFWwindowiconifyfun)(GLFWwindow* window, int iconified);
 typedef void (* GLFWwindowmaximizefun)(GLFWwindow* window, int maximized);
 typedef void (* GLFWframebuffersizefun)(GLFWwindow* window, int width, int height);
-typedef void (* GLFWwindowcontentscalefun)(GLFWwindow* window, float xscale, float yscale);
 typedef void (* GLFWmousebuttonfun)(GLFWwindow* window, int button, int action, int mods);
 typedef void (* GLFWcursorposfun)(GLFWwindow* window, double xpos, double ypos);
 typedef void (* GLFWcursorenterfun)(GLFWwindow* window, int entered);
@@ -388,7 +387,6 @@ GLFWwindowfocusfun glfwSetWindowFocusCallback(GLFWwindow* window, GLFWwindowfocu
 GLFWwindowiconifyfun glfwSetWindowIconifyCallback(GLFWwindow* window, GLFWwindowiconifyfun callback);
 GLFWwindowmaximizefun glfwSetWindowMaximizeCallback(GLFWwindow* window, GLFWwindowmaximizefun callback);
 GLFWframebuffersizefun glfwSetFramebufferSizeCallback(GLFWwindow* window, GLFWframebuffersizefun callback);
-GLFWwindowcontentscalefun glfwSetWindowContentScaleCallback(GLFWwindow* window, GLFWwindowcontentscalefun callback);
 
 void glfwPollEvents(void);
 
