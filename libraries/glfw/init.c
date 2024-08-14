@@ -32,36 +32,13 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-// NOTE: The global variables below comprise all mutable global data in GLFW
-//       Any other mutable global variable is a bug
-
-// This contains all mutable state shared between compilation units of GLFW
-//
 _GLFWlibrary _glfw = { GLFW_FALSE };
 
-// These are outside of _glfw so they can be used before initialization and
-// after termination without special handling when _glfw is cleared to zero
-//
 static _GLFWerror _glfwMainThreadError;
-static GLFWallocator _glfwInitAllocator;
 static _GLFWinitconfig _glfwInitHints =
 {
     .platformID   = GLFW_ANY_PLATFORM
 };
-
-// The allocation function used when no custom allocator is set
-//
-static void* defaultAllocate(size_t size, void* user)
-{
-    return malloc(size);
-}
-
-// The reallocation function used when no custom allocator is set
-//
-static void* defaultReallocate(void* block, size_t size, void* user)
-{
-    return realloc(block, size);
-}
 
 // Terminate the library
 //
@@ -104,92 +81,9 @@ static void terminate(void)
     memset(&_glfw, 0, sizeof(_glfw));
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 //////                       GLFW internal API                      //////
 //////////////////////////////////////////////////////////////////////////
-
-// Encode a Unicode code point to a UTF-8 stream
-// Based on cutef8 by Jeff Bezanson (Public Domain)
-//
-size_t _glfwEncodeUTF8(char* s, uint32_t codepoint)
-{
-    size_t count = 0;
-
-    if (codepoint < 0x80)
-        s[count++] = (char) codepoint;
-    else if (codepoint < 0x800)
-    {
-        s[count++] = codepoint >> 6 | 0xc0;
-        s[count++] = codepoint & 0x3f | 0x80;
-    }
-    else if (codepoint < 0x10000)
-    {
-        s[count++] = codepoint >> 12 | 0xe0;
-        s[count++] = codepoint >> 6 & 0x3f | 0x80;
-        s[count++] = codepoint & 0x3f | 0x80;
-    }
-    else if (codepoint < 0x110000)
-    {
-        s[count++] = codepoint >> 18 | 0xf0;
-        s[count++] = codepoint >> 12 & 0x3f | 0x80;
-        s[count++] = codepoint >> 6 & 0x3f | 0x80;
-        s[count++] = codepoint & 0x3f | 0x80;
-    }
-
-    return count;
-}
-
-// Splits and translates a text/uri-list into separate file paths
-// NOTE: This function destroys the provided string
-//
-char** _glfwParseUriList(char* text, int* count)
-{
-    char** paths = NULL;
-    char* line;
-
-    *count = 0;
-
-    while ((line = strtok(text, "\r\n")))
-    {
-        const char* prefix = "file://";
-        text = NULL;
-
-        if (line[0] == '#')
-            continue;
-
-        if (strncmp(line, prefix, strlen(prefix)) == 0)
-        {
-            line += strlen(prefix);
-            // TODO: Validate hostname
-            while (*line != '/')
-                line++;
-        }
-
-        (*count)++;
-
-        char* path = _glfw_calloc(strlen(line) + 1, 1);
-        paths = _glfw_realloc(paths, *count * sizeof(char*));
-        paths[*count - 1] = path;
-
-        while (*line)
-        {
-            if (line[0] == '%' && line[1] && line[2])
-            {
-                const char digits[3] = { line[1], line[2], '\0' };
-                *path = (char) strtol(digits, NULL, 16);
-                line += 2;
-            }
-            else
-                *path = *line;
-
-            path++;
-            line++;
-        }
-    }
-
-    return paths;
-}
 
 char* _glfw_strdup(const char* source)
 {
@@ -219,7 +113,7 @@ void* _glfw_calloc(size_t count, size_t size)
             return NULL;
         }
 
-        void* block = _glfw.allocator.allocate(count * size, _glfw.allocator.user);
+        void* block = malloc(count * size);
         if (block)
             return memset(block, 0, count * size);
         _glfwInputError(GLFW_OUT_OF_MEMORY, NULL);
@@ -232,7 +126,7 @@ void* _glfw_realloc(void* block, size_t size)
 {
     if (block && size)
     {
-        void* resized = _glfw.allocator.reallocate(block, size, _glfw.allocator.user);
+        void* resized = realloc(block, size);
         if (resized)
             return resized;
         _glfwInputError(GLFW_OUT_OF_MEMORY, NULL);
@@ -256,8 +150,6 @@ void _glfw_free(void* block)
 //////                         GLFW event API                       //////
 //////////////////////////////////////////////////////////////////////////
 
-// Notifies shared code of an error
-//
 void _glfwInputError(int code, const char* format, ...)
 {
     _GLFWerror* error;
@@ -327,7 +219,6 @@ void _glfwInputError(int code, const char* format, ...)
     strcpy(error->description, description);
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 //////                        GLFW public API                       //////
 //////////////////////////////////////////////////////////////////////////
@@ -339,13 +230,6 @@ GLFWAPI int glfwInit(void)
 
     memset(&_glfw, 0, sizeof(_glfw));
     _glfw.hints.init = _glfwInitHints;
-
-    _glfw.allocator = _glfwInitAllocator;
-    if (!_glfw.allocator.allocate)
-    {
-        _glfw.allocator.allocate   = defaultAllocate;
-        _glfw.allocator.reallocate = defaultReallocate;
-    }
 
     if (!_glfwSelectPlatform(_glfw.hints.init.platformID, &_glfw.platform))
         return GLFW_FALSE;
@@ -393,19 +277,6 @@ GLFWAPI void glfwInitHint(int hint, int value)
     }
 
     _glfwInputError(GLFW_INVALID_ENUM, "Invalid init hint 0x%08X", hint);
-}
-
-GLFWAPI void glfwInitAllocator(const GLFWallocator* allocator)
-{
-    if (allocator)
-    {
-        if (allocator->allocate && allocator->reallocate)
-            _glfwInitAllocator = *allocator;
-        else
-            _glfwInputError(GLFW_INVALID_VALUE, "Missing function in allocator");
-    }
-    else
-        memset(&_glfwInitAllocator, 0, sizeof(GLFWallocator));
 }
 
 GLFWAPI int glfwGetError(const char** description)

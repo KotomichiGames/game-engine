@@ -513,13 +513,6 @@ typedef struct GLFWimage
     unsigned char* pixels;
 } GLFWimage;
 
-typedef struct GLFWallocator
-{
-    GLFWallocatefun   allocate;
-    GLFWreallocatefun reallocate;
-    void* user;
-} GLFWallocator;
-
 /*************************************************************************
  * GLFW API functions
  *************************************************************************/
@@ -528,7 +521,6 @@ GLFWAPI int  glfwInit(void);
 GLFWAPI void glfwTerminate(void);
 
 GLFWAPI void glfwInitHint(int hint, int value);
-GLFWAPI void glfwInitAllocator(const GLFWallocator* allocator);
 
 GLFWAPI int glfwGetError(const char** description);
 GLFWAPI int glfwGetPlatform(void);
