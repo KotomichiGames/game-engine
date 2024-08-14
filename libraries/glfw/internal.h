@@ -248,19 +248,13 @@ struct _GLFWwindow
         GLFWdropfun               drop;
     } callbacks;
 
-    // This is defined in platform.h
     GLFW_PLATFORM_WINDOW_STATE
 };
 
 struct _GLFWmonitor
 {
-    char            name[128];
-    void*           userPointer;
-
-    // Physical dimensions in millimeters.
     int             widthMM, heightMM;
 
-    // The window whose video mode is current on this monitor
     _GLFWwindow*    window;
 
     GLFWvidmode*    modes;
@@ -273,7 +267,7 @@ struct _GLFWmonitor
 struct _GLFWcursor
 {
     _GLFWcursor*    next;
-    // This is defined in platform.h
+
     GLFW_PLATFORM_CURSOR_STATE
 };
 

@@ -154,17 +154,11 @@ void _glfwInputMonitorWindow(_GLFWmonitor* monitor, _GLFWwindow* window)
     monitor->window = window;
 }
 
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW internal API                      //////
-//////////////////////////////////////////////////////////////////////////
-
 _GLFWmonitor* _glfwAllocMonitor(const char* name, int widthMM, int heightMM)
 {
     _GLFWmonitor* monitor = _glfw_calloc(1, sizeof(_GLFWmonitor));
     monitor->widthMM  = widthMM;
     monitor->heightMM = heightMM;
-
-    strncpy(monitor->name, name, sizeof(monitor->name) - 1);
 
     return monitor;
 }
@@ -323,30 +317,6 @@ void glfwGetMonitorContentScale(GLFWmonitor* handle, float* xscale, float* yscal
     assert(monitor != NULL);
 
     _glfw.platform.getMonitorContentScale(monitor, xscale, yscale);
-}
-
-const char* glfwGetMonitorName(GLFWmonitor* handle)
-{
-    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
-    assert(monitor != NULL);
-
-    return monitor->name;
-}
-
-void glfwSetMonitorUserPointer(GLFWmonitor* handle, void* pointer)
-{
-    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
-    assert(monitor != NULL);
-
-    monitor->userPointer = pointer;
-}
-
-void* glfwGetMonitorUserPointer(GLFWmonitor* handle)
-{
-    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
-    assert(monitor != NULL);
-
-    return monitor->userPointer;
 }
 
 GLFWmonitorfun glfwSetMonitorCallback(GLFWmonitorfun cbfun)

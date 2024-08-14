@@ -362,10 +362,6 @@ void glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
 void glfwGetMonitorWorkarea(GLFWmonitor* monitor, int* xpos, int* ypos, int* width, int* height);
 void glfwGetMonitorPhysicalSize(GLFWmonitor* monitor, int* widthMM, int* heightMM);
 void glfwGetMonitorContentScale(GLFWmonitor* monitor, float* xscale, float* yscale);
-const char* glfwGetMonitorName(GLFWmonitor* monitor);
-
-void glfwSetMonitorUserPointer(GLFWmonitor* monitor, void* pointer);
-void* glfwGetMonitorUserPointer(GLFWmonitor* monitor);
 
 GLFWmonitorfun glfwSetMonitorCallback(GLFWmonitorfun callback);
 const GLFWvidmode* glfwGetVideoModes(GLFWmonitor* monitor, int* count);
