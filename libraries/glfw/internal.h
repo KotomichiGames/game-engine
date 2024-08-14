@@ -233,7 +233,6 @@ struct _GLFWwindow
         GLFWwindowiconifyfun      iconify;
         GLFWwindowmaximizefun     maximize;
         GLFWframebuffersizefun    fbsize;
-        GLFWwindowcontentscalefun scale;
         GLFWmousebuttonfun        mouseButton;
         GLFWcursorposfun          cursorPos;
         GLFWcursorenterfun        cursorEnter;
@@ -269,13 +268,11 @@ struct _GLFWcursor
 
 struct _GLFWtls
 {
-    // This is defined in platform.h
     GLFW_PLATFORM_TLS_STATE
 };
 
 struct _GLFWmutex
 {
-    // This is defined in platform.h
     GLFW_PLATFORM_MUTEX_STATE
 };
 
@@ -384,7 +381,6 @@ void _glfwPlatformUnlockMutex(_GLFWmutex* mutex);
 void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused);
 void _glfwInputWindowSize(_GLFWwindow* window, int width, int height);
 void _glfwInputFramebufferSize(_GLFWwindow* window, int width, int height);
-void _glfwInputWindowContentScale(_GLFWwindow* window, float xscale, float yscale);
 void _glfwInputWindowIconify(_GLFWwindow* window, GLFWbool iconified);
 void _glfwInputWindowMaximize(_GLFWwindow* window, GLFWbool maximized);
 void _glfwInputWindowDamage(_GLFWwindow* window);

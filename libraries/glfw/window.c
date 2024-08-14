@@ -93,8 +93,6 @@ void _glfwInputWindowIconify(_GLFWwindow* window, GLFWbool iconified)
         window->callbacks.iconify((GLFWwindow*) window, iconified);
 }
 
-// Notifies shared code that a window has been maximized or restored
-//
 void _glfwInputWindowMaximize(_GLFWwindow* window, GLFWbool maximized)
 {
     assert(window != NULL);
@@ -104,9 +102,6 @@ void _glfwInputWindowMaximize(_GLFWwindow* window, GLFWbool maximized)
         window->callbacks.maximize((GLFWwindow*) window, maximized);
 }
 
-// Notifies shared code that a window framebuffer has been resized
-// The size is specified in pixels
-//
 void _glfwInputFramebufferSize(_GLFWwindow* window, int width, int height)
 {
     assert(window != NULL);
@@ -117,23 +112,6 @@ void _glfwInputFramebufferSize(_GLFWwindow* window, int width, int height)
         window->callbacks.fbsize((GLFWwindow*) window, width, height);
 }
 
-// Notifies shared code that a window content scale has changed
-// The scale is specified as the ratio between the current and default DPI
-//
-void _glfwInputWindowContentScale(_GLFWwindow* window, float xscale, float yscale)
-{
-    assert(window != NULL);
-    assert(xscale > 0.f);
-    assert(xscale < FLT_MAX);
-    assert(yscale > 0.f);
-    assert(yscale < FLT_MAX);
-
-    if (window->callbacks.scale)
-        window->callbacks.scale((GLFWwindow*) window, xscale, yscale);
-}
-
-// Notifies shared code that the window contents needs updating
-//
 void _glfwInputWindowDamage(_GLFWwindow* window)
 {
     assert(window != NULL);
@@ -142,8 +120,6 @@ void _glfwInputWindowDamage(_GLFWwindow* window)
         window->callbacks.refresh((GLFWwindow*) window);
 }
 
-// Notifies shared code that the user wishes to close a window
-//
 void _glfwInputWindowCloseRequest(_GLFWwindow* window)
 {
     assert(window != NULL);
@@ -154,8 +130,6 @@ void _glfwInputWindowCloseRequest(_GLFWwindow* window)
         window->callbacks.close((GLFWwindow*) window);
 }
 
-// Notifies shared code that a window has changed its desired monitor
-//
 void _glfwInputWindowMonitor(_GLFWwindow* window, _GLFWmonitor* monitor)
 {
     assert(window != NULL);
@@ -668,15 +642,6 @@ GLFWframebuffersizefun glfwSetFramebufferSizeCallback(GLFWwindow* handle, GLFWfr
     assert(window != NULL);
 
     _GLFW_SWAP(GLFWframebuffersizefun, window->callbacks.fbsize, cbfun);
-    return cbfun;
-}
-
-GLFWwindowcontentscalefun glfwSetWindowContentScaleCallback(GLFWwindow* handle, GLFWwindowcontentscalefun cbfun)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _GLFW_SWAP(GLFWwindowcontentscalefun, window->callbacks.scale, cbfun);
     return cbfun;
 }
 

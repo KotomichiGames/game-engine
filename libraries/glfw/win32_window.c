@@ -1081,9 +1081,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 
             // Resize windowed mode windows that either permit rescaling or that
             // need it to compensate for non-client area scaling
-            if (!window->monitor &&
-                (window->win32.scaleToMonitor ||
-                 _glfwIsWindows10Version1703OrGreaterWin32()))
+            if (!window->monitor && (window->win32.scaleToMonitor || _glfwIsWindows10Version1703OrGreaterWin32()))
             {
                 RECT* suggested = (RECT*) lParam;
                 SetWindowPos(window->win32.handle, HWND_TOP,
@@ -1094,7 +1092,6 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
                              SWP_NOACTIVATE | SWP_NOZORDER);
             }
 
-            _glfwInputWindowContentScale(window, xscale, yscale);
             break;
         }
 
