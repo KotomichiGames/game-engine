@@ -312,11 +312,8 @@ struct _GLFWplatform
     void (*setWindowPos)(_GLFWwindow*,int,int);
     void (*getWindowSize)(_GLFWwindow*,int*,int*);
     void (*setWindowSize)(_GLFWwindow*,int,int);
-    void (*setWindowSizeLimits)(_GLFWwindow*,int,int,int,int);
     void (*setWindowAspectRatio)(_GLFWwindow*,int,int);
-    void (*getFramebufferSize)(_GLFWwindow*,int*,int*);
     void (*getWindowFrameSize)(_GLFWwindow*,int*,int*,int*,int*);
-    void (*getWindowContentScale)(_GLFWwindow*,float*,float*);
     void (*iconifyWindow)(_GLFWwindow*);
     void (*restoreWindow)(_GLFWwindow*);
     void (*maximizeWindow)(_GLFWwindow*);

@@ -469,41 +469,6 @@ void glfwSetWindowSize(GLFWwindow* handle, int width, int height)
     _glfw.platform.setWindowSize(window, width, height);
 }
 
-void glfwSetWindowSizeLimits(GLFWwindow* handle, int minwidth, int minheight, int maxwidth, int maxheight)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    if (minwidth != GLFW_DONT_CARE && minheight != GLFW_DONT_CARE)
-    {
-        if (minwidth < 0 || minheight < 0)
-        {
-            _glfwInputError(GLFW_INVALID_VALUE, "Invalid window minimum size %ix%i", minwidth, minheight);
-            return;
-        }
-    }
-
-    if (maxwidth != GLFW_DONT_CARE && maxheight != GLFW_DONT_CARE)
-    {
-        if (maxwidth < 0 || maxheight < 0 ||
-            maxwidth < minwidth || maxheight < minheight)
-        {
-            _glfwInputError(GLFW_INVALID_VALUE, "Invalid window maximum size %ix%i", maxwidth, maxheight);
-            return;
-        }
-    }
-
-    window->minwidth  = minwidth;
-    window->minheight = minheight;
-    window->maxwidth  = maxwidth;
-    window->maxheight = maxheight;
-
-    if (window->monitor || !window->resizable)
-        return;
-
-    _glfw.platform.setWindowSizeLimits(window, minwidth, minheight, maxwidth, maxheight);
-}
-
 void glfwSetWindowAspectRatio(GLFWwindow* handle, int numer, int denom)
 {
     assert(numer != 0);

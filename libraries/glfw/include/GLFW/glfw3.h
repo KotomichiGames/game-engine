@@ -368,7 +368,6 @@ void glfwSetWindowShouldClose(GLFWwindow* window, int value);
 void glfwSetWindowTitle(GLFWwindow* window, const char* title);
 void glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
 
-void glfwSetWindowSizeLimits(GLFWwindow* window, int minwidth, int minheight, int maxwidth, int maxheight);
 void glfwSetWindowAspectRatio(GLFWwindow* window, int numer, int denom);
 void glfwSetWindowSize(GLFWwindow* window, int width, int height);
 
