@@ -29,9 +29,6 @@
 
 #include <assert.h>
 #include <float.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
 
 // Internal key state used for sticky keys
 #define _GLFW_STICK 3
