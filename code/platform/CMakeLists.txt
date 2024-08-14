@@ -1,9 +1,11 @@
+#=======================================================================================================================
 project(platform)
-
+#=======================================================================================================================
 add_library(${PROJECT_NAME})
-
+#=======================================================================================================================
+target_compile_features(${PROJECT_NAME}    PUBLIC cxx_std_23)
 target_precompile_headers(${PROJECT_NAME}  PUBLIC public.hpp)
-target_link_libraries(${PROJECT_NAME}      PUBLIC glfw)
-target_include_directories(${PROJECT_NAME} PUBLIC .)
-
-target_sources(${PROJECT_NAME} PRIVATE window.cpp)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+#=======================================================================================================================
+add_subdirectory(glfw)
+#=======================================================================================================================
