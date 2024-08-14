@@ -1147,7 +1147,6 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 static int createNativeWindow(_GLFWwindow* window, const _GLFWwndconfig* wndconfig, const _GLFWfbconfig* fbconfig)
 {
     int frameX, frameY, frameWidth, frameHeight;
-    WCHAR* wideTitle;
     DWORD style   = getWindowStyle(window);
     DWORD exStyle = getWindowExStyle(window);
 
@@ -1160,21 +1159,17 @@ static int createNativeWindow(_GLFWwindow* window, const _GLFWwndconfig* wndconf
         wc.hCursor       = LoadCursorW(NULL, IDC_ARROW);
         wc.lpszClassName = L"GLFW30";
         // Load user-provided icon if available
-        wc.hIcon = LoadImageW(GetModuleHandleW(NULL), L"GLFW_ICON", IMAGE_ICON,
-                              0, 0, LR_DEFAULTSIZE | LR_SHARED);
+        wc.hIcon = LoadImageW(GetModuleHandleW(NULL), L"GLFW_ICON", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED);
         if (!wc.hIcon)
         {
             // No user-provided icon found, load default icon
-            wc.hIcon = LoadImageW(NULL,
-                                  IDI_APPLICATION, IMAGE_ICON,
-                                  0, 0, LR_DEFAULTSIZE | LR_SHARED);
+            wc.hIcon = LoadImageW(NULL, IDI_APPLICATION, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED);
         }
 
         _glfw.win32.mainWindowClass = RegisterClassExW(&wc);
         if (!_glfw.win32.mainWindowClass)
         {
-            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                 "Win32: Failed to register window class");
+            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to register window class");
             return GLFW_FALSE;
         }
     }
@@ -1217,7 +1212,7 @@ static int createNativeWindow(_GLFWwindow* window, const _GLFWwndconfig* wndconf
         frameHeight = rect.bottom - rect.top;
     }
 
-    wideTitle = _glfwCreateWideStringFromUTF8Win32(wndconfig->title);
+    WCHAR* wideTitle = _glfwCreateWideStringFromUTF8Win32(wndconfig->title);
     if (!wideTitle)
         return GLFW_FALSE;
 
@@ -1254,8 +1249,7 @@ static int createNativeWindow(_GLFWwindow* window, const _GLFWwndconfig* wndconf
     {
         RECT rect = { 0, 0, wndconfig->width, wndconfig->height };
         WINDOWPLACEMENT wp = { sizeof(wp) };
-        const HMONITOR mh = MonitorFromWindow(window->win32.handle,
-                                              MONITOR_DEFAULTTONEAREST);
+        const HMONITOR mh = MonitorFromWindow(window->win32.handle, MONITOR_DEFAULTTONEAREST);
 
         // Adjust window rect to account for DPI scaling of the window frame and
         // (if enabled) DPI scaling of the content area
@@ -1403,12 +1397,8 @@ void _glfwSetWindowIconWin32(_GLFWwindow* window, int count, const GLFWimage* im
 
     if (count)
     {
-        const GLFWimage* bigImage = chooseImage(count, images,
-                                                GetSystemMetrics(SM_CXICON),
-                                                GetSystemMetrics(SM_CYICON));
-        const GLFWimage* smallImage = chooseImage(count, images,
-                                                  GetSystemMetrics(SM_CXSMICON),
-                                                  GetSystemMetrics(SM_CYSMICON));
+        const GLFWimage* bigImage   = chooseImage(count, images, GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON));
+        const GLFWimage* smallImage = chooseImage(count, images, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON));
 
         bigIcon = createIcon(bigImage, 0, 0, GLFW_TRUE);
         smallIcon = createIcon(smallImage, 0, 0, GLFW_TRUE);
@@ -1487,8 +1477,7 @@ void _glfwSetWindowSizeWin32(_GLFWwindow* window, int width, int height)
                                FALSE, getWindowExStyle(window));
         }
 
-        SetWindowPos(window->win32.handle, HWND_TOP,
-                     0, 0, rect.right - rect.left, rect.bottom - rect.top,
+        SetWindowPos(window->win32.handle, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top,
                      SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOZORDER);
     }
 }
@@ -1560,8 +1549,7 @@ void _glfwFocusWindowWin32(_GLFWwindow* window)
     SetFocus(window->win32.handle);
 }
 
-void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int xpos, int ypos, int width, int height,
-                                int refreshRate)
+void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int xpos, int ypos, int width, int height, int refreshRate)
 {
     if (window->monitor == monitor)
     {
@@ -1583,8 +1571,7 @@ void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int 
             }
             else
             {
-                AdjustWindowRectEx(&rect, getWindowStyle(window),
-                                   FALSE, getWindowExStyle(window));
+                AdjustWindowRectEx(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window));
             }
 
             SetWindowPos(window->win32.handle, HWND_TOP,
@@ -1648,9 +1635,7 @@ void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int 
 
         if (_glfwIsWindows10Version1607OrGreaterWin32())
         {
-            AdjustWindowRectExForDpi(&rect, getWindowStyle(window),
-                                     FALSE, getWindowExStyle(window),
-                                     GetDpiForWindow(window->win32.handle));
+            AdjustWindowRectExForDpi(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window), GetDpiForWindow(window->win32.handle));
         }
         else
         {
@@ -1805,7 +1790,7 @@ void _glfwPollEventsWin32(void)
                 const int key = keys[i][1];
                 const int scancode = _glfw.win32.scancodes[key];
 
-                if ((GetKeyState(vk) & 0x8000))
+                if (GetKeyState(vk) & 0x8000)
                     continue;
                 if (window->keys[key] != GLFW_PRESS)
                     continue;
@@ -1962,7 +1947,7 @@ GLFWbool _glfwCreateStandardCursorWin32(_GLFWcursor* cursor, int shape)
 void _glfwDestroyCursorWin32(_GLFWcursor* cursor)
 {
     if (cursor->win32.handle)
-        DestroyIcon((HICON) cursor->win32.handle);
+        DestroyIcon(cursor->win32.handle);
 }
 
 void _glfwSetCursorWin32(_GLFWwindow* window, _GLFWcursor* cursor)

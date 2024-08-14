@@ -431,7 +431,7 @@ void glfwSetWindowIcon(GLFWwindow* handle, int count, const GLFWimage* images)
 
 void glfwSetWindowSize(GLFWwindow* handle, int width, int height)
 {
-    assert(width >= 0);
+    assert(width  >= 0);
     assert(height >= 0);
 
     _GLFWwindow* window = (_GLFWwindow*) handle;
@@ -455,9 +455,7 @@ void glfwSetWindowAspectRatio(GLFWwindow* handle, int numer, int denom)
     {
         if (numer <= 0 || denom <= 0)
         {
-            _glfwInputError(GLFW_INVALID_VALUE,
-                            "Invalid window aspect ratio %i:%i",
-                            numer, denom);
+            _glfwInputError(GLFW_INVALID_VALUE, "Invalid window aspect ratio %i:%i", numer, denom);
             return;
         }
     }
