@@ -877,13 +877,6 @@ extern "C" {
  *  Cursor centering [window hint](@ref GLFW_CENTER_CURSOR_hint).
  */
 #define GLFW_CENTER_CURSOR          0x00020009
-/*! @brief Window framebuffer transparency hint and attribute
- *
- *  Window framebuffer transparency
- *  [window hint](@ref GLFW_TRANSPARENT_FRAMEBUFFER_hint) and
- *  [window attribute](@ref GLFW_TRANSPARENT_FRAMEBUFFER_attrib).
- */
-#define GLFW_TRANSPARENT_FRAMEBUFFER 0x0002000A
 /*! @brief Mouse cursor hover window attribute.
  *
  *  Mouse cursor hover [window attribute](@ref GLFW_HOVERED_attrib).
@@ -945,26 +938,6 @@ extern "C" {
  *  Framebuffer bit depth [hint](@ref GLFW_STENCIL_BITS).
  */
 #define GLFW_STENCIL_BITS           0x00021006
-/*! @brief Framebuffer bit depth hint.
- *
- *  Framebuffer bit depth [hint](@ref GLFW_ACCUM_RED_BITS).
- */
-#define GLFW_ACCUM_RED_BITS         0x00021007
-/*! @brief Framebuffer bit depth hint.
- *
- *  Framebuffer bit depth [hint](@ref GLFW_ACCUM_GREEN_BITS).
- */
-#define GLFW_ACCUM_GREEN_BITS       0x00021008
-/*! @brief Framebuffer bit depth hint.
- *
- *  Framebuffer bit depth [hint](@ref GLFW_ACCUM_BLUE_BITS).
- */
-#define GLFW_ACCUM_BLUE_BITS        0x00021009
-/*! @brief Framebuffer bit depth hint.
- *
- *  Framebuffer bit depth [hint](@ref GLFW_ACCUM_ALPHA_BITS).
- */
-#define GLFW_ACCUM_ALPHA_BITS       0x0002100A
 /*! @brief Framebuffer auxiliary buffer hint.
  *
  *  Framebuffer auxiliary buffer [hint](@ref GLFW_AUX_BUFFERS).
@@ -1027,23 +1000,6 @@ extern "C" {
  *  and [attribute](@ref GLFW_CONTEXT_ROBUSTNESS_attrib).
  */
 #define GLFW_CONTEXT_ROBUSTNESS     0x00022005
-/*! @brief OpenGL forward-compatibility hint and attribute.
- *
- *  OpenGL forward-compatibility [hint](@ref GLFW_OPENGL_FORWARD_COMPAT_hint)
- *  and [attribute](@ref GLFW_OPENGL_FORWARD_COMPAT_attrib).
- */
-#define GLFW_OPENGL_FORWARD_COMPAT  0x00022006
-/*! @brief Debug mode context hint and attribute.
- *
- *  Debug mode context [hint](@ref GLFW_CONTEXT_DEBUG_hint) and
- *  [attribute](@ref GLFW_CONTEXT_DEBUG_attrib).
- */
-#define GLFW_CONTEXT_DEBUG          0x00022007
-/*! @brief Legacy name for compatibility.
- *
- *  This is an alias for compatibility with earlier versions.
- */
-#define GLFW_OPENGL_DEBUG_CONTEXT   GLFW_CONTEXT_DEBUG
 /*! @brief OpenGL profile hint and attribute.
  *
  *  OpenGL profile [hint](@ref GLFW_OPENGL_PROFILE_hint) and
@@ -1079,7 +1035,6 @@ extern "C" {
 
 #define GLFW_NO_API                          0
 #define GLFW_OPENGL_API             0x00030001
-#define GLFW_OPENGL_ES_API          0x00030002
 
 #define GLFW_NO_ROBUSTNESS                   0
 #define GLFW_NO_RESET_NOTIFICATION  0x00031001
@@ -1087,7 +1042,6 @@ extern "C" {
 
 #define GLFW_OPENGL_ANY_PROFILE              0
 #define GLFW_OPENGL_CORE_PROFILE    0x00032001
-#define GLFW_OPENGL_COMPAT_PROFILE  0x00032002
 
 #define GLFW_CURSOR                  0x00033001
 #define GLFW_STICKY_KEYS             0x00033002
@@ -1107,51 +1061,13 @@ extern "C" {
 
 #define GLFW_NATIVE_CONTEXT_API     0x00036001
 
-#define GLFW_WAYLAND_PREFER_LIBDECOR    0x00038001
-#define GLFW_WAYLAND_DISABLE_LIBDECOR   0x00038002
-
 #define GLFW_ANY_POSITION           0x80000000
 
-/*! @defgroup shapes Standard cursor shapes
- *  @brief Standard system cursor shapes.
- *
- *  These are the [standard cursor shapes](@ref cursor_standard) that can be
- *  requested from the platform (window system).
- *
- *  @ingroup input
- *  @{ */
-
-/*! @brief The regular arrow cursor shape.
- *
- *  The regular arrow cursor shape.
- */
 #define GLFW_ARROW_CURSOR           0x00036001
-/*! @brief The text input I-beam cursor shape.
- *
- *  The text input I-beam cursor shape.
- */
 #define GLFW_IBEAM_CURSOR           0x00036002
-/*! @brief The crosshair cursor shape.
- *
- *  The crosshair cursor shape.
- */
 #define GLFW_CROSSHAIR_CURSOR       0x00036003
-/*! @brief The pointing hand cursor shape.
- *
- *  The pointing hand cursor shape.
- */
 #define GLFW_POINTING_HAND_CURSOR   0x00036004
-/*! @brief The horizontal resize/move arrow shape.
- *
- *  The horizontal resize/move arrow shape.  This is usually a horizontal
- *  double-headed arrow.
- */
 #define GLFW_RESIZE_EW_CURSOR       0x00036005
-/*! @brief The vertical resize/move arrow shape.
- *
- *  The vertical resize/move shape.  This is usually a vertical double-headed
- *  arrow.
- */
 #define GLFW_RESIZE_NS_CURSOR       0x00036006
 /*! @brief The top-left to bottom-right diagonal resize/move arrow shape.
  *
@@ -2718,7 +2634,7 @@ GLFWAPI void glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
 GLFWAPI void glfwDefaultWindowHints(void);
 GLFWAPI void glfwWindowHint(int hint, int value);
 
-GLFWAPI GLFWwindow* glfwCreateWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share);
+GLFWAPI GLFWwindow* glfwCreateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
 
 /*! @brief Destroys the specified window and its context.
  *
