@@ -1478,17 +1478,6 @@ void _glfwSetWindowIconWin32(_GLFWwindow* window, int count, const GLFWimage* im
     }
 }
 
-void _glfwGetWindowPosWin32(_GLFWwindow* window, int* xpos, int* ypos)
-{
-    POINT pos = { 0, 0 };
-    ClientToScreen(window->win32.handle, &pos);
-
-    if (xpos)
-        *xpos = pos.x;
-    if (ypos)
-        *ypos = pos.y;
-}
-
 void _glfwSetWindowPosWin32(_GLFWwindow* window, int xpos, int ypos)
 {
     RECT rect = { xpos, ypos, xpos, ypos };

@@ -429,14 +429,6 @@ void glfwSetWindowShouldClose(GLFWwindow* handle, int value)
     window->shouldClose = value;
 }
 
-const char* glfwGetWindowTitle(GLFWwindow* handle)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    return window->title;
-}
-
 void glfwSetWindowTitle(GLFWwindow* handle, const char* title)
 {
     assert(title != NULL);
@@ -477,19 +469,6 @@ void glfwSetWindowIcon(GLFWwindow* handle, int count, const GLFWimage* images)
     }
 
     _glfw.platform.setWindowIcon(window, count, images);
-}
-
-void glfwGetWindowPos(GLFWwindow* handle, int* xpos, int* ypos)
-{
-    if (xpos)
-        *xpos = 0;
-    if (ypos)
-        *ypos = 0;
-
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _glfw.platform.getWindowPos(window, xpos, ypos);
 }
 
 void glfwSetWindowPos(GLFWwindow* handle, int xpos, int ypos)
