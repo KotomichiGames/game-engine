@@ -230,7 +230,6 @@ struct _GLFWwindow
     _GLFWcontext        context;
 
     struct {
-        GLFWwindowposfun          pos;
         GLFWwindowsizefun         size;
         GLFWwindowclosefun        close;
         GLFWwindowrefreshfun      refresh;
@@ -403,7 +402,6 @@ void _glfwPlatformLockMutex(_GLFWmutex* mutex);
 void _glfwPlatformUnlockMutex(_GLFWmutex* mutex);
 
 void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused);
-void _glfwInputWindowPos(_GLFWwindow* window, int xpos, int ypos);
 void _glfwInputWindowSize(_GLFWwindow* window, int width, int height);
 void _glfwInputFramebufferSize(_GLFWwindow* window, int width, int height);
 void _glfwInputWindowContentScale(_GLFWwindow* window, float xscale, float yscale);

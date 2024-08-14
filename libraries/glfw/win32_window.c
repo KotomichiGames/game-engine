@@ -968,12 +968,6 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
         {
             if (_glfw.win32.capturedCursorWindow == window)
                 captureCursor(window);
-
-            // NOTE: This cannot use LOWORD/HIWORD recommended by MSDN, as
-            // those macros do not handle negative window positions correctly
-            _glfwInputWindowPos(window,
-                                GET_X_LPARAM(lParam),
-                                GET_Y_LPARAM(lParam));
             return 0;
         }
 

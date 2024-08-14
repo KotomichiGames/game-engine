@@ -69,17 +69,6 @@ void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused)
     }
 }
 
-// Notifies shared code that a window has moved
-// The position is specified in content area relative screen coordinates
-//
-void _glfwInputWindowPos(_GLFWwindow* window, int x, int y)
-{
-    assert(window != NULL);
-
-    if (window->callbacks.pos)
-        window->callbacks.pos((GLFWwindow*) window, x, y);
-}
-
 // Notifies shared code that a window has been resized
 // The size is specified in screen coordinates
 //
@@ -471,17 +460,6 @@ void glfwSetWindowIcon(GLFWwindow* handle, int count, const GLFWimage* images)
     _glfw.platform.setWindowIcon(window, count, images);
 }
 
-void glfwSetWindowPos(GLFWwindow* handle, int xpos, int ypos)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    if (window->monitor)
-        return;
-
-    _glfw.platform.setWindowPos(window, xpos, ypos);
-}
-
 void glfwGetWindowSize(GLFWwindow* handle, int* width, int* height)
 {
     if (width)
@@ -769,15 +747,6 @@ void* glfwGetWindowUserPointer(GLFWwindow* handle)
     assert(window != NULL);
 
     return window->userPointer;
-}
-
-GLFWwindowposfun glfwSetWindowPosCallback(GLFWwindow* handle, GLFWwindowposfun cbfun)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _GLFW_SWAP(GLFWwindowposfun, window->callbacks.pos, cbfun);
-    return cbfun;
 }
 
 GLFWwindowsizefun glfwSetWindowSizeCallback(GLFWwindow* handle, GLFWwindowsizefun cbfun)
