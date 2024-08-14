@@ -37,7 +37,7 @@ _GLFWlibrary _glfw = { GLFW_FALSE };
 static _GLFWerror _glfwMainThreadError;
 static _GLFWinitconfig _glfwInitHints =
 {
-    .platformID   = GLFW_ANY_PLATFORM
+    .platformID   = GLFW_PLATFORM_WIN32
 };
 
 static void terminate(void)
@@ -247,16 +247,4 @@ void glfwTerminate(void)
         return;
 
     terminate();
-}
-
-void glfwInitHint(int hint, int value)
-{
-    switch (hint)
-    {
-        case GLFW_PLATFORM:
-            _glfwInitHints.platformID = value;
-            return;
-    }
-
-    _glfwInputError(GLFW_INVALID_ENUM, "Invalid init hint 0x%08X", hint);
 }

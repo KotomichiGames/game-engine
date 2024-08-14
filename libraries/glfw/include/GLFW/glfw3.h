@@ -302,8 +302,6 @@ extern "C" {
 #define GLFW_CONNECTED              0x00040001
 #define GLFW_DISCONNECTED           0x00040002
 
-#define GLFW_PLATFORM               0x00050003
-#define GLFW_ANY_PLATFORM           0x00060000
 #define GLFW_PLATFORM_WIN32         0x00060001
 
 #define GLFW_DONT_CARE              -1
@@ -350,8 +348,6 @@ typedef struct GLFWimage
 
 int  glfwInit(void);
 void glfwTerminate(void);
-
-void glfwInitHint(int hint, int value);
 
 GLFWmonitor** glfwGetMonitors(int* count);
 GLFWmonitor* glfwGetPrimaryMonitor(void);
