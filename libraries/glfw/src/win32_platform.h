@@ -423,8 +423,6 @@ typedef struct _GLFWwindowWin32
     // Whether to enable framebuffer transparency on DWM
     GLFWbool            transparent;
     GLFWbool            scaleToMonitor;
-    GLFWbool            keymenu;
-    GLFWbool            showDefault;
 
     // Cached size used to filter out duplicate events
     int                 width, height;

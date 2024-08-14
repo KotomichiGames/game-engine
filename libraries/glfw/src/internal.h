@@ -53,11 +53,6 @@
 #define _GLFW_INSERT_FIRST      0
 #define _GLFW_INSERT_LAST       1
 
-#define _GLFW_POLL_PRESENCE     0
-#define _GLFW_POLL_AXES         1
-#define _GLFW_POLL_BUTTONS      2
-#define _GLFW_POLL_ALL          (_GLFW_POLL_AXES | _GLFW_POLL_BUTTONS)
-
 #define _GLFW_MESSAGE_SIZE      1024
 
 typedef int GLFWbool;
@@ -214,16 +209,6 @@ struct _GLFWinitconfig
 {
     int           platformID;
     PFN_vkGetInstanceProcAddr vulkanLoader;
-    struct {
-        GLFWbool  menubar;
-        GLFWbool  chdir;
-    } ns;
-    struct {
-        GLFWbool  xcbVulkanSurface;
-    } x11;
-    struct {
-        int       libdecorMode;
-    } wl;
 };
 
 // Window configuration
@@ -251,20 +236,6 @@ struct _GLFWwndconfig
     GLFWbool      mousePassthrough;
     GLFWbool      scaleToMonitor;
     GLFWbool      scaleFramebuffer;
-    struct {
-        char      frameName[256];
-    } ns;
-    struct {
-        char      className[256];
-        char      instanceName[256];
-    } x11;
-    struct {
-        GLFWbool  keymenu;
-        GLFWbool  showDefault;
-    } win32;
-    struct {
-        char      appId[256];
-    } wl;
 };
 
 // Context configuration
@@ -286,9 +257,6 @@ struct _GLFWctxconfig
     int           robustness;
     int           release;
     _GLFWwindow*  share;
-    struct {
-        GLFWbool  offline;
-    } nsgl;
 };
 
 // Framebuffer configuration
