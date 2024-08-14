@@ -31,15 +31,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-#include <float.h>
 
-
-//////////////////////////////////////////////////////////////////////////
-//////                         GLFW event API                       //////
-//////////////////////////////////////////////////////////////////////////
-
-// Notifies shared code that a window has lost or received input focus
-//
 void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused)
 {
     assert(window != NULL);
@@ -50,9 +42,7 @@ void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused)
 
     if (!focused)
     {
-        int key, button;
-
-        for (key = 0;  key <= GLFW_KEY_LAST;  key++)
+        for (int key = 0;  key <= GLFW_KEY_LAST;  key++)
         {
             if (window->keys[key] == GLFW_PRESS)
             {
@@ -61,7 +51,7 @@ void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused)
             }
         }
 
-        for (button = 0;  button <= GLFW_MOUSE_BUTTON_LAST;  button++)
+        for (int button = 0;  button <= GLFW_MOUSE_BUTTON_LAST;  button++)
         {
             if (window->mouseButtons[button] == GLFW_PRESS)
                 _glfwInputMouseClick(window, button, GLFW_RELEASE, 0);
@@ -69,9 +59,6 @@ void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused)
     }
 }
 
-// Notifies shared code that a window has been resized
-// The size is specified in screen coordinates
-//
 void _glfwInputWindowSize(_GLFWwindow* window, int width, int height)
 {
     assert(window != NULL);
@@ -82,8 +69,6 @@ void _glfwInputWindowSize(_GLFWwindow* window, int width, int height)
         window->callbacks.size((GLFWwindow*) window, width, height);
 }
 
-// Notifies shared code that a window has been iconified or restored
-//
 void _glfwInputWindowIconify(_GLFWwindow* window, GLFWbool iconified)
 {
     assert(window != NULL);
@@ -362,7 +347,7 @@ void glfwDestroyWindow(GLFWwindow* handle)
         _GLFWwindow** prev = &_glfw.windowListHead;
 
         while (*prev != window)
-            prev = &((*prev)->next);
+            prev = &(*prev)->next;
 
         *prev = window->next;
     }
