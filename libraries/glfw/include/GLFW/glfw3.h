@@ -40,9 +40,6 @@ extern "C" {
 
 #include <stdint.h>
 
-/* It is customary to use APIENTRY for OpenGL function pointer declarations on
- * all platforms.  Additionally, the Windows OpenGL header needs APIENTRY.
- */
 #if !defined(APIENTRY)
  #if defined(_WIN32)
   #define APIENTRY __stdcall
@@ -52,15 +49,11 @@ extern "C" {
  #define GLFW_APIENTRY_DEFINED
 #endif /* APIENTRY */
 
-/* Some Windows OpenGL headers need this.
- */
 #if !defined(WINGDIAPI) && defined(_WIN32)
  #define WINGDIAPI __declspec(dllimport)
  #define GLFW_WINGDIAPI_DEFINED
 #endif /* WINGDIAPI */
 
-/* Some Windows GLU headers need this.
- */
 #if !defined(CALLBACK) && defined(_WIN32)
  #define CALLBACK __stdcall
  #define GLFW_CALLBACK_DEFINED
@@ -318,19 +311,12 @@ extern "C" {
 
 #define GLFW_DONT_CARE              -1
 
-/*************************************************************************
- * GLFW API types
- *************************************************************************/
-
 typedef void (*GLFWglproc)(void);
 
 typedef struct GLFWmonitor GLFWmonitor;
 typedef struct GLFWwindow  GLFWwindow;
 typedef struct GLFWcursor  GLFWcursor;
 
-typedef void* (* GLFWallocatefun)(size_t size, void* user);
-typedef void* (* GLFWreallocatefun)(void* block, size_t size, void* user);
-typedef void  (* GLFWdeallocatefun)(void* block, void* user);
 typedef void (* GLFWwindowposfun)(GLFWwindow* window, int xpos, int ypos);
 typedef void (* GLFWwindowsizefun)(GLFWwindow* window, int width, int height);
 typedef void (* GLFWwindowclosefun)(GLFWwindow* window);
@@ -367,10 +353,6 @@ typedef struct GLFWimage
     unsigned char* pixels;
 } GLFWimage;
 
-/*************************************************************************
- * GLFW API functions
- *************************************************************************/
-
 int  glfwInit(void);
 void glfwTerminate(void);
 
@@ -405,12 +387,10 @@ void glfwDestroyWindow(GLFWwindow* window);
 int glfwWindowShouldClose(GLFWwindow* window);
 
 void glfwSetWindowShouldClose(GLFWwindow* window, int value);
-const char* glfwGetWindowTitle(GLFWwindow* window);
 
 void glfwSetWindowTitle(GLFWwindow* window, const char* title);
 void glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
 
-void glfwGetWindowPos(GLFWwindow* window, int* xpos, int* ypos);
 void glfwSetWindowPos(GLFWwindow* window, int xpos, int ypos);
 void glfwGetWindowSize(GLFWwindow* window, int* width, int* height);
 
