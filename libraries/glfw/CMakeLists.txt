@@ -1,14 +1,6 @@
 cmake_minimum_required(VERSION 3.4...3.28 FATAL_ERROR)
 
-project(GLFW VERSION 3.5.0 LANGUAGES C)
-
-if (POLICY CMP0069)
-    cmake_policy(SET CMP0069 NEW)
-endif()
-
-if (POLICY CMP0077)
-    cmake_policy(SET CMP0077 NEW)
-endif()
+project(GLFW)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -19,38 +11,10 @@ option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" ${GLFW_STANDALONE})
 option(GLFW_BUILD_TESTS "Build the GLFW test programs" ${GLFW_STANDALONE})
 option(GLFW_INSTALL "Generate installation target" ON)
 
-include(GNUInstallDirs)
 include(CMakeDependentOption)
 
-if (DEFINED GLFW_USE_WAYLAND AND UNIX AND NOT APPLE)
-    message(FATAL_ERROR
-        "GLFW_USE_WAYLAND has been removed; delete the CMake cache and set GLFW_BUILD_WAYLAND and GLFW_BUILD_X11 instead")
-endif()
-
 cmake_dependent_option(GLFW_BUILD_WIN32 "Build support for Win32" ON "WIN32" OFF)
-cmake_dependent_option(GLFW_BUILD_COCOA "Build support for Cocoa" ON "APPLE" OFF)
-cmake_dependent_option(GLFW_BUILD_X11 "Build support for X11" ON "UNIX;NOT APPLE" OFF)
-cmake_dependent_option(GLFW_BUILD_WAYLAND "Build support for Wayland" ON "UNIX;NOT APPLE" OFF)
-
-cmake_dependent_option(GLFW_USE_HYBRID_HPG "Force use of high-performance GPU on hybrid systems" OFF
-                       "WIN32" OFF)
-cmake_dependent_option(USE_MSVC_RUNTIME_LIBRARY_DLL "Use MSVC runtime library DLL" ON
-                       "MSVC" OFF)
-
-set(GLFW_LIBRARY_TYPE "${GLFW_LIBRARY_TYPE}" CACHE STRING
-    "Library type override for GLFW (SHARED, STATIC, OBJECT, or empty to follow BUILD_SHARED_LIBS)")
-
-if (GLFW_LIBRARY_TYPE)
-    if (GLFW_LIBRARY_TYPE STREQUAL "SHARED")
-        set(GLFW_BUILD_SHARED_LIBRARY TRUE)
-    else()
-        set(GLFW_BUILD_SHARED_LIBRARY FALSE)
-    endif()
-else()
-    set(GLFW_BUILD_SHARED_LIBRARY ${BUILD_SHARED_LIBS})
-endif()
-
-list(APPEND CMAKE_MODULE_PATH "${GLFW_SOURCE_DIR}/CMake/modules")
+cmake_dependent_option(USE_MSVC_RUNTIME_LIBRARY_DLL "Use MSVC runtime library DLL" ON "MSVC" OFF)
 
 find_package(Threads REQUIRED)
 
@@ -59,15 +23,6 @@ find_package(Threads REQUIRED)
 #--------------------------------------------------------------------
 if (GLFW_BUILD_WIN32)
     message(STATUS "Including Win32 support")
-endif()
-if (GLFW_BUILD_COCOA)
-    message(STATUS "Including Cocoa support")
-endif()
-if (GLFW_BUILD_WAYLAND)
-    message(STATUS "Including Wayland support")
-endif()
-if (GLFW_BUILD_X11)
-    message(STATUS "Including X11 support")
 endif()
 
 #--------------------------------------------------------------------
