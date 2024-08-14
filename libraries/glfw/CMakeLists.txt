@@ -22,10 +22,6 @@ option(GLFW_INSTALL "Generate installation target" ON)
 include(GNUInstallDirs)
 include(CMakeDependentOption)
 
-if (GLFW_USE_OSMESA)
-    message(FATAL_ERROR "GLFW_USE_OSMESA has been removed; set the GLFW_PLATFORM init hint")
-endif()
-
 if (DEFINED GLFW_USE_WAYLAND AND UNIX AND NOT APPLE)
     message(FATAL_ERROR
         "GLFW_USE_WAYLAND has been removed; delete the CMake cache and set GLFW_BUILD_WAYLAND and GLFW_BUILD_X11 instead")
