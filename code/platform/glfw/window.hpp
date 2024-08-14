@@ -12,6 +12,6 @@ namespace engine
         bool is_closed() const;
 
     private:
-        GLFWwindow* _handle;
+        GLFWwindow* _handle { };
     };
 }
