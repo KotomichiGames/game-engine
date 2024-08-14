@@ -29,10 +29,6 @@
 
 #if defined(GLFW_BUILD_WIN32_TIMER)
 
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW platform API                      //////
-//////////////////////////////////////////////////////////////////////////
-
 void _glfwPlatformInitTimer(void)
 {
     QueryPerformanceFrequency((LARGE_INTEGER*) &_glfw.timer.win32.frequency);
@@ -51,4 +47,3 @@ uint64_t _glfwPlatformGetTimerFrequency(void)
 }
 
 #endif // GLFW_BUILD_WIN32_TIMER
-
