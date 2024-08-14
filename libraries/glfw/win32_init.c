@@ -423,7 +423,6 @@ GLFWbool _glfwConnectWin32(int platformID, _GLFWplatform* platform)
         .getKeyScancode = _glfwGetKeyScancodeWin32,
         .setClipboardString = _glfwSetClipboardStringWin32,
         .getClipboardString = _glfwGetClipboardStringWin32,
-        .freeMonitor = _glfwFreeMonitorWin32,
         .getMonitorPos = _glfwGetMonitorPosWin32,
         .getMonitorContentScale = _glfwGetMonitorContentScaleWin32,
         .getMonitorWorkarea = _glfwGetMonitorWorkareaWin32,
