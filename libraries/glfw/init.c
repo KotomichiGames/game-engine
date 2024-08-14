@@ -278,27 +278,3 @@ GLFWAPI void glfwInitHint(int hint, int value)
 
     _glfwInputError(GLFW_INVALID_ENUM, "Invalid init hint 0x%08X", hint);
 }
-
-GLFWAPI int glfwGetError(const char** description)
-{
-    _GLFWerror* error;
-    int code = GLFW_NO_ERROR;
-
-    if (description)
-        *description = NULL;
-
-    if (_glfw.initialized)
-        error = _glfwPlatformGetTls(&_glfw.errorSlot);
-    else
-        error = &_glfwMainThreadError;
-
-    if (error)
-    {
-        code = error->code;
-        error->code = GLFW_NO_ERROR;
-        if (description && code)
-            *description = error->description;
-    }
-
-    return code;
-}
