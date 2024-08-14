@@ -292,8 +292,6 @@ typedef BOOL (WINAPI * PFN_wglMakeCurrent)(HDC,HGLRC);
 #define GLFW_WGL_CONTEXT_STATE          _GLFWcontextWGL wgl;
 #define GLFW_WGL_LIBRARY_CONTEXT_STATE  _GLFWlibraryWGL wgl;
 
-// WGL-specific per-context data
-//
 typedef struct _GLFWcontextWGL
 {
     HDC       dc;
@@ -301,8 +299,6 @@ typedef struct _GLFWcontextWGL
     int       interval;
 } _GLFWcontextWGL;
 
-// WGL-specific global data
-//
 typedef struct _GLFWlibraryWGL
 {
     HINSTANCE                           instance;
@@ -331,8 +327,6 @@ typedef struct _GLFWlibraryWGL
     GLFWbool                            ARB_context_flush_control;
 } _GLFWlibraryWGL;
 
-// Win32-specific per-window data
-//
 typedef struct _GLFWwindowWin32
 {
     HWND                handle;
@@ -354,8 +348,6 @@ typedef struct _GLFWwindowWin32
     WCHAR               highSurrogate;
 } _GLFWwindowWin32;
 
-// Win32-specific global data
-//
 typedef struct _GLFWlibraryWin32
 {
     HINSTANCE           instance;
@@ -410,8 +402,6 @@ typedef struct _GLFWlibraryWin32
     } ntdll;
 } _GLFWlibraryWin32;
 
-// Win32-specific per-monitor data
-//
 typedef struct _GLFWmonitorWin32
 {
     HMONITOR            handle;
@@ -424,8 +414,6 @@ typedef struct _GLFWmonitorWin32
     GLFWbool            modeChanged;
 } _GLFWmonitorWin32;
 
-// Win32-specific per-cursor data
-//
 typedef struct _GLFWcursorWin32
 {
     HCURSOR             handle;
@@ -499,8 +487,6 @@ void _glfwGetMonitorContentScaleWin32(_GLFWmonitor* monitor, float* xscale, floa
 void _glfwGetMonitorWorkareaWin32(_GLFWmonitor* monitor, int* xpos, int* ypos, int* width, int* height);
 GLFWvidmode* _glfwGetVideoModesWin32(_GLFWmonitor* monitor, int* count);
 GLFWbool _glfwGetVideoModeWin32(_GLFWmonitor* monitor, GLFWvidmode* mode);
-GLFWbool _glfwGetGammaRampWin32(_GLFWmonitor* monitor, GLFWgammaramp* ramp);
-void _glfwSetGammaRampWin32(_GLFWmonitor* monitor, const GLFWgammaramp* ramp);
 
 GLFWbool _glfwInitWGL(void);
 void _glfwTerminateWGL(void);

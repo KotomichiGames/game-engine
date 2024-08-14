@@ -360,14 +360,6 @@ typedef struct GLFWvidmode
     int refreshRate;
 } GLFWvidmode;
 
-typedef struct GLFWgammaramp
-{
-    unsigned short* red;
-    unsigned short* green;
-    unsigned short* blue;
-    unsigned int size;
-} GLFWgammaramp;
-
 typedef struct GLFWimage
 {
     int width;
@@ -403,11 +395,6 @@ void* glfwGetMonitorUserPointer(GLFWmonitor* monitor);
 GLFWmonitorfun glfwSetMonitorCallback(GLFWmonitorfun callback);
 const GLFWvidmode* glfwGetVideoModes(GLFWmonitor* monitor, int* count);
 const GLFWvidmode* glfwGetVideoMode(GLFWmonitor* monitor);
-
-void glfwSetGamma(GLFWmonitor* monitor, float gamma);
-const GLFWgammaramp* glfwGetGammaRamp(GLFWmonitor* monitor);
-
-void glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
 
 void glfwDefaultWindowHints(void);
 void glfwWindowHint(int hint, int value);
