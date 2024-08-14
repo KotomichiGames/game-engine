@@ -683,14 +683,6 @@ GLFWAPI void glfwShowWindow(GLFWwindow* handle)
         _glfw.platform.focusWindow(window);
 }
 
-GLFWAPI void glfwRequestWindowAttention(GLFWwindow* handle)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _glfw.platform.requestWindowAttention(window);
-}
-
 GLFWAPI void glfwHideWindow(GLFWwindow* handle)
 {
     _GLFWwindow* window = (_GLFWwindow*) handle;
