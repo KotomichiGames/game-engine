@@ -153,8 +153,6 @@ void _glfwFreeMonitor(_GLFWmonitor* monitor)
     if (monitor == NULL)
         return;
 
-    _glfw.platform.freeMonitor(monitor);
-
     _glfw_free(monitor->modes);
     _glfw_free(monitor);
 }

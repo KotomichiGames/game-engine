@@ -299,7 +299,6 @@ struct _GLFWplatform
     void (*setClipboardString)(const char*);
     const char* (*getClipboardString)(void);
     // monitor
-    void (*freeMonitor)(_GLFWmonitor*);
     void (*getMonitorPos)(_GLFWmonitor*,int*,int*);
     void (*getMonitorContentScale)(_GLFWmonitor*,float*,float*);
     void (*getMonitorWorkarea)(_GLFWmonitor*,int*,int*,int*,int*);

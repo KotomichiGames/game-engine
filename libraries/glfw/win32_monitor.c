@@ -345,15 +345,6 @@ void _glfwGetHMONITORContentScaleWin32(HMONITOR handle, float* xscale, float* ys
         *yscale = ydpi / (float) USER_DEFAULT_SCREEN_DPI;
 }
 
-
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW platform API                      //////
-//////////////////////////////////////////////////////////////////////////
-
-void _glfwFreeMonitorWin32(_GLFWmonitor* monitor)
-{
-}
-
 void _glfwGetMonitorPosWin32(_GLFWmonitor* monitor, int* xpos, int* ypos)
 {
     DEVMODEW dm;
@@ -364,7 +355,6 @@ void _glfwGetMonitorPosWin32(_GLFWmonitor* monitor, int* xpos, int* ypos)
                            ENUM_CURRENT_SETTINGS,
                            &dm,
                            EDS_ROTATEDMODE);
-
     if (xpos)
         *xpos = dm.dmPosition.x;
     if (ypos)
