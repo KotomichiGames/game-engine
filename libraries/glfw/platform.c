@@ -89,27 +89,3 @@ GLFWbool _glfwSelectPlatform(int desiredID, _GLFWplatform* platform)
 
     return GLFW_FALSE;
 }
-
-int glfwGetPlatform(void)
-{
-    return _glfw.platform.platformID;
-}
-
-int glfwPlatformSupported(int platformID)
-{
-    const size_t count = sizeof(supportedPlatforms) / sizeof(supportedPlatforms[0]);
-
-    if (platformID != GLFW_PLATFORM_WIN32)
-    {
-        _glfwInputError(GLFW_INVALID_ENUM, "Invalid platform ID 0x%08X", platformID);
-        return GLFW_FALSE;
-    }
-
-    for (size_t i = 0;  i < count;  i++)
-    {
-        if (platformID == supportedPlatforms[i].ID)
-            return GLFW_TRUE;
-    }
-
-    return GLFW_FALSE;
-}

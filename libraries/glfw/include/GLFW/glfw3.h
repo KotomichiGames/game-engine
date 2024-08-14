@@ -265,7 +265,6 @@ extern "C" {
 #define GLFW_NO_RESET_NOTIFICATION  0x00031001
 #define GLFW_LOSE_CONTEXT_ON_RESET  0x00031002
 
-#define GLFW_OPENGL_ANY_PROFILE              0
 #define GLFW_OPENGL_CORE_PROFILE    0x00032001
 
 #define GLFW_CURSOR                  0x00033001
@@ -280,7 +279,6 @@ extern "C" {
 #define GLFW_CURSOR_DISABLED        0x00034003
 #define GLFW_CURSOR_CAPTURED        0x00034004
 
-#define GLFW_ANY_RELEASE_BEHAVIOR            0
 #define GLFW_RELEASE_BEHAVIOR_FLUSH 0x00035001
 #define GLFW_RELEASE_BEHAVIOR_NONE  0x00035002
 
@@ -356,17 +354,13 @@ int  glfwInit(void);
 void glfwTerminate(void);
 
 void glfwInitHint(int hint, int value);
-int glfwGetPlatform(void);
 
-int glfwPlatformSupported(int platform);
 GLFWmonitor** glfwGetMonitors(int* count);
-
 GLFWmonitor* glfwGetPrimaryMonitor(void);
-void glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
 
+void glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
 void glfwGetMonitorWorkarea(GLFWmonitor* monitor, int* xpos, int* ypos, int* width, int* height);
 void glfwGetMonitorPhysicalSize(GLFWmonitor* monitor, int* widthMM, int* heightMM);
-
 void glfwGetMonitorContentScale(GLFWmonitor* monitor, float* xscale, float* yscale);
 const char* glfwGetMonitorName(GLFWmonitor* monitor);
 
