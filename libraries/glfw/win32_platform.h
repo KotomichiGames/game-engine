@@ -159,12 +159,6 @@ typedef enum
 #define DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 ((HANDLE) -4)
 #endif /*DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2*/
 
-// Replacement for versionhelpers.h macros, as we cannot rely on the
-// application having a correct embedded manifest
-//
-#define IsWindowsVistaOrGreater()                                     \
-    _glfwIsWindowsVersionOrGreaterWin32(HIBYTE(_WIN32_WINNT_VISTA),   \
-                                        LOBYTE(_WIN32_WINNT_VISTA), 0)
 #define IsWindows7OrGreater()                                         \
     _glfwIsWindowsVersionOrGreaterWin32(HIBYTE(_WIN32_WINNT_WIN7),    \
                                         LOBYTE(_WIN32_WINNT_WIN7), 0)
@@ -225,14 +219,12 @@ typedef enum
 #define ERROR_INCOMPATIBLE_DEVICE_CONTEXTS_ARB 0x2054
 
 // user32.dll function pointer typedefs
-typedef BOOL (WINAPI * PFN_SetProcessDPIAware)(void);
 typedef BOOL (WINAPI * PFN_ChangeWindowMessageFilterEx)(HWND,UINT,DWORD,CHANGEFILTERSTRUCT*);
 typedef BOOL (WINAPI * PFN_EnableNonClientDpiScaling)(HWND);
 typedef BOOL (WINAPI * PFN_SetProcessDpiAwarenessContext)(HANDLE);
 typedef UINT (WINAPI * PFN_GetDpiForWindow)(HWND);
 typedef BOOL (WINAPI * PFN_AdjustWindowRectExForDpi)(LPRECT,DWORD,BOOL,DWORD,UINT);
 typedef int (WINAPI * PFN_GetSystemMetricsForDpi)(int,UINT);
-#define SetProcessDPIAware _glfw.win32.user32.SetProcessDPIAware_
 #define ChangeWindowMessageFilterEx _glfw.win32.user32.ChangeWindowMessageFilterEx_
 #define EnableNonClientDpiScaling _glfw.win32.user32.EnableNonClientDpiScaling_
 #define SetProcessDpiAwarenessContext _glfw.win32.user32.SetProcessDpiAwarenessContext_
@@ -373,7 +365,6 @@ typedef struct _GLFWlibraryWin32
 
     struct {
         HINSTANCE                       instance;
-        PFN_SetProcessDPIAware          SetProcessDPIAware_;
         PFN_ChangeWindowMessageFilterEx ChangeWindowMessageFilterEx_;
         PFN_EnableNonClientDpiScaling   EnableNonClientDpiScaling_;
         PFN_SetProcessDpiAwarenessContext SetProcessDpiAwarenessContext_;

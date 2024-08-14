@@ -190,10 +190,7 @@ static int choosePixelFormatWGL(_GLFWwindow* window, const _GLFWctxconfig* ctxco
 
             PIXELFORMATDESCRIPTOR pfd;
 
-            if (!DescribePixelFormat(window->context.wgl.dc,
-                                     pixelFormat,
-                                     sizeof(PIXELFORMATDESCRIPTOR),
-                                     &pfd))
+            if (!DescribePixelFormat(window->context.wgl.dc, pixelFormat, sizeof(PIXELFORMATDESCRIPTOR), &pfd))
             {
                 _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to describe pixel format");
 
@@ -239,8 +236,7 @@ static int choosePixelFormatWGL(_GLFWwindow* window, const _GLFWctxconfig* ctxco
 
     if (!usableCount)
     {
-        _glfwInputError(GLFW_API_UNAVAILABLE,
-                        "WGL: The driver does not appear to support OpenGL");
+        _glfwInputError(GLFW_API_UNAVAILABLE, "WGL: The driver does not appear to support OpenGL");
 
         _glfw_free(usableConfigs);
         return 0;
@@ -249,8 +245,7 @@ static int choosePixelFormatWGL(_GLFWwindow* window, const _GLFWctxconfig* ctxco
     const _GLFWfbconfig* closest = _glfwChooseFBConfig(fbconfig, usableConfigs, usableCount);
     if (!closest)
     {
-        _glfwInputError(GLFW_FORMAT_UNAVAILABLE,
-                        "WGL: Failed to find a suitable pixel format");
+        _glfwInputError(GLFW_FORMAT_UNAVAILABLE, "WGL: Failed to find a suitable pixel format");
 
         _glfw_free(usableConfigs);
         return 0;
@@ -273,8 +268,7 @@ static void makeContextCurrentWGL(_GLFWwindow* window)
             _glfwPlatformSetTls(&_glfw.contextSlot, window);
         else
         {
-            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                 "WGL: Failed to make context current");
+            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to make context current");
             _glfwPlatformSetTls(&_glfw.contextSlot, NULL);
         }
     }
@@ -282,8 +276,7 @@ static void makeContextCurrentWGL(_GLFWwindow* window)
     {
         if (!wglMakeCurrent(NULL, NULL))
         {
-            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                 "WGL: Failed to clear current context");
+            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to clear current context");
         }
 
         _glfwPlatformSetTls(&_glfw.contextSlot, NULL);
@@ -292,22 +285,6 @@ static void makeContextCurrentWGL(_GLFWwindow* window)
 
 static void swapBuffersWGL(_GLFWwindow* window)
 {
-    if (!window->monitor)
-    {
-        // HACK: Use DwmFlush when desktop composition is enabled on Windows Vista and 7
-        if (!IsWindows8OrGreater() && IsWindowsVistaOrGreater())
-        {
-            BOOL enabled = FALSE;
-
-            if (SUCCEEDED(DwmIsCompositionEnabled(&enabled)) && enabled)
-            {
-                int count = abs(window->context.wgl.interval);
-                while (count--)
-                    DwmFlush();
-            }
-        }
-    }
-
     SwapBuffers(window->context.wgl.dc);
 }
 
