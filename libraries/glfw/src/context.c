@@ -410,13 +410,11 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window,
     {
         if (window->context.client == GLFW_OPENGL_API)
         {
-            _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "No version found in OpenGL version string");
+            _glfwInputError(GLFW_PLATFORM_ERROR, "No version found in OpenGL version string");
         }
         else
         {
-            _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "No version found in OpenGL ES version string");
+            _glfwInputError(GLFW_PLATFORM_ERROR, "No version found in OpenGL ES version string");
         }
 
         glfwMakeContextCurrent((GLFWwindow*) previous);
@@ -459,8 +457,7 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window,
         // We cache it here instead of in glfwExtensionSupported mostly to alert
         // users as early as possible that their build may be broken
 
-        window->context.GetStringi = (PFNGLGETSTRINGIPROC)
-            window->context.getProcAddress("glGetStringi");
+        window->context.GetStringi = (PFNGLGETSTRINGIPROC)window->context.getProcAddress("glGetStringi");
         if (!window->context.GetStringi)
         {
             _glfwInputError(GLFW_PLATFORM_ERROR,
