@@ -69,7 +69,3 @@
  #include "win32_time.h"
  #define GLFW_PLATFORM_LIBRARY_TIMER_STATE  GLFW_WIN32_LIBRARY_TIMER_STATE
 #endif
-
-#if defined(_WIN32)
- #define GLFW_BUILD_WIN32_MODULE
-#endif

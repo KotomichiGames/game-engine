@@ -29,20 +29,12 @@
 
 #if defined(_GLFW_WIN32)
 
-static const GUID _glfw_GUID_DEVINTERFACE_HID =
-    {0x4d1e55b2,0xf16f,0x11cf,{0x88,0xcb,0x00,0x11,0x11,0x00,0x00,0x30}};
-
-#define GUID_DEVINTERFACE_HID _glfw_GUID_DEVINTERFACE_HID
-
 static GLFWbool loadLibraries(void)
 {
-    if (!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
-                                GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-                            (const WCHAR*) &_glfw,
-                            (HMODULE*) &_glfw.win32.instance))
+    if (!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                            (const WCHAR*) &_glfw, &_glfw.win32.instance))
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to retrieve own module handle");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to retrieve own module handle");
         return GLFW_FALSE;
     }
 
@@ -219,8 +211,6 @@ static void createKeyTables(void)
     }
 }
 
-// Window procedure for the hidden helper window
-//
 static LRESULT CALLBACK helperWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -233,8 +223,6 @@ static LRESULT CALLBACK helperWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
     return DefWindowProcW(hWnd, uMsg, wParam, lParam);
 }
 
-// Creates a dummy window for behind-the-scenes work
-//
 static GLFWbool createHelperWindow(void)
 {
     MSG msg;
@@ -248,14 +236,12 @@ static GLFWbool createHelperWindow(void)
     _glfw.win32.helperWindowClass = RegisterClassExW(&wc);
     if (!_glfw.win32.helperWindowClass)
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to register helper window class");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to register helper window class");
         return GLFW_FALSE;
     }
 
     _glfw.win32.helperWindowHandle =
-        CreateWindowExW(WS_EX_OVERLAPPEDWINDOW,
-                        MAKEINTATOM(_glfw.win32.helperWindowClass),
+        CreateWindowExW(WS_EX_OVERLAPPEDWINDOW, MAKEINTATOM(_glfw.win32.helperWindowClass),
                         L"GLFW message window",
                         WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
                         0, 0, 1, 1,
@@ -265,28 +251,13 @@ static GLFWbool createHelperWindow(void)
 
     if (!_glfw.win32.helperWindowHandle)
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to create helper window");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to create helper window");
         return GLFW_FALSE;
     }
 
     // HACK: The command to the first ShowWindow call is ignored if the parent
     //       process passed along a STARTUPINFO, so clear that with a no-op call
     ShowWindow(_glfw.win32.helperWindowHandle, SW_HIDE);
-
-    // Register for HID device notifications
-    {
-        DEV_BROADCAST_DEVICEINTERFACE_W dbi;
-        ZeroMemory(&dbi, sizeof(dbi));
-        dbi.dbcc_size = sizeof(dbi);
-        dbi.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
-        dbi.dbcc_classguid = GUID_DEVINTERFACE_HID;
-
-        _glfw.win32.deviceNotificationHandle =
-            RegisterDeviceNotificationW(_glfw.win32.helperWindowHandle,
-                                        (DEV_BROADCAST_HDR*) &dbi,
-                                        DEVICE_NOTIFY_WINDOW_HANDLE);
-    }
 
     while (PeekMessageW(&msg, _glfw.win32.helperWindowHandle, 0, 0, PM_REMOVE))
     {
@@ -297,17 +268,12 @@ static GLFWbool createHelperWindow(void)
    return GLFW_TRUE;
 }
 
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW internal API                      //////
-//////////////////////////////////////////////////////////////////////////
-
 WCHAR* _glfwCreateWideStringFromUTF8Win32(const char* source)
 {
     int count = MultiByteToWideChar(CP_UTF8, 0, source, -1, NULL, 0);
     if (!count)
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to convert string from UTF-8");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to convert string from UTF-8");
         return NULL;
     }
 
@@ -315,8 +281,7 @@ WCHAR* _glfwCreateWideStringFromUTF8Win32(const char* source)
 
     if (!MultiByteToWideChar(CP_UTF8, 0, source, -1, target, count))
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to convert string from UTF-8");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to convert string from UTF-8");
         _glfw_free(target);
         return NULL;
     }
@@ -324,27 +289,20 @@ WCHAR* _glfwCreateWideStringFromUTF8Win32(const char* source)
     return target;
 }
 
-// Returns a UTF-8 string version of the specified wide string
-//
 char* _glfwCreateUTF8FromWideStringWin32(const WCHAR* source)
 {
-    char* target;
-    int size;
-
-    size = WideCharToMultiByte(CP_UTF8, 0, source, -1, NULL, 0, NULL, NULL);
+    int size = WideCharToMultiByte(CP_UTF8, 0, source, -1, NULL, 0, NULL, NULL);
     if (!size)
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to convert string to UTF-8");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to convert string to UTF-8");
         return NULL;
     }
 
-    target = _glfw_calloc(size, 1);
+    char* target = _glfw_calloc(size, 1);
 
     if (!WideCharToMultiByte(CP_UTF8, 0, source, -1, target, size, NULL, NULL))
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to convert string to UTF-8");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to convert string to UTF-8");
         _glfw_free(target);
         return NULL;
     }
@@ -352,16 +310,12 @@ char* _glfwCreateUTF8FromWideStringWin32(const WCHAR* source)
     return target;
 }
 
-// Reports the specified error, appending information about the last Win32 error
-//
 void _glfwInputErrorWin32(int error, const char* description)
 {
     WCHAR buffer[_GLFW_MESSAGE_SIZE] = L"";
     char message[_GLFW_MESSAGE_SIZE] = "";
 
-    FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM |
-                       FORMAT_MESSAGE_IGNORE_INSERTS |
-                       FORMAT_MESSAGE_MAX_WIDTH_MASK,
+    FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_MAX_WIDTH_MASK,
                    NULL,
                    GetLastError() & 0xffff,
                    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
@@ -373,9 +327,6 @@ void _glfwInputErrorWin32(int error, const char* description)
     _glfwInputError(error, "%s: %s", description, message);
 }
 
-// Replacement for IsWindowsVersionOrGreater, as we cannot rely on the
-// application having a correct embedded manifest
-//
 BOOL _glfwIsWindowsVersionOrGreaterWin32(WORD major, WORD minor, WORD sp)
 {
     OSVERSIONINFOEXW osvi = { sizeof(osvi), major, minor, 0, 0, {0}, sp };
@@ -389,8 +340,6 @@ BOOL _glfwIsWindowsVersionOrGreaterWin32(WORD major, WORD minor, WORD sp)
     return RtlVerifyVersionInfo(&osvi, mask, cond) == 0;
 }
 
-// Checks whether we are on at least the specified build of Windows 10
-//
 BOOL _glfwIsWindows10BuildOrGreaterWin32(WORD build)
 {
     OSVERSIONINFOEXW osvi = { sizeof(osvi), 10, 0, build };
@@ -484,9 +433,6 @@ void _glfwTerminateWin32(void)
 {
     if (_glfw.win32.blankCursor)
         DestroyIcon(_glfw.win32.blankCursor);
-
-    if (_glfw.win32.deviceNotificationHandle)
-        UnregisterDeviceNotification(_glfw.win32.deviceNotificationHandle);
 
     if (_glfw.win32.helperWindowHandle)
         DestroyWindow(_glfw.win32.helperWindowHandle);
