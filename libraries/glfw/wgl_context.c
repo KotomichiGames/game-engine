@@ -327,30 +327,6 @@ static void swapBuffersWGL(_GLFWwindow* window)
     SwapBuffers(window->context.wgl.dc);
 }
 
-static void swapIntervalWGL(int interval)
-{
-    _GLFWwindow* window = _glfwPlatformGetTls(&_glfw.contextSlot);
-    assert(window != NULL);
-
-    window->context.wgl.interval = interval;
-
-    if (!window->monitor)
-    {
-        // HACK: Disable WGL swap interval when desktop composition is enabled on Windows
-        //       Vista and 7 to avoid interfering with DWM vsync
-        if (!IsWindows8OrGreater() && IsWindowsVistaOrGreater())
-        {
-            BOOL enabled = FALSE;
-
-            if (SUCCEEDED(DwmIsCompositionEnabled(&enabled)) && enabled)
-                interval = 0;
-        }
-    }
-
-    if (_glfw.wgl.EXT_swap_control)
-        wglSwapIntervalEXT(interval);
-}
-
 static int extensionSupportedWGL(const char* extension)
 {
     const char* extensions = NULL;
@@ -460,8 +436,6 @@ GLFWbool _glfwInitWGL(void)
         wglGetProcAddress("wglGetExtensionsStringARB");
     _glfw.wgl.CreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)
         wglGetProcAddress("wglCreateContextAttribsARB");
-    _glfw.wgl.SwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC)
-        wglGetProcAddress("wglSwapIntervalEXT");
     _glfw.wgl.GetPixelFormatAttribivARB = (PFNWGLGETPIXELFORMATATTRIBIVARBPROC)
         wglGetProcAddress("wglGetPixelFormatAttribivARB");
 
@@ -685,7 +659,6 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
 
     window->context.makeCurrent = makeContextCurrentWGL;
     window->context.swapBuffers = swapBuffersWGL;
-    window->context.swapInterval = swapIntervalWGL;
     window->context.extensionSupported = extensionSupportedWGL;
     window->context.getProcAddress = getProcAddressWGL;
     window->context.destroy = destroyContextWGL;
@@ -695,10 +668,8 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
 
 #undef SET_ATTRIB
 
-GLFWAPI HGLRC glfwGetWGLContext(GLFWwindow* handle)
+HGLRC glfwGetWGLContext(GLFWwindow* handle)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     if (_glfw.platform.platformID != GLFW_PLATFORM_WIN32)
     {
         _glfwInputError(GLFW_PLATFORM_UNAVAILABLE, "WGL: Platform not initialized");

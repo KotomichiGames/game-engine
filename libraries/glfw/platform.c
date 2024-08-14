@@ -90,16 +90,12 @@ GLFWbool _glfwSelectPlatform(int desiredID, _GLFWplatform* platform)
     return GLFW_FALSE;
 }
 
-//////////////////////////////////////////////////////////////////////////
-//////                        GLFW public API                       //////
-//////////////////////////////////////////////////////////////////////////
-
-GLFWAPI int glfwGetPlatform(void)
+int glfwGetPlatform(void)
 {
     return _glfw.platform.platformID;
 }
 
-GLFWAPI int glfwPlatformSupported(int platformID)
+int glfwPlatformSupported(int platformID)
 {
     const size_t count = sizeof(supportedPlatforms) / sizeof(supportedPlatforms[0]);
 

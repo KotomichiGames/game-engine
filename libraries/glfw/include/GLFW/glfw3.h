@@ -496,9 +496,7 @@ uint64_t glfwGetTimerValue(void);
 uint64_t glfwGetTimerFrequency(void);
 
 void glfwMakeContextCurrent(GLFWwindow* window);
-
 void glfwSwapBuffers(GLFWwindow* window);
-void glfwSwapInterval(int interval);
 
 int glfwExtensionSupported(const char* extension);
 

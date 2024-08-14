@@ -1678,9 +1678,7 @@ void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int 
 
             if (_glfwIsWindows10Version1607OrGreaterWin32())
             {
-                AdjustWindowRectExForDpi(&rect, getWindowStyle(window),
-                                         FALSE, getWindowExStyle(window),
-                                         GetDpiForWindow(window->win32.handle));
+                AdjustWindowRectExForDpi(&rect, getWindowStyle(window),FALSE, getWindowExStyle(window), GetDpiForWindow(window->win32.handle));
             }
             else
             {
@@ -1755,8 +1753,7 @@ void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int 
         }
         else
         {
-            AdjustWindowRectEx(&rect, getWindowStyle(window),
-                               FALSE, getWindowExStyle(window));
+            AdjustWindowRectEx(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window));
         }
 
         SetWindowPos(window->win32.handle, after,
@@ -1967,9 +1964,7 @@ void _glfwSetCursorModeWin32(_GLFWwindow* window, int mode)
     {
         if (mode == GLFW_CURSOR_DISABLED)
         {
-            _glfwGetCursorPosWin32(window,
-                                   &_glfw.win32.restoreCursorPosX,
-                                   &_glfw.win32.restoreCursorPosY);
+            _glfwGetCursorPosWin32(window,&_glfw.win32.restoreCursorPosX,&_glfw.win32.restoreCursorPosY);
             _glfwCenterCursorInContentArea(window);
             if (window->rawMouseMotion)
                 enableRawMouseMotion(window);
@@ -1990,9 +1985,7 @@ void _glfwSetCursorModeWin32(_GLFWwindow* window, int mode)
         else if (_glfw.win32.disabledCursorWindow == window)
         {
             _glfw.win32.disabledCursorWindow = NULL;
-            _glfwSetCursorPosWin32(window,
-                                   _glfw.win32.restoreCursorPosX,
-                                   _glfw.win32.restoreCursorPosY);
+            _glfwSetCursorPosWin32(window, _glfw.win32.restoreCursorPosX, _glfw.win32.restoreCursorPosY);
         }
     }
 
@@ -2070,9 +2063,7 @@ GLFWbool _glfwCreateStandardCursorWin32(_GLFWcursor* cursor, int shape)
             return GLFW_FALSE;
     }
 
-    cursor->win32.handle = LoadImageW(NULL,
-                                      MAKEINTRESOURCEW(id), IMAGE_CURSOR, 0, 0,
-                                      LR_DEFAULTSIZE | LR_SHARED);
+    cursor->win32.handle = LoadImageW(NULL, MAKEINTRESOURCEW(id), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED);
     if (!cursor->win32.handle)
     {
         _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to create standard cursor");
@@ -2183,7 +2174,7 @@ const char* _glfwGetClipboardStringWin32(void)
     return _glfw.win32.clipboardString;
 }
 
-GLFWAPI HWND glfwGetWin32Window(GLFWwindow* handle)
+HWND glfwGetWin32Window(GLFWwindow* handle)
 {
     if (_glfw.platform.platformID != GLFW_PLATFORM_WIN32)
     {

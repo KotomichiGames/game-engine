@@ -219,11 +219,7 @@ void _glfwInputError(int code, const char* format, ...)
     strcpy(error->description, description);
 }
 
-//////////////////////////////////////////////////////////////////////////
-//////                        GLFW public API                       //////
-//////////////////////////////////////////////////////////////////////////
-
-GLFWAPI int glfwInit(void)
+int glfwInit(void)
 {
     if (_glfw.initialized)
         return GLFW_TRUE;
@@ -259,7 +255,7 @@ GLFWAPI int glfwInit(void)
     return GLFW_TRUE;
 }
 
-GLFWAPI void glfwTerminate(void)
+void glfwTerminate(void)
 {
     if (!_glfw.initialized)
         return;
@@ -267,7 +263,7 @@ GLFWAPI void glfwTerminate(void)
     terminate();
 }
 
-GLFWAPI void glfwInitHint(int hint, int value)
+void glfwInitHint(int hint, int value)
 {
     switch (hint)
     {
