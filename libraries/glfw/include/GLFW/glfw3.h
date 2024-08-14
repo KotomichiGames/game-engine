@@ -521,8 +521,6 @@ GLFWAPI int  glfwInit(void);
 GLFWAPI void glfwTerminate(void);
 
 GLFWAPI void glfwInitHint(int hint, int value);
-
-GLFWAPI int glfwGetError(const char** description);
 GLFWAPI int glfwGetPlatform(void);
 
 GLFWAPI int glfwPlatformSupported(int platform);
