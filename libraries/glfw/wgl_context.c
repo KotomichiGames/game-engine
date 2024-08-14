@@ -195,8 +195,7 @@ static int choosePixelFormatWGL(_GLFWwindow* window, const _GLFWctxconfig* ctxco
                                      sizeof(PIXELFORMATDESCRIPTOR),
                                      &pfd))
             {
-                _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                    "WGL: Failed to describe pixel format");
+                _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to describe pixel format");
 
                 _glfw_free(usableConfigs);
                 return 0;

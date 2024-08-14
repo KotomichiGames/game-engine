@@ -134,7 +134,7 @@ void* _glfw_realloc(void* block, size_t size)
     }
     if (block)
     {
-        _glfw_free(block);
+        free(block);
         return NULL;
     }
     return _glfw_calloc(1, size);
@@ -145,10 +145,6 @@ void _glfw_free(void* block)
     if (block)
         free(block);
 }
-
-//////////////////////////////////////////////////////////////////////////
-//////                         GLFW event API                       //////
-//////////////////////////////////////////////////////////////////////////
 
 void _glfwInputError(int code, const char* format, ...)
 {
