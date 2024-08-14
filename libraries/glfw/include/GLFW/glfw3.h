@@ -1053,32 +1053,6 @@ GLFWAPI void glfwHideWindow(GLFWwindow* window);
  */
 GLFWAPI void glfwFocusWindow(GLFWwindow* window);
 
-/*! @brief Requests user attention to the specified window.
- *
- *  This function requests user attention to the specified window.  On
- *  platforms where this is not supported, attention is requested to the
- *  application as a whole.
- *
- *  Once the user has given attention, usually by focusing the window or
- *  application, the system will end the request automatically.
- *
- *  @param[in] window The window to request attention to.
- *
- *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
- *  GLFW_PLATFORM_ERROR.
- *
- *  @remark @macos Attention is requested to the application as a whole, not the
- *  specific window.
- *
- *  @thread_safety This function must only be called from the main thread.
- *
- *  @sa @ref window_attention
- *
- *  @since Added in version 3.3.
- *
- *  @ingroup window
- */
-GLFWAPI void glfwRequestWindowAttention(GLFWwindow* window);
 GLFWAPI GLFWmonitor* glfwGetWindowMonitor(GLFWwindow* window);
 GLFWAPI void glfwSetWindowMonitor(GLFWwindow* window, GLFWmonitor* monitor, int xpos, int ypos, int width, int height, int refreshRate);
 
