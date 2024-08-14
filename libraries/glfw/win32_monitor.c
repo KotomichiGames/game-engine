@@ -351,25 +351,19 @@ void _glfwGetMonitorPosWin32(_GLFWmonitor* monitor, int* xpos, int* ypos)
     ZeroMemory(&dm, sizeof(dm));
     dm.dmSize = sizeof(dm);
 
-    EnumDisplaySettingsExW(monitor->win32.adapterName,
-                           ENUM_CURRENT_SETTINGS,
-                           &dm,
-                           EDS_ROTATEDMODE);
+    EnumDisplaySettingsExW(monitor->win32.adapterName, ENUM_CURRENT_SETTINGS, &dm, EDS_ROTATEDMODE);
     if (xpos)
         *xpos = dm.dmPosition.x;
     if (ypos)
         *ypos = dm.dmPosition.y;
 }
 
-void _glfwGetMonitorContentScaleWin32(_GLFWmonitor* monitor,
-                                      float* xscale, float* yscale)
+void _glfwGetMonitorContentScaleWin32(_GLFWmonitor* monitor, float* xscale, float* yscale)
 {
     _glfwGetHMONITORContentScaleWin32(monitor->win32.handle, xscale, yscale);
 }
 
-void _glfwGetMonitorWorkareaWin32(_GLFWmonitor* monitor,
-                                  int* xpos, int* ypos,
-                                  int* width, int* height)
+void _glfwGetMonitorWorkareaWin32(_GLFWmonitor* monitor, int* xpos, int* ypos, int* width, int* height)
 {
     MONITORINFO mi = { sizeof(mi) };
     GetMonitorInfoW(monitor->win32.handle, &mi);
@@ -430,11 +424,7 @@ GLFWvidmode* _glfwGetVideoModesWin32(_GLFWmonitor* monitor, int* count)
         if (monitor->win32.modesPruned)
         {
             // Skip modes not supported by the connected displays
-            if (ChangeDisplaySettingsExW(monitor->win32.adapterName,
-                                         &dm,
-                                         NULL,
-                                         CDS_TEST,
-                                         NULL) != DISP_CHANGE_SUCCESSFUL)
+            if (ChangeDisplaySettingsExW(monitor->win32.adapterName, &dm, NULL, CDS_TEST, NULL) != DISP_CHANGE_SUCCESSFUL)
             {
                 continue;
             }
