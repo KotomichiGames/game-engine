@@ -390,7 +390,6 @@ typedef struct _GLFWcursorWin32
     HCURSOR             handle;
 } _GLFWcursorWin32;
 
-
 GLFWbool _glfwConnectWin32(int platformID, _GLFWplatform* platform);
 int _glfwInitWin32(void);
 void _glfwTerminateWin32(void);
