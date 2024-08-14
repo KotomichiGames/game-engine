@@ -412,11 +412,8 @@ void _glfwSetWindowIconWin32(_GLFWwindow* window, int count, const GLFWimage* im
 void _glfwSetWindowPosWin32(_GLFWwindow* window, int xpos, int ypos);
 void _glfwGetWindowSizeWin32(_GLFWwindow* window, int* width, int* height);
 void _glfwSetWindowSizeWin32(_GLFWwindow* window, int width, int height);
-void _glfwSetWindowSizeLimitsWin32(_GLFWwindow* window, int minwidth, int minheight, int maxwidth, int maxheight);
 void _glfwSetWindowAspectRatioWin32(_GLFWwindow* window, int numer, int denom);
-void _glfwGetFramebufferSizeWin32(_GLFWwindow* window, int* width, int* height);
 void _glfwGetWindowFrameSizeWin32(_GLFWwindow* window, int* left, int* top, int* right, int* bottom);
-void _glfwGetWindowContentScaleWin32(_GLFWwindow* window, float* xscale, float* yscale);
 void _glfwIconifyWindowWin32(_GLFWwindow* window);
 void _glfwRestoreWindowWin32(_GLFWwindow* window);
 void _glfwMaximizeWindowWin32(_GLFWwindow* window);

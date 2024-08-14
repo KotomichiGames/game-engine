@@ -1496,23 +1496,6 @@ void _glfwSetWindowSizeWin32(_GLFWwindow* window, int width, int height)
     }
 }
 
-void _glfwSetWindowSizeLimitsWin32(_GLFWwindow* window, int minwidth, int minheight, int maxwidth, int maxheight)
-{
-    RECT area;
-
-    if ((minwidth == GLFW_DONT_CARE || minheight == GLFW_DONT_CARE) &&
-        (maxwidth == GLFW_DONT_CARE || maxheight == GLFW_DONT_CARE))
-    {
-        return;
-    }
-
-    GetWindowRect(window->win32.handle, &area);
-    MoveWindow(window->win32.handle,
-               area.left, area.top,
-               area.right - area.left,
-               area.bottom - area.top, TRUE);
-}
-
 void _glfwSetWindowAspectRatioWin32(_GLFWwindow* window, int numer, int denom)
 {
     RECT area;
@@ -1526,11 +1509,6 @@ void _glfwSetWindowAspectRatioWin32(_GLFWwindow* window, int numer, int denom)
                area.left, area.top,
                area.right - area.left,
                area.bottom - area.top, TRUE);
-}
-
-void _glfwGetFramebufferSizeWin32(_GLFWwindow* window, int* width, int* height)
-{
-    _glfwGetWindowSizeWin32(window, width, height);
 }
 
 void _glfwGetWindowFrameSizeWin32(_GLFWwindow* window, int* left, int* top, int* right, int* bottom)
@@ -1558,13 +1536,6 @@ void _glfwGetWindowFrameSizeWin32(_GLFWwindow* window, int* left, int* top, int*
         *right = rect.right - width;
     if (bottom)
         *bottom = rect.bottom - height;
-}
-
-void _glfwGetWindowContentScaleWin32(_GLFWwindow* window, float* xscale, float* yscale)
-{
-    const HANDLE handle = MonitorFromWindow(window->win32.handle,
-                                            MONITOR_DEFAULTTONEAREST);
-    _glfwGetHMONITORContentScaleWin32(handle, xscale, yscale);
 }
 
 void _glfwIconifyWindowWin32(_GLFWwindow* window)
