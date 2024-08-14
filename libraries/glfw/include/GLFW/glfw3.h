@@ -231,7 +231,6 @@ extern "C" {
 #define GLFW_MAXIMIZED              0x00020008
 #define GLFW_CENTER_CURSOR          0x00020009
 #define GLFW_HOVERED                0x0002000B
-#define GLFW_FOCUS_ON_SHOW          0x0002000C
 
 #define GLFW_MOUSE_PASSTHROUGH      0x0002000D
 #define GLFW_POSITION_X             0x0002000E

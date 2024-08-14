@@ -205,7 +205,6 @@ GLFWwindow* glfwCreateWindow(int width, int height, const char* title, GLFWmonit
     window->decorated        = wndconfig.decorated;
     window->autoIconify      = wndconfig.autoIconify;
     window->floating         = wndconfig.floating;
-    window->focusOnShow      = wndconfig.focusOnShow;
     window->mousePassthrough = wndconfig.mousePassthrough;
     window->cursorMode       = GLFW_CURSOR_NORMAL;
 
@@ -245,7 +244,6 @@ void glfwDefaultWindowHints(void)
     _glfw.hints.window.focused      = GLFW_TRUE;
     _glfw.hints.window.autoIconify  = GLFW_TRUE;
     _glfw.hints.window.centerCursor = GLFW_TRUE;
-    _glfw.hints.window.focusOnShow  = GLFW_TRUE;
     _glfw.hints.window.xpos         = GLFW_ANY_POSITION;
     _glfw.hints.window.ypos         = GLFW_ANY_POSITION;
     _glfw.hints.window.scaleFramebuffer = GLFW_TRUE;
@@ -337,9 +335,6 @@ void glfwWindowHint(int hint, int value)
             return;
         case GLFW_CENTER_CURSOR:
             _glfw.hints.window.centerCursor = value ? GLFW_TRUE : GLFW_FALSE;
-            return;
-        case GLFW_FOCUS_ON_SHOW:
-            _glfw.hints.window.focusOnShow = value ? GLFW_TRUE : GLFW_FALSE;
             return;
         case GLFW_MOUSE_PASSTHROUGH:
             _glfw.hints.window.mousePassthrough = value ? GLFW_TRUE : GLFW_FALSE;
@@ -657,10 +652,6 @@ void glfwSetWindowAttrib(GLFWwindow* handle, int attrib, int value)
             window->floating = value;
             if (!window->monitor)
                 _glfw.platform.setWindowFloating(window, value);
-            return;
-
-        case GLFW_FOCUS_ON_SHOW:
-            window->focusOnShow = value;
             return;
 
         case GLFW_MOUSE_PASSTHROUGH:
