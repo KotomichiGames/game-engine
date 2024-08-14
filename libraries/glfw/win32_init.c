@@ -66,19 +66,6 @@ static GLFWbool loadLibraries(void)
     _glfw.win32.user32.GetSystemMetricsForDpi_ = (PFN_GetSystemMetricsForDpi)
         GetProcAddress(_glfw.win32.user32.instance, "GetSystemMetricsForDpi");
 
-    _glfw.win32.dwmapi.instance = LoadLibraryA("dwmapi.dll");
-    if (_glfw.win32.dwmapi.instance)
-    {
-        _glfw.win32.dwmapi.IsCompositionEnabled = (PFN_DwmIsCompositionEnabled)
-            GetProcAddress(_glfw.win32.dwmapi.instance, "DwmIsCompositionEnabled");
-        _glfw.win32.dwmapi.Flush = (PFN_DwmFlush)
-            GetProcAddress(_glfw.win32.dwmapi.instance, "DwmFlush");
-        _glfw.win32.dwmapi.EnableBlurBehindWindow = (PFN_DwmEnableBlurBehindWindow)
-            GetProcAddress(_glfw.win32.dwmapi.instance, "DwmEnableBlurBehindWindow");
-        _glfw.win32.dwmapi.GetColorizationColor = (PFN_DwmGetColorizationColor)
-            GetProcAddress(_glfw.win32.dwmapi.instance, "DwmGetColorizationColor");
-    }
-
     _glfw.win32.shcore.instance = LoadLibraryA("shcore.dll");
     if (_glfw.win32.shcore.instance)
     {
@@ -102,9 +89,6 @@ static void freeLibraries(void)
 {
     if (_glfw.win32.user32.instance)
         FreeLibrary(_glfw.win32.user32.instance);
-
-    if (_glfw.win32.dwmapi.instance)
-        FreeLibrary(_glfw.win32.dwmapi.instance);
 
     if (_glfw.win32.shcore.instance)
         FreeLibrary(_glfw.win32.shcore.instance);
