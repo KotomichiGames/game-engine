@@ -278,20 +278,18 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window, const _GLFWctxconfig* c
     {
         if (ctxconfig->client == GLFW_OPENGL_API)
         {
-            _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "OpenGL version string retrieval is broken");
+            _glfwInputError(GLFW_PLATFORM_ERROR, "OpenGL version string retrieval is broken");
         }
         else
         {
-            _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "OpenGL ES version string retrieval is broken");
+            _glfwInputError(GLFW_PLATFORM_ERROR, "OpenGL ES version string retrieval is broken");
         }
 
         glfwMakeContextCurrent((GLFWwindow*) previous);
         return GLFW_FALSE;
     }
 
-    if (!sscanf(version, "%d.%d.%d",
+    if (!sscanf_s(version, "%d.%d.%d",
                 &window->context.major,
                 &window->context.minor,
                 &window->context.revision))
@@ -401,8 +399,7 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window, const _GLFWctxconfig* c
             //       one, so we can reuse them here
 
             GLint strategy;
-            window->context.GetIntegerv(GL_RESET_NOTIFICATION_STRATEGY_ARB,
-                                        &strategy);
+            window->context.GetIntegerv(GL_RESET_NOTIFICATION_STRATEGY_ARB, &strategy);
 
             if (strategy == GL_LOSE_CONTEXT_ON_RESET_ARB)
                 window->context.robustness = GLFW_LOSE_CONTEXT_ON_RESET;
@@ -425,8 +422,7 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window, const _GLFWctxconfig* c
     // Clearing the front buffer to black to avoid garbage pixels left over from
     // previous uses of our bit of VRAM
     {
-        PFNGLCLEARPROC glClear = (PFNGLCLEARPROC)
-            window->context.getProcAddress("glClear");
+        PFNGLCLEARPROC glClear = (PFNGLCLEARPROC)window->context.getProcAddress("glClear");
         glClear(GL_COLOR_BUFFER_BIT);
 
         if (window->doublebuffer)
@@ -437,22 +433,17 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window, const _GLFWctxconfig* c
     return GLFW_TRUE;
 }
 
-// Searches an extension string for the specified extension
-//
 GLFWbool _glfwStringInExtensionString(const char* string, const char* extensions)
 {
     const char* start = extensions;
 
     for (;;)
     {
-        const char* where;
-        const char* terminator;
-
-        where = strstr(start, string);
+        const char* where = strstr(start, string);
         if (!where)
             return GLFW_FALSE;
 
-        terminator = where + strlen(string);
+        const char* terminator = where + strlen(string);
         if (where == start || *(where - 1) == ' ')
         {
             if (*terminator == ' ' || *terminator == '\0')
@@ -465,24 +456,18 @@ GLFWbool _glfwStringInExtensionString(const char* string, const char* extensions
     return GLFW_TRUE;
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 //////                        GLFW public API                       //////
 //////////////////////////////////////////////////////////////////////////
 
 GLFWAPI void glfwMakeContextCurrent(GLFWwindow* handle)
 {
-    _GLFW_REQUIRE_INIT();
-
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    _GLFWwindow* previous;
-
-    previous = _glfwPlatformGetTls(&_glfw.contextSlot);
+    _GLFWwindow* window   = (_GLFWwindow*) handle;
+    _GLFWwindow* previous = _glfwPlatformGetTls(&_glfw.contextSlot);
 
     if (window && window->context.client == GLFW_NO_API)
     {
-        _glfwInputError(GLFW_NO_WINDOW_CONTEXT,
-                        "Cannot make current with a window that has no OpenGL or OpenGL ES context");
+        _glfwInputError(GLFW_NO_WINDOW_CONTEXT, "Cannot make current with a window that has no OpenGL or OpenGL ES context");
         return;
     }
 
@@ -498,21 +483,17 @@ GLFWAPI void glfwMakeContextCurrent(GLFWwindow* handle)
 
 GLFWAPI GLFWwindow* glfwGetCurrentContext(void)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
     return _glfwPlatformGetTls(&_glfw.contextSlot);
 }
 
 GLFWAPI void glfwSwapBuffers(GLFWwindow* handle)
 {
-    _GLFW_REQUIRE_INIT();
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
     if (window->context.client == GLFW_NO_API)
     {
-        _glfwInputError(GLFW_NO_WINDOW_CONTEXT,
-                        "Cannot swap buffers of a window that has no OpenGL or OpenGL ES context");
+        _glfwInputError(GLFW_NO_WINDOW_CONTEXT, "Cannot swap buffers of a window that has no OpenGL or OpenGL ES context");
         return;
     }
 
@@ -521,15 +502,10 @@ GLFWAPI void glfwSwapBuffers(GLFWwindow* handle)
 
 GLFWAPI void glfwSwapInterval(int interval)
 {
-    _GLFWwindow* window;
-
-    _GLFW_REQUIRE_INIT();
-
-    window = _glfwPlatformGetTls(&_glfw.contextSlot);
+    _GLFWwindow* window = _glfwPlatformGetTls(&_glfw.contextSlot);
     if (!window)
     {
-        _glfwInputError(GLFW_NO_CURRENT_CONTEXT,
-                        "Cannot set swap interval without a current OpenGL or OpenGL ES context");
+        _glfwInputError(GLFW_NO_CURRENT_CONTEXT, "Cannot set swap interval without a current OpenGL or OpenGL ES context");
         return;
     }
 
@@ -538,16 +514,12 @@ GLFWAPI void glfwSwapInterval(int interval)
 
 GLFWAPI int glfwExtensionSupported(const char* extension)
 {
-    _GLFWwindow* window;
     assert(extension != NULL);
 
-    _GLFW_REQUIRE_INIT_OR_RETURN(GLFW_FALSE);
-
-    window = _glfwPlatformGetTls(&_glfw.contextSlot);
+    _GLFWwindow* window = _glfwPlatformGetTls(&_glfw.contextSlot);
     if (!window)
     {
-        _glfwInputError(GLFW_NO_CURRENT_CONTEXT,
-                        "Cannot query extension without a current OpenGL or OpenGL ES context");
+        _glfwInputError(GLFW_NO_CURRENT_CONTEXT, "Cannot query extension without a current OpenGL or OpenGL ES context");
         return GLFW_FALSE;
     }
 
@@ -559,21 +531,18 @@ GLFWAPI int glfwExtensionSupported(const char* extension)
 
     if (window->context.major >= 3)
     {
-        int i;
         GLint count;
 
         // Check if extension is in the modern OpenGL extensions string list
 
         window->context.GetIntegerv(GL_NUM_EXTENSIONS, &count);
 
-        for (i = 0;  i < count;  i++)
+        for (int i = 0;  i < count;  i++)
         {
-            const char* en = (const char*)
-                window->context.GetStringi(GL_EXTENSIONS, i);
+            const char* en = (const char*)window->context.GetStringi(GL_EXTENSIONS, i);
             if (!en)
             {
-                _glfwInputError(GLFW_PLATFORM_ERROR,
-                                "Extension string retrieval is broken");
+                _glfwInputError(GLFW_PLATFORM_ERROR, "Extension string retrieval is broken");
                 return GLFW_FALSE;
             }
 
@@ -585,12 +554,10 @@ GLFWAPI int glfwExtensionSupported(const char* extension)
     {
         // Check if extension is in the old style OpenGL extensions string
 
-        const char* extensions = (const char*)
-            window->context.GetString(GL_EXTENSIONS);
+        const char* extensions = (const char*)window->context.GetString(GL_EXTENSIONS);
         if (!extensions)
         {
-            _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "Extension string retrieval is broken");
+            _glfwInputError(GLFW_PLATFORM_ERROR, "Extension string retrieval is broken");
             return GLFW_FALSE;
         }
 
@@ -604,19 +571,14 @@ GLFWAPI int glfwExtensionSupported(const char* extension)
 
 GLFWAPI GLFWglproc glfwGetProcAddress(const char* procname)
 {
-    _GLFWwindow* window;
     assert(procname != NULL);
 
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
-    window = _glfwPlatformGetTls(&_glfw.contextSlot);
+    _GLFWwindow* window = _glfwPlatformGetTls(&_glfw.contextSlot);
     if (!window)
     {
-        _glfwInputError(GLFW_NO_CURRENT_CONTEXT,
-                        "Cannot query entry point without a current OpenGL or OpenGL ES context");
+        _glfwInputError(GLFW_NO_CURRENT_CONTEXT, "Cannot query entry point without a current OpenGL or OpenGL ES context");
         return NULL;
     }
 
     return window->context.getProcAddress(procname);
 }
-
