@@ -26,65 +26,11 @@
  *
  *************************************************************************/
 
-#ifndef _glfw3_h_
-#define _glfw3_h_
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-
-/*************************************************************************
- * Doxygen documentation
- *************************************************************************/
-
-/*! @file glfw3.h
- *  @brief The header of the GLFW 3 API.
- *
- *  This is the header file of the GLFW 3 API.  It defines all its types and
- *  declares all its functions.
- *
- *  For more information about how to use this file, see @ref build_include.
- */
-/*! @defgroup context Context reference
- *  @brief Functions and types related to OpenGL and OpenGL ES contexts.
- *
- *  This is the reference documentation for OpenGL and OpenGL ES context related
- *  functions.  For more task-oriented information, see the @ref context_guide.
- */
-/*! @defgroup vulkan Vulkan support reference
- *  @brief Functions and types related to Vulkan.
- *
- *  This is the reference documentation for Vulkan related functions and types.
- *  For more task-oriented information, see the @ref vulkan_guide.
- */
-/*! @defgroup init Initialization, version and error reference
- *  @brief Functions and types related to initialization and error handling.
- *
- *  This is the reference documentation for initialization and termination of
- *  the library, version management and error handling.  For more task-oriented
- *  information, see the @ref intro_guide.
- */
-/*! @defgroup input Input reference
- *  @brief Functions and types related to input handling.
- *
- *  This is the reference documentation for input related functions and types.
- *  For more task-oriented information, see the @ref input_guide.
- */
-/*! @defgroup monitor Monitor reference
- *  @brief Functions and types related to monitors.
- *
- *  This is the reference documentation for monitor related functions and types.
- *  For more task-oriented information, see the @ref monitor_guide.
- */
-/*! @defgroup window Window reference
- *  @brief Functions and types related to windows.
- *
- *  This is the reference documentation for window related functions and types,
- *  including creation, deletion and event polling.  For more task-oriented
- *  information, see the @ref window_guide.
- */
-
 
 /*************************************************************************
  * Compiler- and platform-specific preprocessor work
@@ -96,20 +42,7 @@ extern "C" {
  #define _WIN32
 #endif /* _WIN32 */
 
-/* Include because most Windows GLU headers need wchar_t and
- * the macOS OpenGL header blocks the definition of ptrdiff_t by glext.h.
- * Include it unconditionally to avoid surprising side-effects.
- */
-#include <stddef.h>
-
-/* Include because it is needed by Vulkan and related functions.
- * Include it unconditionally to avoid surprising side-effects.
- */
 #include <stdint.h>
-
-#if defined(GLFW_INCLUDE_VULKAN)
-  #include <vulkan/vulkan.h>
-#endif /* Vulkan header */
 
 /* The Vulkan header may have indirectly included windows.h (because of
  * VK_USE_PLATFORM_WIN32_KHR) so we offer our replacement symbols after it.
@@ -275,96 +208,14 @@ extern "C" {
  * GLFW API tokens
  *************************************************************************/
 
-/*! @brief One.
- *
- *  This is only semantic sugar for the number 1.  You can instead use `1` or
- *  `true` or `_True` or `GL_TRUE` or `VK_TRUE` or anything else that is equal
- *  to one.
- *
- *  @ingroup init
- */
 #define GLFW_TRUE                   1
-/*! @brief Zero.
- *
- *  This is only semantic sugar for the number 0.  You can instead use `0` or
- *  `false` or `_False` or `GL_FALSE` or `VK_FALSE` or anything else that is
- *  equal to zero.
- *
- *  @ingroup init
- */
 #define GLFW_FALSE                  0
 
-/*! @name Key and button actions
- *  @{ */
-/*! @brief The key or mouse button was released.
- *
- *  The key or mouse button was released.
- *
- *  @ingroup input
- */
 #define GLFW_RELEASE                0
-/*! @brief The key or mouse button was pressed.
- *
- *  The key or mouse button was pressed.
- *
- *  @ingroup input
- */
 #define GLFW_PRESS                  1
-/*! @brief The key was held down until it repeated.
- *
- *  The key was held down until it repeated.
- *
- *  @ingroup input
- */
 #define GLFW_REPEAT                 2
-/*! @} */
 
-/*! @defgroup hat_state Joystick hat states
- *  @brief Joystick hat states.
- *
- *  See [joystick hat input](@ref joystick_hat) for how these are used.
- *
- *  @ingroup input
- *  @{ */
-#define GLFW_HAT_CENTERED           0
-#define GLFW_HAT_UP                 1
-#define GLFW_HAT_RIGHT              2
-#define GLFW_HAT_DOWN               4
-#define GLFW_HAT_LEFT               8
-#define GLFW_HAT_RIGHT_UP           (GLFW_HAT_RIGHT | GLFW_HAT_UP)
-#define GLFW_HAT_RIGHT_DOWN         (GLFW_HAT_RIGHT | GLFW_HAT_DOWN)
-#define GLFW_HAT_LEFT_UP            (GLFW_HAT_LEFT  | GLFW_HAT_UP)
-#define GLFW_HAT_LEFT_DOWN          (GLFW_HAT_LEFT  | GLFW_HAT_DOWN)
-
-/*! @ingroup input
- */
 #define GLFW_KEY_UNKNOWN            -1
-
-/*! @} */
-
-/*! @defgroup keys Keyboard key tokens
- *  @brief Keyboard key tokens.
- *
- *  See [key input](@ref input_key) for how these are used.
- *
- *  These key codes are inspired by the _USB HID Usage Tables v1.12_ (p. 53-60),
- *  but re-arranged to map to 7-bit ASCII for printable keys (function keys are
- *  put in the 256+ range).
- *
- *  The naming of the key codes follow these rules:
- *   - The US keyboard layout is used
- *   - Names of printable alphanumeric characters are used (e.g. "A", "R",
- *     "3", etc.)
- *   - For non-alphanumeric characters, Unicode:ish names are used (e.g.
- *     "COMMA", "LEFT_SQUARE_BRACKET", etc.). Note that some names do not
- *     correspond to the Unicode standard (usually for brevity)
- *   - Keys that lack a clear US mapping are named "WORLD_x"
- *   - For non-printable keys, custom names are used (e.g. "F4",
- *     "BACKSPACE", etc.)
- *
- *  @ingroup input
- *  @{
- */
 
 /* Printable keys */
 #define GLFW_KEY_SPACE              32
@@ -450,19 +301,6 @@ extern "C" {
 #define GLFW_KEY_F10                299
 #define GLFW_KEY_F11                300
 #define GLFW_KEY_F12                301
-#define GLFW_KEY_F13                302
-#define GLFW_KEY_F14                303
-#define GLFW_KEY_F15                304
-#define GLFW_KEY_F16                305
-#define GLFW_KEY_F17                306
-#define GLFW_KEY_F18                307
-#define GLFW_KEY_F19                308
-#define GLFW_KEY_F20                309
-#define GLFW_KEY_F21                310
-#define GLFW_KEY_F22                311
-#define GLFW_KEY_F23                312
-#define GLFW_KEY_F24                313
-#define GLFW_KEY_F25                314
 #define GLFW_KEY_KP_0               320
 #define GLFW_KEY_KP_1               321
 #define GLFW_KEY_KP_2               322
@@ -492,58 +330,13 @@ extern "C" {
 
 #define GLFW_KEY_LAST               GLFW_KEY_MENU
 
-/*! @} */
-
-/*! @defgroup mods Modifier key flags
- *  @brief Modifier key flags.
- *
- *  See [key input](@ref input_key) for how these are used.
- *
- *  @ingroup input
- *  @{ */
-
-/*! @brief If this bit is set one or more Shift keys were held down.
- *
- *  If this bit is set one or more Shift keys were held down.
- */
 #define GLFW_MOD_SHIFT           0x0001
-/*! @brief If this bit is set one or more Control keys were held down.
- *
- *  If this bit is set one or more Control keys were held down.
- */
 #define GLFW_MOD_CONTROL         0x0002
-/*! @brief If this bit is set one or more Alt keys were held down.
- *
- *  If this bit is set one or more Alt keys were held down.
- */
 #define GLFW_MOD_ALT             0x0004
-/*! @brief If this bit is set one or more Super keys were held down.
- *
- *  If this bit is set one or more Super keys were held down.
- */
 #define GLFW_MOD_SUPER           0x0008
-/*! @brief If this bit is set the Caps Lock key is enabled.
- *
- *  If this bit is set the Caps Lock key is enabled and the @ref
- *  GLFW_LOCK_KEY_MODS input mode is set.
- */
 #define GLFW_MOD_CAPS_LOCK       0x0010
-/*! @brief If this bit is set the Num Lock key is enabled.
- *
- *  If this bit is set the Num Lock key is enabled and the @ref
- *  GLFW_LOCK_KEY_MODS input mode is set.
- */
 #define GLFW_MOD_NUM_LOCK        0x0020
 
-/*! @} */
-
-/*! @defgroup buttons Mouse buttons
- *  @brief Mouse button IDs.
- *
- *  See [mouse button input](@ref input_mouse_button) for how these are used.
- *
- *  @ingroup input
- *  @{ */
 #define GLFW_MOUSE_BUTTON_1         0
 #define GLFW_MOUSE_BUTTON_2         1
 #define GLFW_MOUSE_BUTTON_3         2
@@ -556,120 +349,10 @@ extern "C" {
 #define GLFW_MOUSE_BUTTON_LEFT      GLFW_MOUSE_BUTTON_1
 #define GLFW_MOUSE_BUTTON_RIGHT     GLFW_MOUSE_BUTTON_2
 #define GLFW_MOUSE_BUTTON_MIDDLE    GLFW_MOUSE_BUTTON_3
-/*! @} */
 
-/*! @defgroup joysticks Joysticks
- *  @brief Joystick IDs.
- *
- *  See [joystick input](@ref joystick) for how these are used.
- *
- *  @ingroup input
- *  @{ */
-#define GLFW_JOYSTICK_1             0
-#define GLFW_JOYSTICK_2             1
-#define GLFW_JOYSTICK_3             2
-#define GLFW_JOYSTICK_4             3
-#define GLFW_JOYSTICK_5             4
-#define GLFW_JOYSTICK_6             5
-#define GLFW_JOYSTICK_7             6
-#define GLFW_JOYSTICK_8             7
-#define GLFW_JOYSTICK_9             8
-#define GLFW_JOYSTICK_10            9
-#define GLFW_JOYSTICK_11            10
-#define GLFW_JOYSTICK_12            11
-#define GLFW_JOYSTICK_13            12
-#define GLFW_JOYSTICK_14            13
-#define GLFW_JOYSTICK_15            14
-#define GLFW_JOYSTICK_16            15
-#define GLFW_JOYSTICK_LAST          GLFW_JOYSTICK_16
-/*! @} */
-
-/*! @defgroup gamepad_buttons Gamepad buttons
- *  @brief Gamepad buttons.
- *
- *  See @ref gamepad for how these are used.
- *
- *  @ingroup input
- *  @{ */
-#define GLFW_GAMEPAD_BUTTON_A               0
-#define GLFW_GAMEPAD_BUTTON_B               1
-#define GLFW_GAMEPAD_BUTTON_X               2
-#define GLFW_GAMEPAD_BUTTON_Y               3
-#define GLFW_GAMEPAD_BUTTON_LEFT_BUMPER     4
-#define GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER    5
-#define GLFW_GAMEPAD_BUTTON_BACK            6
-#define GLFW_GAMEPAD_BUTTON_START           7
-#define GLFW_GAMEPAD_BUTTON_GUIDE           8
-#define GLFW_GAMEPAD_BUTTON_LEFT_THUMB      9
-#define GLFW_GAMEPAD_BUTTON_RIGHT_THUMB     10
-#define GLFW_GAMEPAD_BUTTON_DPAD_UP         11
-#define GLFW_GAMEPAD_BUTTON_DPAD_RIGHT      12
-#define GLFW_GAMEPAD_BUTTON_DPAD_DOWN       13
-#define GLFW_GAMEPAD_BUTTON_DPAD_LEFT       14
-#define GLFW_GAMEPAD_BUTTON_LAST            GLFW_GAMEPAD_BUTTON_DPAD_LEFT
-
-#define GLFW_GAMEPAD_BUTTON_CROSS       GLFW_GAMEPAD_BUTTON_A
-#define GLFW_GAMEPAD_BUTTON_CIRCLE      GLFW_GAMEPAD_BUTTON_B
-#define GLFW_GAMEPAD_BUTTON_SQUARE      GLFW_GAMEPAD_BUTTON_X
-#define GLFW_GAMEPAD_BUTTON_TRIANGLE    GLFW_GAMEPAD_BUTTON_Y
-/*! @} */
-
-/*! @defgroup gamepad_axes Gamepad axes
- *  @brief Gamepad axes.
- *
- *  See @ref gamepad for how these are used.
- *
- *  @ingroup input
- *  @{ */
-#define GLFW_GAMEPAD_AXIS_LEFT_X        0
-#define GLFW_GAMEPAD_AXIS_LEFT_Y        1
-#define GLFW_GAMEPAD_AXIS_RIGHT_X       2
-#define GLFW_GAMEPAD_AXIS_RIGHT_Y       3
-#define GLFW_GAMEPAD_AXIS_LEFT_TRIGGER  4
-#define GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER 5
-#define GLFW_GAMEPAD_AXIS_LAST          GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER
-/*! @} */
-
-/*! @defgroup errors Error codes
- *  @brief Error codes.
- *
- *  See [error handling](@ref error_handling) for how these are used.
- *
- *  @ingroup init
- *  @{ */
-/*! @brief No error has occurred.
- *
- *  No error has occurred.
- *
- *  @analysis Yay.
- */
 #define GLFW_NO_ERROR               0
-/*! @brief GLFW has not been initialized.
- *
- *  This occurs if a GLFW function was called that must not be called unless the
- *  library is [initialized](@ref intro_init).
- *
- *  @analysis Application programmer error.  Initialize GLFW before calling any
- *  function that requires initialization.
- */
 #define GLFW_NOT_INITIALIZED        0x00010001
-/*! @brief No context is current for this thread.
- *
- *  This occurs if a GLFW function was called that needs and operates on the
- *  current OpenGL or OpenGL ES context but no context is current on the calling
- *  thread.  One such function is @ref glfwSwapInterval.
- *
- *  @analysis Application programmer error.  Ensure a context is current before
- *  calling functions that require a current context.
- */
 #define GLFW_NO_CURRENT_CONTEXT     0x00010002
-/*! @brief One of the arguments to the function was an invalid enum value.
- *
- *  One of the arguments to the function was an invalid enum value, for example
- *  requesting @ref GLFW_RED_BITS with @ref glfwGetWindowAttrib.
- *
- *  @analysis Application programmer error.  Fix the offending call.
- */
 #define GLFW_INVALID_ENUM           0x00010003
 /*! @brief One of the arguments to the function was an invalid value.
  *
@@ -5259,229 +4942,6 @@ GLFWAPI int glfwExtensionSupported(const char* extension);
  */
 GLFWAPI GLFWglproc glfwGetProcAddress(const char* procname);
 
-/*! @brief Returns whether the Vulkan loader and an ICD have been found.
- *
- *  This function returns whether the Vulkan loader and any minimally functional
- *  ICD have been found.
- *
- *  The availability of a Vulkan loader and even an ICD does not by itself guarantee that
- *  surface creation or even instance creation is possible.  Call @ref
- *  glfwGetRequiredInstanceExtensions to check whether the extensions necessary for Vulkan
- *  surface creation are available and @ref glfwGetPhysicalDevicePresentationSupport to
- *  check whether a queue family of a physical device supports image presentation.
- *
- *  @return `GLFW_TRUE` if Vulkan is minimally available, or `GLFW_FALSE`
- *  otherwise.
- *
- *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
- *
- *  @thread_safety This function may be called from any thread.
- *
- *  @sa @ref vulkan_support
- *
- *  @since Added in version 3.2.
- *
- *  @ingroup vulkan
- */
-GLFWAPI int glfwVulkanSupported(void);
-
-/*! @brief Returns the Vulkan instance extensions required by GLFW.
- *
- *  This function returns an array of names of Vulkan instance extensions required
- *  by GLFW for creating Vulkan surfaces for GLFW windows.  If successful, the
- *  list will always contain `VK_KHR_surface`, so if you don't require any
- *  additional extensions you can pass this list directly to the
- *  `VkInstanceCreateInfo` struct.
- *
- *  If Vulkan is not available on the machine, this function returns `NULL` and
- *  generates a @ref GLFW_API_UNAVAILABLE error.  Call @ref glfwVulkanSupported
- *  to check whether Vulkan is at least minimally available.
- *
- *  If Vulkan is available but no set of extensions allowing window surface
- *  creation was found, this function returns `NULL`.  You may still use Vulkan
- *  for off-screen rendering and compute work.
- *
- *  @param[out] count Where to store the number of extensions in the returned
- *  array.  This is set to zero if an error occurred.
- *  @return An array of ASCII encoded extension names, or `NULL` if an
- *  [error](@ref error_handling) occurred.
- *
- *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
- *  GLFW_API_UNAVAILABLE.
- *
- *  @remark Additional extensions may be required by future versions of GLFW.
- *  You should check if any extensions you wish to enable are already in the
- *  returned array, as it is an error to specify an extension more than once in
- *  the `VkInstanceCreateInfo` struct.
- *
- *  @pointer_lifetime The returned array is allocated and freed by GLFW.  You
- *  should not free it yourself.  It is guaranteed to be valid only until the
- *  library is terminated.
- *
- *  @thread_safety This function may be called from any thread.
- *
- *  @sa @ref vulkan_ext
- *  @sa @ref glfwCreateWindowSurface
- *
- *  @since Added in version 3.2.
- *
- *  @ingroup vulkan
- */
-GLFWAPI const char** glfwGetRequiredInstanceExtensions(uint32_t* count);
-
-#if defined(VK_VERSION_1_0)
-
-/*! @brief Returns the address of the specified Vulkan instance function.
- *
- *  This function returns the address of the specified Vulkan core or extension
- *  function for the specified instance.  If instance is set to `NULL` it can
- *  return any function exported from the Vulkan loader, including at least the
- *  following functions:
- *
- *  - `vkEnumerateInstanceExtensionProperties`
- *  - `vkEnumerateInstanceLayerProperties`
- *  - `vkCreateInstance`
- *  - `vkGetInstanceProcAddr`
- *
- *  If Vulkan is not available on the machine, this function returns `NULL` and
- *  generates a @ref GLFW_API_UNAVAILABLE error.  Call @ref glfwVulkanSupported
- *  to check whether Vulkan is at least minimally available.
- *
- *  This function is equivalent to calling `vkGetInstanceProcAddr` with
- *  a platform-specific query of the Vulkan loader as a fallback.
- *
- *  @param[in] instance The Vulkan instance to query, or `NULL` to retrieve
- *  functions related to instance creation.
- *  @param[in] procname The ASCII encoded name of the function.
- *  @return The address of the function, or `NULL` if an
- *  [error](@ref error_handling) occurred.
- *
- *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
- *  GLFW_API_UNAVAILABLE.
- *
- *  @pointer_lifetime The returned function pointer is valid until the library
- *  is terminated.
- *
- *  @thread_safety This function may be called from any thread.
- *
- *  @sa @ref vulkan_proc
- *
- *  @since Added in version 3.2.
- *
- *  @ingroup vulkan
- */
-GLFWAPI GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, const char* procname);
-
-/*! @brief Returns whether the specified queue family can present images.
- *
- *  This function returns whether the specified queue family of the specified
- *  physical device supports presentation to the platform GLFW was built for.
- *
- *  If Vulkan or the required window surface creation instance extensions are
- *  not available on the machine, or if the specified instance was not created
- *  with the required extensions, this function returns `GLFW_FALSE` and
- *  generates a @ref GLFW_API_UNAVAILABLE error.  Call @ref glfwVulkanSupported
- *  to check whether Vulkan is at least minimally available and @ref
- *  glfwGetRequiredInstanceExtensions to check what instance extensions are
- *  required.
- *
- *  @param[in] instance The instance that the physical device belongs to.
- *  @param[in] device The physical device that the queue family belongs to.
- *  @param[in] queuefamily The index of the queue family to query.
- *  @return `GLFW_TRUE` if the queue family supports presentation, or
- *  `GLFW_FALSE` otherwise.
- *
- *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED, @ref
- *  GLFW_API_UNAVAILABLE and @ref GLFW_PLATFORM_ERROR.
- *
- *  @remark @macos This function currently always returns `GLFW_TRUE`, as the
- *  `VK_MVK_macos_surface` and `VK_EXT_metal_surface` extensions do not provide
- *  a `vkGetPhysicalDevice*PresentationSupport` type function.
- *
- *  @thread_safety This function may be called from any thread.  For
- *  synchronization details of Vulkan objects, see the Vulkan specification.
- *
- *  @sa @ref vulkan_present
- *
- *  @since Added in version 3.2.
- *
- *  @ingroup vulkan
- */
-GLFWAPI int glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, uint32_t queuefamily);
-
-/*! @brief Creates a Vulkan surface for the specified window.
- *
- *  This function creates a Vulkan surface for the specified window.
- *
- *  If the Vulkan loader or at least one minimally functional ICD were not found,
- *  this function returns `VK_ERROR_INITIALIZATION_FAILED` and generates a @ref
- *  GLFW_API_UNAVAILABLE error.  Call @ref glfwVulkanSupported to check whether
- *  Vulkan is at least minimally available.
- *
- *  If the required window surface creation instance extensions are not
- *  available or if the specified instance was not created with these extensions
- *  enabled, this function returns `VK_ERROR_EXTENSION_NOT_PRESENT` and
- *  generates a @ref GLFW_API_UNAVAILABLE error.  Call @ref
- *  glfwGetRequiredInstanceExtensions to check what instance extensions are
- *  required.
- *
- *  The window surface cannot be shared with another API so the window must
- *  have been created with the [client api hint](@ref GLFW_CLIENT_API_attrib)
- *  set to `GLFW_NO_API` otherwise it generates a @ref GLFW_INVALID_VALUE error
- *  and returns `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`.
- *
- *  The window surface must be destroyed before the specified Vulkan instance.
- *  It is the responsibility of the caller to destroy the window surface.  GLFW
- *  does not destroy it for you.  Call `vkDestroySurfaceKHR` to destroy the
- *  surface.
- *
- *  @param[in] instance The Vulkan instance to create the surface in.
- *  @param[in] window The window to create the surface for.
- *  @param[in] allocator The allocator to use, or `NULL` to use the default
- *  allocator.
- *  @param[out] surface Where to store the handle of the surface.  This is set
- *  to `VK_NULL_HANDLE` if an error occurred.
- *  @return `VK_SUCCESS` if successful, or a Vulkan error code if an
- *  [error](@ref error_handling) occurred.
- *
- *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED, @ref
- *  GLFW_API_UNAVAILABLE, @ref GLFW_PLATFORM_ERROR and @ref GLFW_INVALID_VALUE
- *
- *  @remark If an error occurs before the creation call is made, GLFW returns
- *  the Vulkan error code most appropriate for the error.  Appropriate use of
- *  @ref glfwVulkanSupported and @ref glfwGetRequiredInstanceExtensions should
- *  eliminate almost all occurrences of these errors.
- *
- *  @remark @macos GLFW prefers the `VK_EXT_metal_surface` extension, with the
- *  `VK_MVK_macos_surface` extension as a fallback.  The name of the selected
- *  extension, if any, is included in the array returned by @ref
- *  glfwGetRequiredInstanceExtensions.
- *
- *  @remark @macos This function creates and sets a `CAMetalLayer` instance for
- *  the window content view, which is required for MoltenVK to function.
- *
- *  @remark @x11 By default GLFW prefers the `VK_KHR_xcb_surface` extension,
- *  with the `VK_KHR_xlib_surface` extension as a fallback.  You can make
- *  `VK_KHR_xlib_surface` the preferred extension by setting the
- *  [GLFW_X11_XCB_VULKAN_SURFACE](@ref GLFW_X11_XCB_VULKAN_SURFACE_hint) init
- *  hint.  The name of the selected extension, if any, is included in the array
- *  returned by @ref glfwGetRequiredInstanceExtensions.
- *
- *  @thread_safety This function may be called from any thread.  For
- *  synchronization details of Vulkan objects, see the Vulkan specification.
- *
- *  @sa @ref vulkan_surface
- *  @sa @ref glfwGetRequiredInstanceExtensions
- *
- *  @since Added in version 3.2.
- *
- *  @ingroup vulkan
- */
-GLFWAPI VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow* window, const VkAllocationCallbacks* allocator, VkSurfaceKHR* surface);
-
-#endif /*VK_VERSION_1_0*/
-
-
 /*************************************************************************
  * Global definition cleanup
  *************************************************************************/
@@ -5508,10 +4968,6 @@ GLFWAPI VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow* window
 
 /* -------------------- END SYSTEM/COMPILER SPECIFIC --------------------- */
 
-
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* _glfw3_h_ */
-

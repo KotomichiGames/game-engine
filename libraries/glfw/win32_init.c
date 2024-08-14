@@ -193,13 +193,9 @@ static void freeLibraries(void)
         _glfwPlatformFreeModule(_glfw.win32.ntdll.instance);
 }
 
-// Create key code translation tables
-//
 static void createKeyTables(void)
 {
-    int scancode;
-
-    memset(_glfw.win32.keycodes, -1, sizeof(_glfw.win32.keycodes));
+    memset(_glfw.win32.keycodes,  -1, sizeof(_glfw.win32.keycodes));
     memset(_glfw.win32.scancodes, -1, sizeof(_glfw.win32.scancodes));
 
     _glfw.win32.keycodes[0x00B] = GLFW_KEY_0;
@@ -280,18 +276,6 @@ static void createKeyTables(void)
     _glfw.win32.keycodes[0x044] = GLFW_KEY_F10;
     _glfw.win32.keycodes[0x057] = GLFW_KEY_F11;
     _glfw.win32.keycodes[0x058] = GLFW_KEY_F12;
-    _glfw.win32.keycodes[0x064] = GLFW_KEY_F13;
-    _glfw.win32.keycodes[0x065] = GLFW_KEY_F14;
-    _glfw.win32.keycodes[0x066] = GLFW_KEY_F15;
-    _glfw.win32.keycodes[0x067] = GLFW_KEY_F16;
-    _glfw.win32.keycodes[0x068] = GLFW_KEY_F17;
-    _glfw.win32.keycodes[0x069] = GLFW_KEY_F18;
-    _glfw.win32.keycodes[0x06A] = GLFW_KEY_F19;
-    _glfw.win32.keycodes[0x06B] = GLFW_KEY_F20;
-    _glfw.win32.keycodes[0x06C] = GLFW_KEY_F21;
-    _glfw.win32.keycodes[0x06D] = GLFW_KEY_F22;
-    _glfw.win32.keycodes[0x06E] = GLFW_KEY_F23;
-    _glfw.win32.keycodes[0x076] = GLFW_KEY_F24;
     _glfw.win32.keycodes[0x038] = GLFW_KEY_LEFT_ALT;
     _glfw.win32.keycodes[0x01D] = GLFW_KEY_LEFT_CONTROL;
     _glfw.win32.keycodes[0x02A] = GLFW_KEY_LEFT_SHIFT;
@@ -324,7 +308,7 @@ static void createKeyTables(void)
     _glfw.win32.keycodes[0x037] = GLFW_KEY_KP_MULTIPLY;
     _glfw.win32.keycodes[0x04A] = GLFW_KEY_KP_SUBTRACT;
 
-    for (scancode = 0;  scancode < 512;  scancode++)
+    for (int scancode = 0;  scancode < 512;  scancode++)
     {
         if (_glfw.win32.keycodes[scancode] > 0)
             _glfw.win32.scancodes[_glfw.win32.keycodes[scancode]] = scancode;

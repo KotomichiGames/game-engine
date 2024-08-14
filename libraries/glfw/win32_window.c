@@ -447,7 +447,6 @@ static void releaseMonitor(_GLFWwindow* window)
 static void maximizeWindowManually(_GLFWwindow* window)
 {
     RECT rect;
-    DWORD style;
     MONITORINFO mi = { sizeof(mi) };
 
     GetMonitorInfoW(MonitorFromWindow(window->win32.handle,
@@ -461,7 +460,7 @@ static void maximizeWindowManually(_GLFWwindow* window)
         rect.bottom = _glfw_min(rect.bottom, rect.top + window->maxheight);
     }
 
-    style = GetWindowLongW(window->win32.handle, GWL_STYLE);
+    DWORD style = GetWindowLongW(window->win32.handle, GWL_STYLE);
     style |= WS_MAXIMIZE;
     SetWindowLongW(window->win32.handle, GWL_STYLE, style);
 
