@@ -287,10 +287,7 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window, const _GLFWctxconfig* c
         return GLFW_FALSE;
     }
 
-    if (!sscanf_s(version, "%d.%d.%d",
-                &window->context.major,
-                &window->context.minor,
-                &window->context.revision))
+    if (!sscanf_s(version, "%d.%d", &window->context.major, &window->context.minor))
     {
         if (window->context.client == GLFW_OPENGL_API)
         {
@@ -318,15 +315,13 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window, const _GLFWctxconfig* c
 
         if (window->context.client == GLFW_OPENGL_API)
         {
-            _glfwInputError(GLFW_VERSION_UNAVAILABLE,
-                            "Requested OpenGL version %i.%i, got version %i.%i",
+            _glfwInputError(GLFW_VERSION_UNAVAILABLE, "Requested OpenGL version %i.%i, got version %i.%i",
                             ctxconfig->major, ctxconfig->minor,
                             window->context.major, window->context.minor);
         }
         else
         {
-            _glfwInputError(GLFW_VERSION_UNAVAILABLE,
-                            "Requested OpenGL ES version %i.%i, got version %i.%i",
+            _glfwInputError(GLFW_VERSION_UNAVAILABLE, "Requested OpenGL ES version %i.%i, got version %i.%i",
                             ctxconfig->major, ctxconfig->minor,
                             window->context.major, window->context.minor);
         }
@@ -529,8 +524,6 @@ int glfwExtensionSupported(const char* extension)
     }
     else
     {
-        // Check if extension is in the old style OpenGL extensions string
-
         const char* extensions = (const char*)window->context.GetString(GL_EXTENSIONS);
         if (!extensions)
         {

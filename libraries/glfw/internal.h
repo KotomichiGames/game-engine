@@ -158,7 +158,7 @@ struct _GLFWcontext
 {
     int                 client;
     int                 source;
-    int                 major, minor, revision;
+    int                 major, minor;
     GLFWbool            noerror;
     int                 profile;
     int                 robustness;
