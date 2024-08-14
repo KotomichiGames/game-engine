@@ -405,8 +405,6 @@ void glfwIconifyWindow(GLFWwindow* window);
 void glfwRestoreWindow(GLFWwindow* window);
 
 void glfwMaximizeWindow(GLFWwindow* window);
-void glfwShowWindow(GLFWwindow* window);
-void glfwHideWindow(GLFWwindow* window);
 void glfwFocusWindow(GLFWwindow* window);
 
 GLFWmonitor* glfwGetWindowMonitor(GLFWwindow* window);

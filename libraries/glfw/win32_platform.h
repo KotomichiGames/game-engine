@@ -441,8 +441,6 @@ void _glfwGetWindowContentScaleWin32(_GLFWwindow* window, float* xscale, float* 
 void _glfwIconifyWindowWin32(_GLFWwindow* window);
 void _glfwRestoreWindowWin32(_GLFWwindow* window);
 void _glfwMaximizeWindowWin32(_GLFWwindow* window);
-void _glfwShowWindowWin32(_GLFWwindow* window);
-void _glfwHideWindowWin32(_GLFWwindow* window);
 void _glfwFocusWindowWin32(_GLFWwindow* window);
 void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int xpos, int ypos, int width, int height, int refreshRate);
 GLFWbool _glfwWindowFocusedWin32(_GLFWwindow* window);
