@@ -367,43 +367,6 @@ static void updateWindowStyles(const _GLFWwindow* window)
                  SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
-// Update window framebuffer transparency
-//
-static void updateFramebufferTransparency(const _GLFWwindow* window)
-{
-    BOOL composition, opaque;
-    DWORD color;
-
-    if (!IsWindowsVistaOrGreater())
-        return;
-
-    if (FAILED(DwmIsCompositionEnabled(&composition)) || !composition)
-       return;
-
-    if (IsWindows8OrGreater() ||
-        (SUCCEEDED(DwmGetColorizationColor(&color, &opaque)) && !opaque))
-    {
-        HRGN region = CreateRectRgn(0, 0, -1, -1);
-        DWM_BLURBEHIND bb = {0};
-        bb.dwFlags = DWM_BB_ENABLE | DWM_BB_BLURREGION;
-        bb.hRgnBlur = region;
-        bb.fEnable = TRUE;
-
-        DwmEnableBlurBehindWindow(window->win32.handle, &bb);
-        DeleteObject(region);
-    }
-    else
-    {
-        // HACK: Disable framebuffer transparency on Windows 7 when the
-        //       colorization color is opaque, because otherwise the window
-        //       contents is blended additively with the previous frame instead
-        //       of replacing it
-        DWM_BLURBEHIND bb = {0};
-        bb.dwFlags = DWM_BB_ENABLE;
-        DwmEnableBlurBehindWindow(window->win32.handle, &bb);
-    }
-}
-
 // Retrieves and translates modifier keys
 //
 static int getKeyMods(void)
@@ -1149,14 +1112,6 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
             break;
         }
 
-        case WM_DWMCOMPOSITIONCHANGED:
-        case WM_DWMCOLORIZATIONCOLORCHANGED:
-        {
-            if (window->win32.transparent)
-                updateFramebufferTransparency(window);
-            return 0;
-        }
-
         case WM_GETDPISCALEDSIZE:
         {
             if (window->win32.scaleToMonitor)
@@ -1463,20 +1418,12 @@ static int createNativeWindow(_GLFWwindow* window,
 
     DragAcceptFiles(window->win32.handle, TRUE);
 
-    if (fbconfig->transparent)
-    {
-        updateFramebufferTransparency(window);
-        window->win32.transparent = GLFW_TRUE;
-    }
-
     _glfwGetWindowSizeWin32(window, &window->win32.width, &window->win32.height);
 
     return GLFW_TRUE;
 }
 
-GLFWbool _glfwCreateWindowWin32(_GLFWwindow* window,
-                                const _GLFWwndconfig* wndconfig,
-                                const _GLFWctxconfig* ctxconfig,
+GLFWbool _glfwCreateWindowWin32(_GLFWwindow* window, const _GLFWwndconfig* wndconfig, const _GLFWctxconfig* ctxconfig,
                                 const _GLFWfbconfig* fbconfig)
 {
     if (!createNativeWindow(window, wndconfig, fbconfig))
@@ -1925,33 +1872,6 @@ GLFWbool _glfwWindowHoveredWin32(_GLFWwindow* window)
     return cursorInContentArea(window);
 }
 
-GLFWbool _glfwFramebufferTransparentWin32(_GLFWwindow* window)
-{
-    BOOL composition, opaque;
-    DWORD color;
-
-    if (!window->win32.transparent)
-        return GLFW_FALSE;
-
-    if (!IsWindowsVistaOrGreater())
-        return GLFW_FALSE;
-
-    if (FAILED(DwmIsCompositionEnabled(&composition)) || !composition)
-        return GLFW_FALSE;
-
-    if (!IsWindows8OrGreater())
-    {
-        // HACK: Disable framebuffer transparency on Windows 7 when the
-        //       colorization color is opaque, because otherwise the window
-        //       contents is blended additively with the previous frame instead
-        //       of replacing it
-        if (FAILED(DwmGetColorizationColor(&color, &opaque)) || opaque)
-            return GLFW_FALSE;
-    }
-
-    return GLFW_TRUE;
-}
-
 void _glfwSetWindowResizableWin32(_GLFWwindow* window, GLFWbool enabled)
 {
     updateWindowStyles(window);
@@ -2369,8 +2289,6 @@ void _glfwSetClipboardStringWin32(const char* string)
 
 const char* _glfwGetClipboardStringWin32(void)
 {
-    HANDLE object;
-    WCHAR* buffer;
     int tries = 0;
 
     // NOTE: Retry clipboard opening a few times as some other application may have it
@@ -2388,7 +2306,7 @@ const char* _glfwGetClipboardStringWin32(void)
         }
     }
 
-    object = GetClipboardData(CF_UNICODETEXT);
+    HANDLE object = GetClipboardData(CF_UNICODETEXT);
     if (!object)
     {
         _glfwInputErrorWin32(GLFW_FORMAT_UNAVAILABLE,
@@ -2397,7 +2315,7 @@ const char* _glfwGetClipboardStringWin32(void)
         return NULL;
     }
 
-    buffer = GlobalLock(object);
+    WCHAR* buffer = GlobalLock(object);
     if (!buffer)
     {
         _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
@@ -2413,67 +2331,6 @@ const char* _glfwGetClipboardStringWin32(void)
     CloseClipboard();
 
     return _glfw.win32.clipboardString;
-}
-
-void _glfwGetRequiredInstanceExtensionsWin32(char** extensions)
-{
-    if (!_glfw.vk.KHR_surface || !_glfw.vk.KHR_win32_surface)
-        return;
-
-    extensions[0] = "VK_KHR_surface";
-    extensions[1] = "VK_KHR_win32_surface";
-}
-
-GLFWbool _glfwGetPhysicalDevicePresentationSupportWin32(VkInstance instance,
-                                                        VkPhysicalDevice device,
-                                                        uint32_t queuefamily)
-{
-    PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR
-        vkGetPhysicalDeviceWin32PresentationSupportKHR =
-        (PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR)
-        vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceWin32PresentationSupportKHR");
-    if (!vkGetPhysicalDeviceWin32PresentationSupportKHR)
-    {
-        _glfwInputError(GLFW_API_UNAVAILABLE,
-                        "Win32: Vulkan instance missing VK_KHR_win32_surface extension");
-        return GLFW_FALSE;
-    }
-
-    return vkGetPhysicalDeviceWin32PresentationSupportKHR(device, queuefamily);
-}
-
-VkResult _glfwCreateWindowSurfaceWin32(VkInstance instance,
-                                       _GLFWwindow* window,
-                                       const VkAllocationCallbacks* allocator,
-                                       VkSurfaceKHR* surface)
-{
-    VkResult err;
-    VkWin32SurfaceCreateInfoKHR sci;
-    PFN_vkCreateWin32SurfaceKHR vkCreateWin32SurfaceKHR;
-
-    vkCreateWin32SurfaceKHR = (PFN_vkCreateWin32SurfaceKHR)
-        vkGetInstanceProcAddr(instance, "vkCreateWin32SurfaceKHR");
-    if (!vkCreateWin32SurfaceKHR)
-    {
-        _glfwInputError(GLFW_API_UNAVAILABLE,
-                        "Win32: Vulkan instance missing VK_KHR_win32_surface extension");
-        return VK_ERROR_EXTENSION_NOT_PRESENT;
-    }
-
-    memset(&sci, 0, sizeof(sci));
-    sci.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-    sci.hinstance = _glfw.win32.instance;
-    sci.hwnd = window->win32.handle;
-
-    err = vkCreateWin32SurfaceKHR(instance, &sci, allocator, surface);
-    if (err)
-    {
-        _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "Win32: Failed to create Vulkan surface: %s",
-                        _glfwGetVulkanResultString(err));
-    }
-
-    return err;
 }
 
 GLFWAPI HWND glfwGetWin32Window(GLFWwindow* handle)

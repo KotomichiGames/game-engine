@@ -631,20 +631,11 @@ GLFWbool _glfwConnectWin32(int platformID, _GLFWplatform* platform)
         .windowVisible = _glfwWindowVisibleWin32,
         .windowMaximized = _glfwWindowMaximizedWin32,
         .windowHovered = _glfwWindowHoveredWin32,
-        .framebufferTransparent = _glfwFramebufferTransparentWin32,
-        .getWindowOpacity = _glfwGetWindowOpacityWin32,
         .setWindowResizable = _glfwSetWindowResizableWin32,
         .setWindowDecorated = _glfwSetWindowDecoratedWin32,
         .setWindowFloating = _glfwSetWindowFloatingWin32,
-        .setWindowOpacity = _glfwSetWindowOpacityWin32,
         .setWindowMousePassthrough = _glfwSetWindowMousePassthroughWin32,
-        .pollEvents = _glfwPollEventsWin32,
-        .waitEvents = _glfwWaitEventsWin32,
-        .waitEventsTimeout = _glfwWaitEventsTimeoutWin32,
-        .postEmptyEvent = _glfwPostEmptyEventWin32,
-        .getRequiredInstanceExtensions = _glfwGetRequiredInstanceExtensionsWin32,
-        .getPhysicalDevicePresentationSupport = _glfwGetPhysicalDevicePresentationSupportWin32,
-        .createWindowSurface = _glfwCreateWindowSurfaceWin32
+        .pollEvents = _glfwPollEventsWin32
     };
 
     *platform = win32;

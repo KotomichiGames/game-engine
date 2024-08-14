@@ -383,8 +383,6 @@ GLFWAPI const char* glfwGetKeyName(int key, int scancode)
 
 GLFWAPI int glfwGetKeyScancode(int key)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(0);
-
     if (key < GLFW_KEY_SPACE || key > GLFW_KEY_LAST)
     {
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid key %i", key);
@@ -396,8 +394,6 @@ GLFWAPI int glfwGetKeyScancode(int key)
 
 GLFWAPI int glfwGetKey(GLFWwindow* handle, int key)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(GLFW_RELEASE);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -419,8 +415,6 @@ GLFWAPI int glfwGetKey(GLFWwindow* handle, int key)
 
 GLFWAPI int glfwGetMouseButton(GLFWwindow* handle, int button)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(GLFW_RELEASE);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 

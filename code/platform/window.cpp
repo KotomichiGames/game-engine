@@ -2,14 +2,14 @@
 
 namespace engine
 {
-    void Window::create(const std::string& title, uint32_t width, uint32_t height)
+    void Window::create(const std::string& title, const uint32_t width, const uint32_t height)
     {
         if (glfwInit() == GLFW_FALSE)
         {
             std::exit(EXIT_FAILURE);
         }
 
-        _handle = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+        _handle = glfwCreateWindow(width, height, title.c_str(), nullptr);
 
         if (_handle == nullptr)
         {

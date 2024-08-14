@@ -1,12 +1,12 @@
 add_library(${PROJECT_NAME} ${GLFW_LIBRARY_TYPE}
                             "${GLFW_SOURCE_DIR}/include/GLFW/glfw3.h"
                             "${GLFW_SOURCE_DIR}/include/GLFW/glfw3native.h"
-                            internal.h platform.h context.c init.c input.c monitor.c platform.c vulkan.c window.c)
+                            internal.h platform.h context.c init.c input.c monitor.c platform.c window.c)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE _GLFW_WIN32)
 
-target_sources(${PROJECT_NAME} PRIVATE win32_time.h win32_thread.h win32_module.c win32_time.c win32_thread.c)
-target_sources(${PROJECT_NAME} PRIVATE win32_platform.h win32_init.c win32_monitor.c win32_window.c wgl_context.c)
+target_sources(${PROJECT_NAME} PRIVATE win32_module.c win32_time.c win32_thread.c)
+target_sources(${PROJECT_NAME} PRIVATE win32_init.c win32_monitor.c win32_window.c wgl_context.c)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
                            "$<BUILD_INTERFACE:${GLFW_SOURCE_DIR}/include>"
