@@ -335,7 +335,6 @@ typedef struct _GLFWlibraryWin32
     HWND                helperWindowHandle;
     ATOM                helperWindowClass;
     ATOM                mainWindowClass;
-    HDEVNOTIFY          deviceNotificationHandle;
     int                 acquiredMonitorCount;
     char*               clipboardString;
     short int           keycodes[512];

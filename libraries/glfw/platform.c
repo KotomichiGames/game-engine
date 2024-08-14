@@ -27,12 +27,7 @@
 
 #include "internal.h"
 
-#include <string.h>
 #include <stdlib.h>
-
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW internal API                      //////
-//////////////////////////////////////////////////////////////////////////
 
 static const struct
 {
@@ -50,8 +45,7 @@ GLFWbool _glfwSelectPlatform(int desiredID, _GLFWplatform* platform)
     const size_t count = sizeof(supportedPlatforms) / sizeof(supportedPlatforms[0]);
     size_t i;
 
-    if (desiredID != GLFW_ANY_PLATFORM &&
-        desiredID != GLFW_PLATFORM_WIN32)
+    if (desiredID != GLFW_ANY_PLATFORM && desiredID != GLFW_PLATFORM_WIN32)
     {
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid platform ID 0x%08X", desiredID);
         return GLFW_FALSE;
