@@ -515,9 +515,8 @@ typedef struct GLFWimage
 
 typedef struct GLFWallocator
 {
-    GLFWallocatefun allocate;
+    GLFWallocatefun   allocate;
     GLFWreallocatefun reallocate;
-    GLFWdeallocatefun deallocate;
     void* user;
 } GLFWallocator;
 
