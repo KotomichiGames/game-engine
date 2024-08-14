@@ -466,7 +466,6 @@ void glfwPollEvents(void);
 int glfwGetInputMode(GLFWwindow* window, int mode);
 void glfwSetInputMode(GLFWwindow* window, int mode, int value);
 int glfwRawMouseMotionSupported(void);
-const char* glfwGetKeyName(int key, int scancode);
 
 int glfwGetKeyScancode(int key);
 
