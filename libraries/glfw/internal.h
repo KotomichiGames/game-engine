@@ -418,7 +418,6 @@ struct _GLFWplatform
 struct _GLFWlibrary
 {
     GLFWbool            initialized;
-    GLFWallocator       allocator;
 
     _GLFWplatform       platform;
 
