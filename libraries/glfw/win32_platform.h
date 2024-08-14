@@ -303,7 +303,6 @@ typedef struct _GLFWlibraryWGL
     GLFWbool                            ARB_pixel_format;
     GLFWbool                            ARB_create_context;
     GLFWbool                            ARB_create_context_profile;
-    GLFWbool                            EXT_create_context_es2_profile;
     GLFWbool                            ARB_create_context_robustness;
     GLFWbool                            ARB_create_context_no_error;
     GLFWbool                            ARB_context_flush_control;
