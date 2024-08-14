@@ -84,13 +84,6 @@ static GLFWbool refreshVideoModes(_GLFWmonitor* monitor)
     return GLFW_TRUE;
 }
 
-
-//////////////////////////////////////////////////////////////////////////
-//////                         GLFW event API                       //////
-//////////////////////////////////////////////////////////////////////////
-
-// Notifies shared code of a monitor connection or disconnection
-//
 void _glfwInputMonitor(_GLFWmonitor* monitor, int action, int placement)
 {
     assert(monitor != NULL);
@@ -101,14 +94,11 @@ void _glfwInputMonitor(_GLFWmonitor* monitor, int action, int placement)
     {
         _glfw.monitorCount++;
         _glfw.monitors =
-            _glfw_realloc(_glfw.monitors,
-                          sizeof(_GLFWmonitor*) * _glfw.monitorCount);
+            _glfw_realloc(_glfw.monitors, sizeof(_GLFWmonitor*) * _glfw.monitorCount);
 
         if (placement == _GLFW_INSERT_FIRST)
         {
-            memmove(_glfw.monitors + 1,
-                    _glfw.monitors,
-                    ((size_t) _glfw.monitorCount - 1) * sizeof(_GLFWmonitor*));
+            memmove(_glfw.monitors + 1, _glfw.monitors, ((size_t) _glfw.monitorCount - 1) * sizeof(_GLFWmonitor*));
             _glfw.monitors[0] = monitor;
         }
         else
@@ -133,16 +123,11 @@ void _glfwInputMonitor(_GLFWmonitor* monitor, int action, int placement)
             if (_glfw.monitors[i] == monitor)
             {
                 _glfw.monitorCount--;
-                memmove(_glfw.monitors + i,
-                        _glfw.monitors + i + 1,
-                        ((size_t) _glfw.monitorCount - i) * sizeof(_GLFWmonitor*));
+                memmove(_glfw.monitors + i, _glfw.monitors + i + 1, ((size_t) _glfw.monitorCount - i) * sizeof(_GLFWmonitor*));
                 break;
             }
         }
     }
-
-    if (_glfw.callbacks.monitor)
-        _glfw.callbacks.monitor((GLFWmonitor*) monitor, action);
 
     if (action == GLFW_DISCONNECTED)
         _glfwFreeMonitor(monitor);
@@ -317,12 +302,6 @@ void glfwGetMonitorContentScale(GLFWmonitor* handle, float* xscale, float* yscal
     assert(monitor != NULL);
 
     _glfw.platform.getMonitorContentScale(monitor, xscale, yscale);
-}
-
-GLFWmonitorfun glfwSetMonitorCallback(GLFWmonitorfun cbfun)
-{
-    _GLFW_SWAP(GLFWmonitorfun, _glfw.callbacks.monitor, cbfun);
-    return cbfun;
 }
 
 const GLFWvidmode* glfwGetVideoModes(GLFWmonitor* handle, int* count)

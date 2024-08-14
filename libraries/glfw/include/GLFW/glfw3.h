@@ -331,7 +331,6 @@ typedef void (* GLFWkeyfun)(GLFWwindow* window, int key, int scancode, int actio
 typedef void (* GLFWcharfun)(GLFWwindow* window, unsigned int codepoint);
 typedef void (* GLFWcharmodsfun)(GLFWwindow* window, unsigned int codepoint, int mods);
 typedef void (* GLFWdropfun)(GLFWwindow* window, int path_count, const char* paths[]);
-typedef void (* GLFWmonitorfun)(GLFWmonitor* monitor, int event);
 
 typedef struct GLFWvidmode
 {
@@ -363,7 +362,6 @@ void glfwGetMonitorWorkarea(GLFWmonitor* monitor, int* xpos, int* ypos, int* wid
 void glfwGetMonitorPhysicalSize(GLFWmonitor* monitor, int* widthMM, int* heightMM);
 void glfwGetMonitorContentScale(GLFWmonitor* monitor, float* xscale, float* yscale);
 
-GLFWmonitorfun glfwSetMonitorCallback(GLFWmonitorfun callback);
 const GLFWvidmode* glfwGetVideoModes(GLFWmonitor* monitor, int* count);
 const GLFWvidmode* glfwGetVideoMode(GLFWmonitor* monitor);
 

@@ -369,10 +369,6 @@ struct _GLFWlibrary
         GLFW_PLATFORM_LIBRARY_TIMER_STATE
     } timer;
 
-    struct {
-        GLFWmonitorfun  monitor;
-    } callbacks;
-
     GLFW_PLATFORM_LIBRARY_WINDOW_STATE
     GLFW_PLATFORM_LIBRARY_CONTEXT_STATE
 };
