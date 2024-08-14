@@ -708,22 +708,6 @@ void glfwSetWindowMonitor(GLFWwindow* wh, GLFWmonitor* mh, int xpos, int ypos, i
     _glfw.platform.setWindowMonitor(window, monitor, xpos, ypos, width, height, refreshRate);
 }
 
-void glfwSetWindowUserPointer(GLFWwindow* handle, void* pointer)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    window->userPointer = pointer;
-}
-
-void* glfwGetWindowUserPointer(GLFWwindow* handle)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    return window->userPointer;
-}
-
 GLFWwindowsizefun glfwSetWindowSizeCallback(GLFWwindow* handle, GLFWwindowsizefun cbfun)
 {
     _GLFWwindow* window = (_GLFWwindow*) handle;

@@ -197,7 +197,6 @@ struct _GLFWwindow
 {
     struct _GLFWwindow* next;
 
-    // Window settings and state
     GLFWbool            resizable;
     GLFWbool            decorated;
     GLFWbool            autoIconify;
@@ -205,7 +204,6 @@ struct _GLFWwindow
     GLFWbool            focusOnShow;
     GLFWbool            mousePassthrough;
     GLFWbool            shouldClose;
-    void*               userPointer;
     GLFWbool            doublebuffer;
     GLFWvidmode         videoMode;
     _GLFWmonitor*       monitor;
