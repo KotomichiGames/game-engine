@@ -1652,11 +1652,6 @@ void _glfwHideWindowWin32(_GLFWwindow* window)
     ShowWindow(window->win32.handle, SW_HIDE);
 }
 
-void _glfwRequestWindowAttentionWin32(_GLFWwindow* window)
-{
-    FlashWindow(window->win32.handle, TRUE);
-}
-
 void _glfwFocusWindowWin32(_GLFWwindow* window)
 {
     BringWindowToTop(window->win32.handle);
