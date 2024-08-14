@@ -101,11 +101,6 @@ struct _GLFWerror
     char            description[_GLFW_MESSAGE_SIZE];
 };
 
-struct _GLFWinitconfig
-{
-    int           platformID;
-};
-
 struct _GLFWwndconfig
 {
     int           xpos;
@@ -320,7 +315,6 @@ struct _GLFWlibrary
     _GLFWplatform       platform;
 
     struct {
-        _GLFWinitconfig init;
         _GLFWfbconfig   framebuffer;
         _GLFWwndconfig  window;
         _GLFWctxconfig  context;

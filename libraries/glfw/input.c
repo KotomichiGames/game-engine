@@ -30,7 +30,6 @@
 #include <assert.h>
 #include <float.h>
 
-// Internal key state used for sticky keys
 #define _GLFW_STICK 3
 
 #define GLFW_MOD_MASK (GLFW_MOD_SHIFT | \
@@ -40,12 +39,6 @@
                        GLFW_MOD_CAPS_LOCK | \
                        GLFW_MOD_NUM_LOCK)
 
-//////////////////////////////////////////////////////////////////////////
-//////                         GLFW event API                       //////
-//////////////////////////////////////////////////////////////////////////
-
-// Notifies shared code of a physical key event
-//
 void _glfwInputKey(_GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     assert(window != NULL);
@@ -80,9 +73,6 @@ void _glfwInputKey(_GLFWwindow* window, int key, int scancode, int action, int m
         window->callbacks.key((GLFWwindow*) window, key, scancode, action, mods);
 }
 
-// Notifies shared code of a Unicode codepoint input event
-// The 'plain' parameter determines whether to emit a regular character event
-//
 void _glfwInputChar(_GLFWwindow* window, uint32_t codepoint, int mods, GLFWbool plain)
 {
     assert(window != NULL);
@@ -105,8 +95,6 @@ void _glfwInputChar(_GLFWwindow* window, uint32_t codepoint, int mods, GLFWbool 
     }
 }
 
-// Notifies shared code of a scroll event
-//
 void _glfwInputScroll(_GLFWwindow* window, double xoffset, double yoffset)
 {
     assert(window != NULL);
@@ -119,8 +107,6 @@ void _glfwInputScroll(_GLFWwindow* window, double xoffset, double yoffset)
         window->callbacks.scroll((GLFWwindow*) window, xoffset, yoffset);
 }
 
-// Notifies shared code of a mouse button click event
-//
 void _glfwInputMouseClick(_GLFWwindow* window, int button, int action, int mods)
 {
     assert(window != NULL);
@@ -146,9 +132,6 @@ void _glfwInputMouseClick(_GLFWwindow* window, int button, int action, int mods)
         window->callbacks.mouseButton((GLFWwindow*) window, button, action, mods);
 }
 
-// Notifies shared code of a cursor motion event
-// The position is specified in content area relative screen coordinates
-//
 void _glfwInputCursorPos(_GLFWwindow* window, double xpos, double ypos)
 {
     assert(window != NULL);
@@ -167,8 +150,6 @@ void _glfwInputCursorPos(_GLFWwindow* window, double xpos, double ypos)
         window->callbacks.cursorPos((GLFWwindow*) window, xpos, ypos);
 }
 
-// Notifies shared code of a cursor enter/leave event
-//
 void _glfwInputCursorEnter(_GLFWwindow* window, GLFWbool entered)
 {
     assert(window != NULL);
@@ -178,8 +159,6 @@ void _glfwInputCursorEnter(_GLFWwindow* window, GLFWbool entered)
         window->callbacks.cursorEnter((GLFWwindow*) window, entered);
 }
 
-// Notifies shared code of files or directories dropped on a window
-//
 void _glfwInputDrop(_GLFWwindow* window, int count, const char** paths)
 {
     assert(window != NULL);
@@ -413,9 +392,7 @@ void glfwSetCursorPos(GLFWwindow* handle, double xpos, double ypos)
     if (xpos != xpos || xpos < -DBL_MAX || xpos > DBL_MAX ||
         ypos != ypos || ypos < -DBL_MAX || ypos > DBL_MAX)
     {
-        _glfwInputError(GLFW_INVALID_VALUE,
-                        "Invalid cursor position %f %f",
-                        xpos, ypos);
+        _glfwInputError(GLFW_INVALID_VALUE, "Invalid cursor position %f %f", xpos, ypos);
         return;
     }
 

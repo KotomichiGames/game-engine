@@ -35,10 +35,6 @@
 _GLFWlibrary _glfw = { GLFW_FALSE };
 
 static _GLFWerror _glfwMainThreadError;
-static _GLFWinitconfig _glfwInitHints =
-{
-    .platformID   = GLFW_PLATFORM_WIN32
-};
 
 static void terminate(void)
 {
@@ -211,9 +207,8 @@ int glfwInit(void)
         return GLFW_TRUE;
 
     memset(&_glfw, 0, sizeof(_glfw));
-    _glfw.hints.init = _glfwInitHints;
 
-    if (!_glfwSelectPlatform(_glfw.hints.init.platformID, &_glfw.platform))
+    if (!_glfwSelectPlatform(GLFW_PLATFORM_WIN32, &_glfw.platform))
         return GLFW_FALSE;
 
     if (!_glfw.platform.init())
