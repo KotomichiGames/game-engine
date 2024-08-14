@@ -67,12 +67,11 @@ static int compareVideoModes(const void* fp, const void* sp)
 static GLFWbool refreshVideoModes(_GLFWmonitor* monitor)
 {
     int modeCount;
-    GLFWvidmode* modes;
 
     if (monitor->modes)
         return GLFW_TRUE;
 
-    modes = _glfw.platform.getVideoModes(monitor, &modeCount);
+    GLFWvidmode* modes = _glfw.platform.getVideoModes(monitor, &modeCount);
     if (!modes)
         return GLFW_FALSE;
 
@@ -117,10 +116,7 @@ void _glfwInputMonitor(_GLFWmonitor* monitor, int action, int placement)
     }
     else if (action == GLFW_DISCONNECTED)
     {
-        int i;
-        _GLFWwindow* window;
-
-        for (window = _glfw.windowListHead;  window;  window = window->next)
+        for (_GLFWwindow* window = _glfw.windowListHead;  window;  window = window->next)
         {
             if (window->monitor == monitor)
             {
@@ -132,7 +128,7 @@ void _glfwInputMonitor(_GLFWmonitor* monitor, int action, int placement)
             }
         }
 
-        for (i = 0;  i < _glfw.monitorCount;  i++)
+        for (int i = 0;  i < _glfw.monitorCount;  i++)
         {
             if (_glfw.monitors[i] == monitor)
             {
@@ -410,7 +406,6 @@ const GLFWvidmode* glfwGetVideoMode(GLFWmonitor* handle)
 
 void glfwSetGamma(GLFWmonitor* handle, float gamma)
 {
-    unsigned int i;
     GLFWgammaramp ramp;
     assert(gamma > 0.f);
     assert(gamma <= FLT_MAX);
@@ -428,12 +423,10 @@ void glfwSetGamma(GLFWmonitor* handle, float gamma)
 
     unsigned short* values = _glfw_calloc(original->size, sizeof(unsigned short));
 
-    for (i = 0;  i < original->size;  i++)
+    for (unsigned int i = 0;  i < original->size;  i++)
     {
-        float value;
-
         // Calculate intensity
-        value = i / (float) (original->size - 1);
+        float value = i / (float)(original->size - 1);
         // Apply gamma curve
         value = powf(value, 1.f / gamma) * 65535.f + 0.5f;
         // Clamp to value range

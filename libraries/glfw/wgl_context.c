@@ -32,16 +32,9 @@
 #include <stdlib.h>
 #include <assert.h>
 
-// Return the value corresponding to the specified attribute
-//
-static int findPixelFormatAttribValueWGL(const int* attribs,
-                                         int attribCount,
-                                         const int* values,
-                                         int attrib)
+static int findPixelFormatAttribValueWGL(const int* attribs, int attribCount, const int* values, int attrib)
 {
-    int i;
-
-    for (i = 0;  i < attribCount;  i++)
+    for (int i = 0;  i < attribCount;  i++)
     {
         if (attribs[i] == attrib)
             return values[i];
@@ -62,17 +55,12 @@ static int findPixelFormatAttribValueWGL(const int* attribs,
 
 // Return a list of available and usable framebuffer configs
 //
-static int choosePixelFormatWGL(_GLFWwindow* window,
-                                const _GLFWctxconfig* ctxconfig,
-                                const _GLFWfbconfig* fbconfig)
+static int choosePixelFormatWGL(_GLFWwindow* window, const _GLFWctxconfig* ctxconfig, const _GLFWfbconfig* fbconfig)
 {
-    int pixelFormat, nativeCount, usableCount = 0, attribCount = 0;
+    int pixelFormat, usableCount = 0, attribCount = 0;
     int attribs[40];
 
-    nativeCount = DescribePixelFormat(window->context.wgl.dc,
-                                      1,
-                                      sizeof(PIXELFORMATDESCRIPTOR),
-                                      NULL);
+    int nativeCount = DescribePixelFormat(window->context.wgl.dc, 1, sizeof(PIXELFORMATDESCRIPTOR), NULL);
 
     if (_glfw.wgl.ARB_pixel_format)
     {
@@ -115,11 +103,9 @@ static int choosePixelFormatWGL(_GLFWwindow* window,
         const int attrib = WGL_NUMBER_PIXEL_FORMATS_ARB;
         int extensionCount;
 
-        if (!wglGetPixelFormatAttribivARB(window->context.wgl.dc,
-                                          1, 0, 1, &attrib, &extensionCount))
+        if (!wglGetPixelFormatAttribivARB(window->context.wgl.dc, 1, 0, 1, &attrib, &extensionCount))
         {
-            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                 "WGL: Failed to retrieve pixel format attribute");
+            _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to retrieve pixel format attribute");
             return 0;
         }
 
@@ -143,8 +129,7 @@ static int choosePixelFormatWGL(_GLFWwindow* window,
                                               attribCount,
                                               attribs, values))
             {
-                _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                    "WGL: Failed to retrieve pixel format attributes");
+                _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to retrieve pixel format attributes");
 
                 _glfw_free(usableConfigs);
                 return 0;

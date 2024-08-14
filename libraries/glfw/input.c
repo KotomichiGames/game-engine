@@ -331,29 +331,6 @@ int glfwRawMouseMotionSupported(void)
     return _glfw.platform.rawMouseMotionSupported();
 }
 
-const char* glfwGetKeyName(int key, int scancode)
-{
-    if (key != GLFW_KEY_UNKNOWN)
-    {
-        if (key < GLFW_KEY_SPACE || key > GLFW_KEY_LAST)
-        {
-            _glfwInputError(GLFW_INVALID_ENUM, "Invalid key %i", key);
-            return NULL;
-        }
-
-        if (key != GLFW_KEY_KP_EQUAL &&
-            (key < GLFW_KEY_KP_0 || key > GLFW_KEY_KP_ADD) &&
-            (key < GLFW_KEY_APOSTROPHE || key > GLFW_KEY_WORLD_2))
-        {
-            return NULL;
-        }
-
-        scancode = _glfw.platform.getKeyScancode(key);
-    }
-
-    return _glfw.platform.getScancodeName(scancode);
-}
-
 int glfwGetKeyScancode(int key)
 {
     if (key < GLFW_KEY_SPACE || key > GLFW_KEY_LAST)
@@ -521,9 +498,7 @@ void glfwDestroyCursor(GLFWcursor* handle)
 
     // Make sure the cursor is not being used by any window
     {
-        _GLFWwindow* window;
-
-        for (window = _glfw.windowListHead;  window;  window = window->next)
+        for (_GLFWwindow* window = _glfw.windowListHead;  window;  window = window->next)
         {
             if (window->cursor == cursor)
                 glfwSetCursor((GLFWwindow*) window, NULL);
