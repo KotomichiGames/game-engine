@@ -1350,8 +1350,7 @@ static int createNativeWindow(_GLFWwindow* window, const _GLFWwndconfig* wndconf
     return GLFW_TRUE;
 }
 
-GLFWbool _glfwCreateWindowWin32(_GLFWwindow* window, const _GLFWwndconfig* wndconfig, const _GLFWctxconfig* ctxconfig,
-                                const _GLFWfbconfig* fbconfig)
+GLFWbool _glfwCreateWindowWin32(_GLFWwindow* window, const _GLFWwndconfig* wndconfig, const _GLFWctxconfig* ctxconfig, const _GLFWfbconfig* fbconfig)
 {
     if (!createNativeWindow(window, wndconfig, fbconfig))
         return GLFW_FALSE;
@@ -1375,7 +1374,7 @@ GLFWbool _glfwCreateWindowWin32(_GLFWwindow* window, const _GLFWwndconfig* wndco
 
     if (window->monitor)
     {
-        _glfwShowWindowWin32(window);
+        ShowWindow(window->win32.handle, SW_SHOWNA);
         _glfwFocusWindowWin32(window);
         acquireMonitor(window);
         fitToMonitor(window);
@@ -1387,7 +1386,7 @@ GLFWbool _glfwCreateWindowWin32(_GLFWwindow* window, const _GLFWwndconfig* wndco
     {
         if (wndconfig->visible)
         {
-            _glfwShowWindowWin32(window);
+            ShowWindow(window->win32.handle, SW_SHOWNA);
             if (wndconfig->focused)
                 _glfwFocusWindowWin32(window);
         }
@@ -1617,16 +1616,6 @@ void _glfwMaximizeWindowWin32(_GLFWwindow* window)
         ShowWindow(window->win32.handle, SW_MAXIMIZE);
     else
         maximizeWindowManually(window);
-}
-
-void _glfwShowWindowWin32(_GLFWwindow* window)
-{
-    ShowWindow(window->win32.handle, SW_SHOWNA);
-}
-
-void _glfwHideWindowWin32(_GLFWwindow* window)
-{
-    ShowWindow(window->win32.handle, SW_HIDE);
 }
 
 void _glfwFocusWindowWin32(_GLFWwindow* window)

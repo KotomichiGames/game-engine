@@ -620,31 +620,6 @@ void glfwMaximizeWindow(GLFWwindow* handle)
     _glfw.platform.maximizeWindow(window);
 }
 
-void glfwShowWindow(GLFWwindow* handle)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    if (window->monitor)
-        return;
-
-    _glfw.platform.showWindow(window);
-
-    if (window->focusOnShow)
-        _glfw.platform.focusWindow(window);
-}
-
-void glfwHideWindow(GLFWwindow* handle)
-{
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    if (window->monitor)
-        return;
-
-    _glfw.platform.hideWindow(window);
-}
-
 void glfwFocusWindow(GLFWwindow* handle)
 {
     _GLFWwindow* window = (_GLFWwindow*) handle;
