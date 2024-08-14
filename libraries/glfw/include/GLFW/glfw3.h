@@ -195,12 +195,7 @@ extern "C" {
 #define GLFW_MOUSE_BUTTON_1         0
 #define GLFW_MOUSE_BUTTON_2         1
 #define GLFW_MOUSE_BUTTON_3         2
-#define GLFW_MOUSE_BUTTON_4         3
-#define GLFW_MOUSE_BUTTON_5         4
-#define GLFW_MOUSE_BUTTON_6         5
-#define GLFW_MOUSE_BUTTON_7         6
-#define GLFW_MOUSE_BUTTON_8         7
-#define GLFW_MOUSE_BUTTON_LAST      GLFW_MOUSE_BUTTON_8
+#define GLFW_MOUSE_BUTTON_LAST      GLFW_MOUSE_BUTTON_3
 #define GLFW_MOUSE_BUTTON_LEFT      GLFW_MOUSE_BUTTON_1
 #define GLFW_MOUSE_BUTTON_RIGHT     GLFW_MOUSE_BUTTON_2
 #define GLFW_MOUSE_BUTTON_MIDDLE    GLFW_MOUSE_BUTTON_3
@@ -373,16 +368,9 @@ void glfwSetWindowShouldClose(GLFWwindow* window, int value);
 void glfwSetWindowTitle(GLFWwindow* window, const char* title);
 void glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
 
-void glfwGetWindowSize(GLFWwindow* window, int* width, int* height);
-
 void glfwSetWindowSizeLimits(GLFWwindow* window, int minwidth, int minheight, int maxwidth, int maxheight);
 void glfwSetWindowAspectRatio(GLFWwindow* window, int numer, int denom);
-
 void glfwSetWindowSize(GLFWwindow* window, int width, int height);
-void glfwGetFramebufferSize(GLFWwindow* window, int* width, int* height);
-
-void glfwGetWindowFrameSize(GLFWwindow* window, int* left, int* top, int* right, int* bottom);
-void glfwGetWindowContentScale(GLFWwindow* window, float* xscale, float* yscale);
 
 void glfwIconifyWindow(GLFWwindow* window);
 void glfwRestoreWindow(GLFWwindow* window);

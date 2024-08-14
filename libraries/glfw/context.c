@@ -454,10 +454,6 @@ GLFWbool _glfwStringInExtensionString(const char* string, const char* extensions
     return GLFW_TRUE;
 }
 
-//////////////////////////////////////////////////////////////////////////
-//////                        GLFW public API                       //////
-//////////////////////////////////////////////////////////////////////////
-
 void glfwMakeContextCurrent(GLFWwindow* handle)
 {
     _GLFWwindow* window   = (_GLFWwindow*) handle;
