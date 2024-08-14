@@ -458,7 +458,7 @@ GLFWbool _glfwStringInExtensionString(const char* string, const char* extensions
 //////                        GLFW public API                       //////
 //////////////////////////////////////////////////////////////////////////
 
-GLFWAPI void glfwMakeContextCurrent(GLFWwindow* handle)
+void glfwMakeContextCurrent(GLFWwindow* handle)
 {
     _GLFWwindow* window   = (_GLFWwindow*) handle;
     _GLFWwindow* previous = _glfwPlatformGetTls(&_glfw.contextSlot);
@@ -479,7 +479,7 @@ GLFWAPI void glfwMakeContextCurrent(GLFWwindow* handle)
         window->context.makeCurrent(window);
 }
 
-GLFWAPI void glfwSwapBuffers(GLFWwindow* handle)
+void glfwSwapBuffers(GLFWwindow* handle)
 {
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
@@ -493,19 +493,7 @@ GLFWAPI void glfwSwapBuffers(GLFWwindow* handle)
     window->context.swapBuffers(window);
 }
 
-GLFWAPI void glfwSwapInterval(int interval)
-{
-    _GLFWwindow* window = _glfwPlatformGetTls(&_glfw.contextSlot);
-    if (!window)
-    {
-        _glfwInputError(GLFW_NO_CURRENT_CONTEXT, "Cannot set swap interval without a current OpenGL or OpenGL ES context");
-        return;
-    }
-
-    window->context.swapInterval(interval);
-}
-
-GLFWAPI int glfwExtensionSupported(const char* extension)
+int glfwExtensionSupported(const char* extension)
 {
     assert(extension != NULL);
 
@@ -562,7 +550,7 @@ GLFWAPI int glfwExtensionSupported(const char* extension)
     return window->context.extensionSupported(extension);
 }
 
-GLFWAPI GLFWglproc glfwGetProcAddress(const char* procname)
+GLFWglproc glfwGetProcAddress(const char* procname)
 {
     assert(procname != NULL);
 

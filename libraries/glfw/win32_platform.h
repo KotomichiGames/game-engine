@@ -261,12 +261,10 @@ typedef LONG (WINAPI * PFN_RtlVerifyVersionInfo)(OSVERSIONINFOEXW*,ULONG,ULONGLO
 #define RtlVerifyVersionInfo _glfw.win32.ntdll.RtlVerifyVersionInfo_
 
 // WGL extension pointer typedefs
-typedef BOOL (WINAPI * PFNWGLSWAPINTERVALEXTPROC)(int);
 typedef BOOL (WINAPI * PFNWGLGETPIXELFORMATATTRIBIVARBPROC)(HDC,int,int,UINT,const int*,int*);
 typedef const char* (WINAPI * PFNWGLGETEXTENSIONSSTRINGEXTPROC)(void);
 typedef const char* (WINAPI * PFNWGLGETEXTENSIONSSTRINGARBPROC)(HDC);
 typedef HGLRC (WINAPI * PFNWGLCREATECONTEXTATTRIBSARBPROC)(HDC,HGLRC,const int*);
-#define wglSwapIntervalEXT _glfw.wgl.SwapIntervalEXT
 #define wglGetPixelFormatAttribivARB _glfw.wgl.GetPixelFormatAttribivARB
 #define wglGetExtensionsStringEXT _glfw.wgl.GetExtensionsStringEXT
 #define wglGetExtensionsStringARB _glfw.wgl.GetExtensionsStringARB
@@ -315,7 +313,6 @@ typedef struct _GLFWlibraryWGL
     PFN_wglGetCurrentContext            GetCurrentContext;
     PFN_wglMakeCurrent                  MakeCurrent;
 
-    PFNWGLSWAPINTERVALEXTPROC           SwapIntervalEXT;
     PFNWGLGETPIXELFORMATATTRIBIVARBPROC GetPixelFormatAttribivARB;
     PFNWGLGETEXTENSIONSSTRINGEXTPROC    GetExtensionsStringEXT;
     PFNWGLGETEXTENSIONSSTRINGARBPROC    GetExtensionsStringARB;

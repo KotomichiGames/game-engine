@@ -100,20 +100,6 @@ typedef const GLubyte* (APIENTRY * PFNGLGETSTRINGIPROC)(GLenum,GLuint);
 #define GLFW_NATIVE_INCLUDE_NONE
 #include "GLFW/glfw3native.h"
 
-// Checks for whether the library has been initialized
-#define _GLFW_REQUIRE_INIT()                         \
-    if (!_glfw.initialized)                          \
-    {                                                \
-        _glfwInputError(GLFW_NOT_INITIALIZED, NULL); \
-        return;                                      \
-    }
-#define _GLFW_REQUIRE_INIT_OR_RETURN(x)              \
-    if (!_glfw.initialized)                          \
-    {                                                \
-        _glfwInputError(GLFW_NOT_INITIALIZED, NULL); \
-        return x;                                    \
-    }
-
 // Swaps the provided pointers
 #define _GLFW_SWAP(type, x, y) \
     {                          \
@@ -123,8 +109,6 @@ typedef const GLubyte* (APIENTRY * PFNGLGETSTRINGIPROC)(GLenum,GLuint);
         y = t;                 \
     }
 
-// Per-thread error structure
-//
 struct _GLFWerror
 {
     _GLFWerror*     next;
@@ -132,21 +116,11 @@ struct _GLFWerror
     char            description[_GLFW_MESSAGE_SIZE];
 };
 
-// Initialization configuration
-//
-// Parameters relating to the initialization of the library
-//
 struct _GLFWinitconfig
 {
     int           platformID;
 };
 
-// Window configuration
-//
-// Parameters relating to the creation of the window but not directly related
-// to the framebuffer.  This is used to pass window creation parameters from
-// shared code to the platform API.
-//
 struct _GLFWwndconfig
 {
     int           xpos;
@@ -168,12 +142,6 @@ struct _GLFWwndconfig
     GLFWbool      scaleFramebuffer;
 };
 
-// Context configuration
-//
-// Parameters relating to the creation of the context but not directly related
-// to the framebuffer.  This is used to pass context creation parameters from
-// shared code to the platform API.
-//
 struct _GLFWctxconfig
 {
     int           client;
@@ -186,14 +154,6 @@ struct _GLFWctxconfig
     int           release;
 };
 
-// Framebuffer configuration
-//
-// This describes buffers and their sizes.  It also contains
-// a platform-specific ID used to map back to the backend API object.
-//
-// It is used to pass framebuffer parameters from shared code to the platform
-// API and also to enumerate and select available framebuffer configs.
-//
 struct _GLFWfbconfig
 {
     int         redBits;
@@ -210,8 +170,6 @@ struct _GLFWfbconfig
     uintptr_t   handle;
 };
 
-// Context structure
-//
 struct _GLFWcontext
 {
     int                 client;
@@ -228,17 +186,13 @@ struct _GLFWcontext
 
     void (*makeCurrent)(_GLFWwindow*);
     void (*swapBuffers)(_GLFWwindow*);
-    void (*swapInterval)(int);
     int (*extensionSupported)(const char*);
     GLFWglproc (*getProcAddress)(const char*);
     void (*destroy)(_GLFWwindow*);
 
-    // This is defined in platform.h
     GLFW_PLATFORM_CONTEXT_STATE
 };
 
-// Window and context structure
-//
 struct _GLFWwindow
 {
     struct _GLFWwindow* next;
@@ -299,8 +253,6 @@ struct _GLFWwindow
     GLFW_PLATFORM_WINDOW_STATE
 };
 
-// Monitor structure
-//
 struct _GLFWmonitor
 {
     char            name[128];
@@ -323,8 +275,6 @@ struct _GLFWmonitor
     GLFW_PLATFORM_MONITOR_STATE
 };
 
-// Cursor structure
-//
 struct _GLFWcursor
 {
     _GLFWcursor*    next;
@@ -332,24 +282,18 @@ struct _GLFWcursor
     GLFW_PLATFORM_CURSOR_STATE
 };
 
-// Thread local storage structure
-//
 struct _GLFWtls
 {
     // This is defined in platform.h
     GLFW_PLATFORM_TLS_STATE
 };
 
-// Mutex structure
-//
 struct _GLFWmutex
 {
     // This is defined in platform.h
     GLFW_PLATFORM_MUTEX_STATE
 };
 
-// Platform API structure
-//
 struct _GLFWplatform
 {
     int platformID;
@@ -412,8 +356,6 @@ struct _GLFWplatform
     void (*pollEvents)(void);
 };
 
-// Library global data
-//
 struct _GLFWlibrary
 {
     GLFWbool            initialized;
@@ -454,13 +396,7 @@ struct _GLFWlibrary
     GLFW_PLATFORM_LIBRARY_CONTEXT_STATE
 };
 
-// Global state shared between compilation units of GLFW
-//
 extern _GLFWlibrary _glfw;
-
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW platform API                      //////
-//////////////////////////////////////////////////////////////////////////
 
 void _glfwPlatformInitTimer(void);
 uint64_t _glfwPlatformGetTimerValue(void);
@@ -475,10 +411,6 @@ GLFWbool _glfwPlatformCreateMutex(_GLFWmutex* mutex);
 void _glfwPlatformDestroyMutex(_GLFWmutex* mutex);
 void _glfwPlatformLockMutex(_GLFWmutex* mutex);
 void _glfwPlatformUnlockMutex(_GLFWmutex* mutex);
-
-//////////////////////////////////////////////////////////////////////////
-//////                         GLFW event API                       //////
-//////////////////////////////////////////////////////////////////////////
 
 void _glfwInputWindowFocus(_GLFWwindow* window, GLFWbool focused);
 void _glfwInputWindowPos(_GLFWwindow* window, int xpos, int ypos);
@@ -508,10 +440,6 @@ void _glfwInputError(int code, const char* format, ...)
 #else
 void _glfwInputError(int code, const char* format, ...);
 #endif
-
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW internal API                      //////
-//////////////////////////////////////////////////////////////////////////
 
 GLFWbool _glfwSelectPlatform(int platformID, _GLFWplatform* platform);
 
