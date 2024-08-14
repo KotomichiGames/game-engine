@@ -31,10 +31,6 @@
 
 #include <assert.h>
 
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW platform API                      //////
-//////////////////////////////////////////////////////////////////////////
-
 GLFWbool _glfwPlatformCreateTls(_GLFWtls* tls)
 {
     assert(tls->win32.allocated == GLFW_FALSE);
@@ -96,4 +92,3 @@ void _glfwPlatformUnlockMutex(_GLFWmutex* mutex)
 }
 
 #endif // GLFW_BUILD_WIN32_THREAD
-
