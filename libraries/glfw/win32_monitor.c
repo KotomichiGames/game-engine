@@ -494,43 +494,6 @@ GLFWbool _glfwGetVideoModeWin32(_GLFWmonitor* monitor, GLFWvidmode* mode)
     return GLFW_TRUE;
 }
 
-GLFWbool _glfwGetGammaRampWin32(_GLFWmonitor* monitor, GLFWgammaramp* ramp)
-{
-    WORD values[3][256];
-
-    HDC dc = CreateDCW(L"DISPLAY", monitor->win32.adapterName, NULL, NULL);
-    GetDeviceGammaRamp(dc, values);
-    DeleteDC(dc);
-
-    _glfwAllocGammaArrays(ramp, 256);
-
-    memcpy(ramp->red,   values[0], sizeof(values[0]));
-    memcpy(ramp->green, values[1], sizeof(values[1]));
-    memcpy(ramp->blue,  values[2], sizeof(values[2]));
-
-    return GLFW_TRUE;
-}
-
-void _glfwSetGammaRampWin32(_GLFWmonitor* monitor, const GLFWgammaramp* ramp)
-{
-    WORD values[3][256];
-
-    if (ramp->size != 256)
-    {
-        _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "Win32: Gamma ramp size must be 256");
-        return;
-    }
-
-    memcpy(values[0], ramp->red,   sizeof(values[0]));
-    memcpy(values[1], ramp->green, sizeof(values[1]));
-    memcpy(values[2], ramp->blue,  sizeof(values[2]));
-
-    HDC dc = CreateDCW(L"DISPLAY", monitor->win32.adapterName, NULL, NULL);
-    SetDeviceGammaRamp(dc, values);
-    DeleteDC(dc);
-}
-
 const char* glfwGetWin32Adapter(GLFWmonitor* handle)
 {
     if (_glfw.platform.platformID != GLFW_PLATFORM_WIN32)

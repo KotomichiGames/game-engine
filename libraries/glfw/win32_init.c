@@ -447,8 +447,6 @@ GLFWbool _glfwConnectWin32(int platformID, _GLFWplatform* platform)
         .getMonitorWorkarea = _glfwGetMonitorWorkareaWin32,
         .getVideoModes = _glfwGetVideoModesWin32,
         .getVideoMode = _glfwGetVideoModeWin32,
-        .getGammaRamp = _glfwGetGammaRampWin32,
-        .setGammaRamp = _glfwSetGammaRampWin32,
         .createWindow = _glfwCreateWindowWin32,
         .destroyWindow = _glfwDestroyWindowWin32,
         .setWindowTitle = _glfwSetWindowTitleWin32,

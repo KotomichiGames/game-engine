@@ -55,8 +55,6 @@ static void terminate(void)
     for (int i = 0;  i < _glfw.monitorCount;  i++)
     {
         _GLFWmonitor* monitor = _glfw.monitors[i];
-        if (monitor->originalRamp.size)
-            _glfw.platform.setGammaRamp(monitor, &monitor->originalRamp);
         _glfwFreeMonitor(monitor);
     }
 

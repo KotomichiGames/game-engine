@@ -169,8 +169,6 @@ _GLFWmonitor* _glfwAllocMonitor(const char* name, int widthMM, int heightMM)
     return monitor;
 }
 
-// Frees a monitor object and any data associated with it
-//
 void _glfwFreeMonitor(_GLFWmonitor* monitor)
 {
     if (monitor == NULL)
@@ -178,28 +176,8 @@ void _glfwFreeMonitor(_GLFWmonitor* monitor)
 
     _glfw.platform.freeMonitor(monitor);
 
-    _glfwFreeGammaArrays(&monitor->originalRamp);
-    _glfwFreeGammaArrays(&monitor->currentRamp);
-
     _glfw_free(monitor->modes);
     _glfw_free(monitor);
-}
-
-void _glfwAllocGammaArrays(GLFWgammaramp* ramp, unsigned int size)
-{
-    ramp->red = _glfw_calloc(size, sizeof(unsigned short));
-    ramp->green = _glfw_calloc(size, sizeof(unsigned short));
-    ramp->blue = _glfw_calloc(size, sizeof(unsigned short));
-    ramp->size = size;
-}
-
-void _glfwFreeGammaArrays(GLFWgammaramp* ramp)
-{
-    _glfw_free(ramp->red);
-    _glfw_free(ramp->green);
-    _glfw_free(ramp->blue);
-
-    memset(ramp, 0, sizeof(GLFWgammaramp));
 }
 
 const GLFWvidmode* _glfwChooseVideoMode(_GLFWmonitor* monitor, const GLFWvidmode* desired)
@@ -402,82 +380,4 @@ const GLFWvidmode* glfwGetVideoMode(GLFWmonitor* handle)
         return NULL;
 
     return &monitor->currentMode;
-}
-
-void glfwSetGamma(GLFWmonitor* handle, float gamma)
-{
-    GLFWgammaramp ramp;
-    assert(gamma > 0.f);
-    assert(gamma <= FLT_MAX);
-    assert(handle != NULL);
-
-    if (gamma != gamma || gamma <= 0.f || gamma > FLT_MAX)
-    {
-        _glfwInputError(GLFW_INVALID_VALUE, "Invalid gamma value %f", gamma);
-        return;
-    }
-
-    const GLFWgammaramp* original = glfwGetGammaRamp(handle);
-    if (!original)
-        return;
-
-    unsigned short* values = _glfw_calloc(original->size, sizeof(unsigned short));
-
-    for (unsigned int i = 0;  i < original->size;  i++)
-    {
-        // Calculate intensity
-        float value = i / (float)(original->size - 1);
-        // Apply gamma curve
-        value = powf(value, 1.f / gamma) * 65535.f + 0.5f;
-        // Clamp to value range
-        value = fminf(value, 65535.f);
-
-        values[i] = (unsigned short) value;
-    }
-
-    ramp.red = values;
-    ramp.green = values;
-    ramp.blue = values;
-    ramp.size = original->size;
-
-    glfwSetGammaRamp(handle, &ramp);
-    _glfw_free(values);
-}
-
-const GLFWgammaramp* glfwGetGammaRamp(GLFWmonitor* handle)
-{
-    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
-    assert(monitor != NULL);
-
-    _glfwFreeGammaArrays(&monitor->currentRamp);
-    if (!_glfw.platform.getGammaRamp(monitor, &monitor->currentRamp))
-        return NULL;
-
-    return &monitor->currentRamp;
-}
-
-void glfwSetGammaRamp(GLFWmonitor* handle, const GLFWgammaramp* ramp)
-{
-    assert(ramp != NULL);
-    assert(ramp->size > 0);
-    assert(ramp->red != NULL);
-    assert(ramp->green != NULL);
-    assert(ramp->blue != NULL);
-
-    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
-    assert(monitor != NULL);
-
-    if (ramp->size <= 0)
-    {
-        _glfwInputError(GLFW_INVALID_VALUE, "Invalid gamma ramp size %i", ramp->size);
-        return;
-    }
-
-    if (!monitor->originalRamp.size)
-    {
-        if (!_glfw.platform.getGammaRamp(monitor, &monitor->originalRamp))
-            return;
-    }
-
-    _glfw.platform.setGammaRamp(monitor, ramp);
 }
