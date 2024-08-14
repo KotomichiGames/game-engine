@@ -455,19 +455,6 @@ void glfwSetWindowIcon(GLFWwindow* handle, int count, const GLFWimage* images)
     _glfw.platform.setWindowIcon(window, count, images);
 }
 
-void glfwGetWindowSize(GLFWwindow* handle, int* width, int* height)
-{
-    if (width)
-        *width = 0;
-    if (height)
-        *height = 0;
-
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _glfw.platform.getWindowSize(window, width, height);
-}
-
 void glfwSetWindowSize(GLFWwindow* handle, int width, int height)
 {
     assert(width >= 0);
@@ -543,49 +530,6 @@ void glfwSetWindowAspectRatio(GLFWwindow* handle, int numer, int denom)
         return;
 
     _glfw.platform.setWindowAspectRatio(window, numer, denom);
-}
-
-void glfwGetFramebufferSize(GLFWwindow* handle, int* width, int* height)
-{
-    if (width)
-        *width = 0;
-    if (height)
-        *height = 0;
-
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _glfw.platform.getFramebufferSize(window, width, height);
-}
-
-void glfwGetWindowFrameSize(GLFWwindow* handle, int* left, int* top, int* right, int* bottom)
-{
-    if (left)
-        *left = 0;
-    if (top)
-        *top = 0;
-    if (right)
-        *right = 0;
-    if (bottom)
-        *bottom = 0;
-
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _glfw.platform.getWindowFrameSize(window, left, top, right, bottom);
-}
-
-void glfwGetWindowContentScale(GLFWwindow* handle, float* xscale, float* yscale)
-{
-    if (xscale)
-        *xscale = 0.f;
-    if (yscale)
-        *yscale = 0.f;
-
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _glfw.platform.getWindowContentScale(window, xscale, yscale);
 }
 
 void glfwIconifyWindow(GLFWwindow* handle)

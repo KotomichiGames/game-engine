@@ -721,10 +721,6 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
                 button = GLFW_MOUSE_BUTTON_RIGHT;
             else if (uMsg == WM_MBUTTONDOWN || uMsg == WM_MBUTTONUP)
                 button = GLFW_MOUSE_BUTTON_MIDDLE;
-            else if (GET_XBUTTON_WPARAM(wParam) == XBUTTON1)
-                button = GLFW_MOUSE_BUTTON_4;
-            else
-                button = GLFW_MOUSE_BUTTON_5;
 
             if (uMsg == WM_LBUTTONDOWN || uMsg == WM_RBUTTONDOWN ||
                 uMsg == WM_MBUTTONDOWN || uMsg == WM_XBUTTONDOWN)
@@ -820,8 +816,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
             }
 
             size = _glfw.win32.rawInputSize;
-            if (GetRawInputData(ri, RID_INPUT, _glfw.win32.rawInput, &size,
-                                sizeof(RAWINPUTHEADER)) == (UINT) -1)
+            if (GetRawInputData(ri, RID_INPUT, _glfw.win32.rawInput, &size, sizeof(RAWINPUTHEADER)) == (UINT) -1)
             {
                 _glfwInputError(GLFW_PLATFORM_ERROR, "Win32: Failed to retrieve raw input data");
                 break;
