@@ -83,10 +83,10 @@ GLFWbool _glfwIsValidContextConfig(const _GLFWctxconfig* ctxconfig)
 
     if (ctxconfig->client == GLFW_OPENGL_API)
     {
-        if ((ctxconfig->major < 1 || ctxconfig->minor < 0) ||
-            (ctxconfig->major == 1 && ctxconfig->minor > 5) ||
-            (ctxconfig->major == 2 && ctxconfig->minor > 1) ||
-            (ctxconfig->major == 3 && ctxconfig->minor > 3))
+        if (ctxconfig->major < 1 || ctxconfig->minor < 0 ||
+           (ctxconfig->major == 1 && ctxconfig->minor > 5) ||
+           (ctxconfig->major == 2 && ctxconfig->minor > 1) ||
+           (ctxconfig->major == 3 && ctxconfig->minor > 3))
         {
             // OpenGL 1.0 is the smallest valid version
             // OpenGL 1.x series ended with version 1.5
@@ -182,16 +182,14 @@ const _GLFWfbconfig* _glfwChooseFBConfig(const _GLFWfbconfig* desired,
                                          const _GLFWfbconfig* alternatives,
                                          unsigned int count)
 {
-    unsigned int i;
     unsigned int missing, leastMissing = UINT_MAX;
     unsigned int colorDiff, leastColorDiff = UINT_MAX;
     unsigned int extraDiff, leastExtraDiff = UINT_MAX;
-    const _GLFWfbconfig* current;
     const _GLFWfbconfig* closest = NULL;
 
-    for (i = 0;  i < count;  i++)
+    for (unsigned int i = 0;  i < count;  i++)
     {
-        current = alternatives + i;
+        const _GLFWfbconfig* current = alternatives + i;
 
         if (desired->stereo > 0 && current->stereo == 0)
         {
@@ -320,8 +318,8 @@ const _GLFWfbconfig* _glfwChooseFBConfig(const _GLFWfbconfig* desired,
             closest = current;
         else if (missing == leastMissing)
         {
-            if ((colorDiff < leastColorDiff) ||
-                (colorDiff == leastColorDiff && extraDiff < leastExtraDiff))
+            if (colorDiff < leastColorDiff ||
+               (colorDiff == leastColorDiff && extraDiff < leastExtraDiff))
             {
                 closest = current;
             }
@@ -345,7 +343,6 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window,
 {
     int i;
     _GLFWwindow* previous;
-    const char* version;
     const char* prefixes[] =
     {
         "OpenGL ES-CM ",
@@ -373,7 +370,7 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window,
         return GLFW_FALSE;
     }
 
-    version = (const char*) window->context.GetString(GL_VERSION);
+    const char* version = (const char*)window->context.GetString(GL_VERSION);
     if (!version)
     {
         if (ctxconfig->client == GLFW_OPENGL_API)
@@ -460,8 +457,7 @@ GLFWbool _glfwRefreshContextAttribs(_GLFWwindow* window,
         window->context.GetStringi = (PFNGLGETSTRINGIPROC)window->context.getProcAddress("glGetStringi");
         if (!window->context.GetStringi)
         {
-            _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "Entry point retrieval is broken");
+            _glfwInputError(GLFW_PLATFORM_ERROR, "Entry point retrieval is broken");
             glfwMakeContextCurrent((GLFWwindow*) previous);
             return GLFW_FALSE;
         }

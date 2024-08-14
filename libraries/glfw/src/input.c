@@ -584,7 +584,7 @@ GLFWAPI void glfwDestroyCursor(GLFWcursor* handle)
         _GLFWcursor** prev = &_glfw.cursorListHead;
 
         while (*prev != cursor)
-            prev = &((*prev)->next);
+            prev = &(*prev)->next;
 
         *prev = cursor->next;
     }
@@ -594,8 +594,6 @@ GLFWAPI void glfwDestroyCursor(GLFWcursor* handle)
 
 GLFWAPI void glfwSetCursor(GLFWwindow* windowHandle, GLFWcursor* cursorHandle)
 {
-    _GLFW_REQUIRE_INIT();
-
     _GLFWwindow* window = (_GLFWwindow*) windowHandle;
     _GLFWcursor* cursor = (_GLFWcursor*) cursorHandle;
     assert(window != NULL);
@@ -607,8 +605,6 @@ GLFWAPI void glfwSetCursor(GLFWwindow* windowHandle, GLFWcursor* cursorHandle)
 
 GLFWAPI GLFWkeyfun glfwSetKeyCallback(GLFWwindow* handle, GLFWkeyfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -618,8 +614,6 @@ GLFWAPI GLFWkeyfun glfwSetKeyCallback(GLFWwindow* handle, GLFWkeyfun cbfun)
 
 GLFWAPI GLFWcharfun glfwSetCharCallback(GLFWwindow* handle, GLFWcharfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -629,8 +623,6 @@ GLFWAPI GLFWcharfun glfwSetCharCallback(GLFWwindow* handle, GLFWcharfun cbfun)
 
 GLFWAPI GLFWcharmodsfun glfwSetCharModsCallback(GLFWwindow* handle, GLFWcharmodsfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -641,8 +633,6 @@ GLFWAPI GLFWcharmodsfun glfwSetCharModsCallback(GLFWwindow* handle, GLFWcharmods
 GLFWAPI GLFWmousebuttonfun glfwSetMouseButtonCallback(GLFWwindow* handle,
                                                       GLFWmousebuttonfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -653,8 +643,6 @@ GLFWAPI GLFWmousebuttonfun glfwSetMouseButtonCallback(GLFWwindow* handle,
 GLFWAPI GLFWcursorposfun glfwSetCursorPosCallback(GLFWwindow* handle,
                                                   GLFWcursorposfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -665,8 +653,6 @@ GLFWAPI GLFWcursorposfun glfwSetCursorPosCallback(GLFWwindow* handle,
 GLFWAPI GLFWcursorenterfun glfwSetCursorEnterCallback(GLFWwindow* handle,
                                                       GLFWcursorenterfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -677,8 +663,6 @@ GLFWAPI GLFWcursorenterfun glfwSetCursorEnterCallback(GLFWwindow* handle,
 GLFWAPI GLFWscrollfun glfwSetScrollCallback(GLFWwindow* handle,
                                             GLFWscrollfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
     assert(window != NULL);
 
@@ -688,10 +672,8 @@ GLFWAPI GLFWscrollfun glfwSetScrollCallback(GLFWwindow* handle,
 
 GLFWAPI GLFWdropfun glfwSetDropCallback(GLFWwindow* handle, GLFWdropfun cbfun)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-
     _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
+     assert(window != NULL);
 
     _GLFW_SWAP(GLFWdropfun, window->callbacks.drop, cbfun);
     return cbfun;
@@ -699,29 +681,23 @@ GLFWAPI GLFWdropfun glfwSetDropCallback(GLFWwindow* handle, GLFWdropfun cbfun)
 
 GLFWAPI void glfwSetClipboardString(GLFWwindow* handle, const char* string)
 {
-    assert(string != NULL);
-
-    _GLFW_REQUIRE_INIT();
+     assert(string != NULL);
     _glfw.platform.setClipboardString(string);
 }
 
 GLFWAPI const char* glfwGetClipboardString(GLFWwindow* handle)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
     return _glfw.platform.getClipboardString();
 }
 
 GLFWAPI double glfwGetTime(void)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(0.0);
     return (double) (_glfwPlatformGetTimerValue() - _glfw.timer.offset) /
         _glfwPlatformGetTimerFrequency();
 }
 
 GLFWAPI void glfwSetTime(double time)
 {
-    _GLFW_REQUIRE_INIT();
-
     if (time != time || time < 0.0 || time > 18446744073.0)
     {
         _glfwInputError(GLFW_INVALID_VALUE, "Invalid time %f", time);
@@ -734,13 +710,10 @@ GLFWAPI void glfwSetTime(double time)
 
 GLFWAPI uint64_t glfwGetTimerValue(void)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(0);
     return _glfwPlatformGetTimerValue();
 }
 
 GLFWAPI uint64_t glfwGetTimerFrequency(void)
 {
-    _GLFW_REQUIRE_INIT_OR_RETURN(0);
     return _glfwPlatformGetTimerFrequency();
 }
-

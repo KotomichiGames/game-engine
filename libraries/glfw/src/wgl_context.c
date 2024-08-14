@@ -66,11 +66,8 @@ static int choosePixelFormatWGL(_GLFWwindow* window,
                                 const _GLFWctxconfig* ctxconfig,
                                 const _GLFWfbconfig* fbconfig)
 {
-    _GLFWfbconfig* usableConfigs;
-    const _GLFWfbconfig* closest;
-    int i, pixelFormat, nativeCount, usableCount = 0, attribCount = 0;
+    int pixelFormat, nativeCount, usableCount = 0, attribCount = 0;
     int attribs[40];
-    int values[sizeof(attribs) / sizeof(attribs[0])];
 
     nativeCount = DescribePixelFormat(window->context.wgl.dc,
                                       1,
@@ -134,15 +131,16 @@ static int choosePixelFormatWGL(_GLFWwindow* window,
         nativeCount = _glfw_min(nativeCount, extensionCount);
     }
 
-    usableConfigs = _glfw_calloc(nativeCount, sizeof(_GLFWfbconfig));
+    _GLFWfbconfig* usableConfigs = _glfw_calloc(nativeCount, sizeof(_GLFWfbconfig));
 
-    for (i = 0;  i < nativeCount;  i++)
+    for (int i = 0;  i < nativeCount;  i++)
     {
         _GLFWfbconfig* u = usableConfigs + usableCount;
         pixelFormat = i + 1;
 
         if (_glfw.wgl.ARB_pixel_format)
         {
+            int values[sizeof(attribs) / sizeof(attribs[0])];
             // Get pixel format attributes through "modern" extension
 
             if (!wglGetPixelFormatAttribivARB(window->context.wgl.dc,
@@ -236,7 +234,7 @@ static int choosePixelFormatWGL(_GLFWwindow* window,
             }
 
             if (!(pfd.dwFlags & PFD_GENERIC_ACCELERATED) &&
-                (pfd.dwFlags & PFD_GENERIC_FORMAT))
+                  pfd.dwFlags & PFD_GENERIC_FORMAT)
             {
                 continue;
             }
@@ -279,7 +277,7 @@ static int choosePixelFormatWGL(_GLFWwindow* window,
         return 0;
     }
 
-    closest = _glfwChooseFBConfig(fbconfig, usableConfigs, usableCount);
+    const _GLFWfbconfig* closest = _glfwChooseFBConfig(fbconfig, usableConfigs, usableCount);
     if (!closest)
     {
         _glfwInputError(GLFW_FORMAT_UNAVAILABLE,
