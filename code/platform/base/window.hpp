@@ -9,6 +9,6 @@ namespace engine::base
         virtual void update()  const = 0;
         virtual void destroy() const = 0;
 
-        virtual [[nodiscard]] bool is_closed() const = 0;
+        [[nodiscard]] virtual bool is_closed() const = 0;
     };
 }
