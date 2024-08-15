@@ -1,8 +1,8 @@
 #include "window.hpp"
 
-namespace engine
+namespace engine::glfw
 {
-    void Window::create(const std::string& title, const uint32_t width, const uint32_t height)
+    void Window::create(const std::string& title, const int32_t width, const int32_t height)
     {
         if (glfwInit() == GLFW_FALSE)
         {

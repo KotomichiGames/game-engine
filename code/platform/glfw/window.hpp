@@ -1,15 +1,17 @@
 #pragma once
 
-namespace engine
+#include "base/window.hpp"
+
+namespace engine::glfw
 {
-    class Window
+    class Window final : public base::Window
     {
     public:
-        void create(const std::string& title, uint32_t width, uint32_t height);
-        void update()  const;
-        void destroy() const;
+        void create(const std::string& title, int32_t width, int32_t height) override;
+        void update()  const override;
+        void destroy() const override;
 
-        bool is_closed() const;
+        [[nodiscard]] bool is_closed() const override;
 
     private:
         GLFWwindow* _handle { };
