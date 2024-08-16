@@ -1,5 +1,7 @@
 #pragma once
 
+#include "window_state.hpp"
+
 namespace engine::base
 {
     class Window
@@ -9,6 +11,19 @@ namespace engine::base
         virtual void update()  const = 0;
         virtual void destroy() const = 0;
 
-        [[nodiscard]] virtual bool is_closed() const = 0;
+        virtual ~Window() = default;
+
+        void state(const window_state state)
+        {
+            _state = state;
+        }
+
+        [[nodiscard]] window_state state() const
+        {
+            return _state;
+        }
+
+    private:
+        window_state _state;
     };
 }
