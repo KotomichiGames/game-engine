@@ -3,14 +3,14 @@
 
 namespace engine::glfw
 {
-    void Window::create(const std::string& title, const int32_t width, const int32_t height)
+    void Window::create(const std::string& title)
     {
         if (glfwInit() == GLFW_FALSE)
         {
             std::exit(EXIT_FAILURE);
         }
 
-        _handle = glfwCreateWindow(width, height, title.c_str(), nullptr);
+        _handle = glfwCreateWindow(_size.width, _size.height, title.c_str(), nullptr);
 
         if (_handle == nullptr)
         {

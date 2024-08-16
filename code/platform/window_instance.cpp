@@ -2,11 +2,12 @@
 
 namespace engine
 {
-    void WindowInstance::create(const std::shared_ptr<base::Factory>& factory, const std::string& title)
+    void WindowInstance::create(const std::shared_ptr<base::Factory>& factory, const base::window_config& config)
     {
         _window = factory->create_window();
 
-        _window->create(title, 800, 600);
+        _window->size(config.size);
+        _window->create(config.title);
     }
 
     void WindowInstance::destroy()

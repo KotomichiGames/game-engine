@@ -1,13 +1,14 @@
 #pragma once
 
 #include "window_state.hpp"
+#include "base/window_size.hpp"
 
 namespace engine::base
 {
     class Window
     {
     public:
-        virtual void create(const std::string& title, int32_t width, int32_t height) = 0;
+        virtual void create(const std::string& title) = 0;
         virtual void update()  const = 0;
         virtual void destroy() const = 0;
 
@@ -18,12 +19,23 @@ namespace engine::base
             _state = state;
         }
 
+        void size(const window_size& size)
+        {
+            _size = size;
+        }
+
+        [[nodiscard]] const window_size& size() const
+        {
+            return _size;
+        }
+
         [[nodiscard]] window_state state() const
         {
             return _state;
         }
 
-    private:
+    protected:
         window_state _state;
+        window_size  _size;
     };
 }

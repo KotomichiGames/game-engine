@@ -7,7 +7,7 @@ namespace engine::glfw
     class Window final : public base::Window
     {
     public:
-        void create(const std::string& title, int32_t width, int32_t height) override;
+        void create(const std::string& title) override;
         void update()  const override;
         void destroy() const override;
 
