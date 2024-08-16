@@ -1,4 +1,5 @@
 #include "window.hpp"
+#include "window_instance.hpp"
 
 namespace engine::glfw
 {
@@ -15,6 +16,11 @@ namespace engine::glfw
         {
             std::exit(EXIT_FAILURE);
         }
+
+        glfwSetWindowCloseCallback(_handle, [](GLFWwindow* handle)
+        {
+            WindowInstance::instance().close();
+        });
 
         glfwMakeContextCurrent(_handle);
     }
