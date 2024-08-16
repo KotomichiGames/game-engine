@@ -11,8 +11,6 @@ namespace engine::glfw
         void update()  const override;
         void destroy() const override;
 
-        [[nodiscard]] bool is_closed() const override;
-
     private:
         GLFWwindow* _handle { };
     };

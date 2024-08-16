@@ -30,9 +30,4 @@ namespace engine::glfw
         glfwDestroyWindow(_handle);
         glfwTerminate();
     }
-
-    bool Window::is_closed() const
-    {
-        return glfwWindowShouldClose(_handle) == GLFW_TRUE;
-    }
 }

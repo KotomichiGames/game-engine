@@ -360,9 +360,6 @@ void glfwWindowHint(int hint, int value);
 GLFWwindow* glfwCreateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
 
 void glfwDestroyWindow(GLFWwindow* window);
-int glfwWindowShouldClose(GLFWwindow* window);
-
-void glfwSetWindowShouldClose(GLFWwindow* window, int value);
 
 void glfwSetWindowTitle(GLFWwindow* window, const char* title);
 void glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
