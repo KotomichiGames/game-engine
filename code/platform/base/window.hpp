@@ -9,8 +9,8 @@ namespace engine::base
     {
     public:
         virtual void create(const std::string& title) = 0;
-        virtual void update()  const = 0;
-        virtual void destroy() const = 0;
+        virtual void destroy()                  const = 0;
+        virtual void update()                   const = 0;
 
         virtual ~Window() = default;
 
@@ -18,24 +18,22 @@ namespace engine::base
         {
             _state = state;
         }
-
-        void size(const window_size& size)
+        void size(const  window_size& size)
         {
             _size = size;
         }
 
-        [[nodiscard]] const window_size& size() const
+        [[nodiscard]] const window_size& size()  const
         {
             return _size;
         }
-
-        [[nodiscard]] window_state state() const
+        [[nodiscard]]       window_state state() const
         {
             return _state;
         }
 
     protected:
-        window_state _state;
-        window_size  _size;
+        window_state _state { };
+        window_size  _size  { };
     };
 }
