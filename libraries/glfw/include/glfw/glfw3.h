@@ -59,10 +59,6 @@ extern "C" {
  #define GLFW_CALLBACK_DEFINED
 #endif /* CALLBACK */
 
-/*************************************************************************
- * GLFW API tokens
- *************************************************************************/
-
 #define GLFW_TRUE                   1
 #define GLFW_FALSE                  0
 
@@ -72,7 +68,6 @@ extern "C" {
 
 #define GLFW_KEY_UNKNOWN            -1
 
-/* Printable keys */
 #define GLFW_KEY_SPACE              32
 #define GLFW_KEY_APOSTROPHE         39  /* ' */
 #define GLFW_KEY_COMMA              44  /* , */
@@ -124,7 +119,6 @@ extern "C" {
 #define GLFW_KEY_WORLD_1            161 /* non-US #1 */
 #define GLFW_KEY_WORLD_2            162 /* non-US #2 */
 
-/* Function keys */
 #define GLFW_KEY_ESCAPE             256
 #define GLFW_KEY_ENTER              257
 #define GLFW_KEY_TAB                258
@@ -307,8 +301,8 @@ typedef struct GLFWmonitor GLFWmonitor;
 typedef struct GLFWwindow  GLFWwindow;
 typedef struct GLFWcursor  GLFWcursor;
 
+typedef void (* GLFWwindowclosefun)();
 typedef void (* GLFWwindowsizefun)(GLFWwindow* window, int width, int height);
-typedef void (* GLFWwindowclosefun)(GLFWwindow* window);
 typedef void (* GLFWwindowrefreshfun)(GLFWwindow* window);
 typedef void (* GLFWwindowfocusfun)(GLFWwindow* window, int focused);
 typedef void (* GLFWwindowiconifyfun)(GLFWwindow* window, int iconified);
@@ -377,8 +371,8 @@ GLFWmonitor* glfwGetWindowMonitor(GLFWwindow* window);
 void glfwSetWindowMonitor(GLFWwindow* window, GLFWmonitor* monitor, int xpos, int ypos, int width, int height, int refreshRate);
 void glfwSetWindowAttrib(GLFWwindow* window, int attrib, int value);
 
+void glfwSetWindowCloseCallback(GLFWwindow* window, GLFWwindowclosefun callback);
 GLFWwindowsizefun glfwSetWindowSizeCallback(GLFWwindow* window, GLFWwindowsizefun callback);
-GLFWwindowclosefun glfwSetWindowCloseCallback(GLFWwindow* window, GLFWwindowclosefun callback);
 GLFWwindowrefreshfun glfwSetWindowRefreshCallback(GLFWwindow* window, GLFWwindowrefreshfun callback);
 GLFWwindowfocusfun glfwSetWindowFocusCallback(GLFWwindow* window, GLFWwindowfocusfun callback);
 GLFWwindowiconifyfun glfwSetWindowIconifyCallback(GLFWwindow* window, GLFWwindowiconifyfun callback);
