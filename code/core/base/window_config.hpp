@@ -6,6 +6,6 @@ namespace engine::base
     {
         std::string title;
 
-        window_size size { 1024, 768 };
+        window_size size;
     };
 }
