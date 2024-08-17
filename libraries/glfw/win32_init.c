@@ -446,4 +446,4 @@ void _glfwTerminateWin32(void)
     freeLibraries();
 }
 
-#endif // _GLFW_WIN32
+#endif

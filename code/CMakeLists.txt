@@ -4,3 +4,6 @@ add_subdirectory(core)
 add_subdirectory(platform)
 add_subdirectory(graphics)
 #=======================================================================================================================
+add_library(engine::core     ALIAS engine_core)
+add_library(engine::platform ALIAS engine_platform)
+#=======================================================================================================================

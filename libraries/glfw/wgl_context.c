@@ -40,8 +40,7 @@ static int findPixelFormatAttribValueWGL(const int* attribs, int attribCount, co
             return values[i];
     }
 
-    _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                         "WGL: Unknown pixel format attribute requested");
+    _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Unknown pixel format attribute requested");
     return 0;
 }
 
@@ -53,8 +52,6 @@ static int findPixelFormatAttribValueWGL(const int* attribs, int attribCount, co
 #define FIND_ATTRIB_VALUE(a) \
     findPixelFormatAttribValueWGL(attribs, attribCount, values, a)
 
-// Return a list of available and usable framebuffer configs
-//
 static int choosePixelFormatWGL(_GLFWwindow* window, const _GLFWctxconfig* ctxconfig, const _GLFWfbconfig* fbconfig)
 {
     int pixelFormat, usableCount = 0, attribCount = 0;
@@ -372,8 +369,7 @@ GLFWbool _glfwInitWGL(void)
     HGLRC rc = wglCreateContext(dc);
     if (!rc)
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "WGL: Failed to create dummy context");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to create dummy context");
         return GLFW_FALSE;
     }
 
@@ -382,8 +378,7 @@ GLFWbool _glfwInitWGL(void)
 
     if (!wglMakeCurrent(dc, rc))
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "WGL: Failed to make dummy context current");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to make dummy context current");
         wglMakeCurrent(pdc, prc);
         wglDeleteContext(rc);
         return GLFW_FALSE;
@@ -391,39 +386,24 @@ GLFWbool _glfwInitWGL(void)
 
     // NOTE: Functions must be loaded first as they're needed to retrieve the
     //       extension string that tells us whether the functions are supported
-    _glfw.wgl.GetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)
-        wglGetProcAddress("wglGetExtensionsStringEXT");
-    _glfw.wgl.GetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)
-        wglGetProcAddress("wglGetExtensionsStringARB");
-    _glfw.wgl.CreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)
-        wglGetProcAddress("wglCreateContextAttribsARB");
-    _glfw.wgl.GetPixelFormatAttribivARB = (PFNWGLGETPIXELFORMATATTRIBIVARBPROC)
-        wglGetProcAddress("wglGetPixelFormatAttribivARB");
+    _glfw.wgl.GetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)wglGetProcAddress("wglGetExtensionsStringEXT");
+    _glfw.wgl.GetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)wglGetProcAddress("wglGetExtensionsStringARB");
+    _glfw.wgl.CreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
+    _glfw.wgl.GetPixelFormatAttribivARB = (PFNWGLGETPIXELFORMATATTRIBIVARBPROC)wglGetProcAddress("wglGetPixelFormatAttribivARB");
 
     // NOTE: WGL_ARB_extensions_string and WGL_EXT_extensions_string are not
     //       checked below as we are already using them
-    _glfw.wgl.ARB_multisample =
-        extensionSupportedWGL("WGL_ARB_multisample");
-    _glfw.wgl.ARB_framebuffer_sRGB =
-        extensionSupportedWGL("WGL_ARB_framebuffer_sRGB");
-    _glfw.wgl.EXT_framebuffer_sRGB =
-        extensionSupportedWGL("WGL_EXT_framebuffer_sRGB");
-    _glfw.wgl.ARB_create_context =
-        extensionSupportedWGL("WGL_ARB_create_context");
-    _glfw.wgl.ARB_create_context_profile =
-        extensionSupportedWGL("WGL_ARB_create_context_profile");
-    _glfw.wgl.ARB_create_context_robustness =
-        extensionSupportedWGL("WGL_ARB_create_context_robustness");
-    _glfw.wgl.ARB_create_context_no_error =
-        extensionSupportedWGL("WGL_ARB_create_context_no_error");
-    _glfw.wgl.EXT_swap_control =
-        extensionSupportedWGL("WGL_EXT_swap_control");
-    _glfw.wgl.EXT_colorspace =
-        extensionSupportedWGL("WGL_EXT_colorspace");
-    _glfw.wgl.ARB_pixel_format =
-        extensionSupportedWGL("WGL_ARB_pixel_format");
-    _glfw.wgl.ARB_context_flush_control =
-        extensionSupportedWGL("WGL_ARB_context_flush_control");
+    _glfw.wgl.ARB_multisample = extensionSupportedWGL("WGL_ARB_multisample");
+    _glfw.wgl.ARB_framebuffer_sRGB = extensionSupportedWGL("WGL_ARB_framebuffer_sRGB");
+    _glfw.wgl.EXT_framebuffer_sRGB = extensionSupportedWGL("WGL_EXT_framebuffer_sRGB");
+    _glfw.wgl.ARB_create_context = extensionSupportedWGL("WGL_ARB_create_context");
+    _glfw.wgl.ARB_create_context_profile = extensionSupportedWGL("WGL_ARB_create_context_profile");
+    _glfw.wgl.ARB_create_context_robustness = extensionSupportedWGL("WGL_ARB_create_context_robustness");
+    _glfw.wgl.ARB_create_context_no_error = extensionSupportedWGL("WGL_ARB_create_context_no_error");
+    _glfw.wgl.EXT_swap_control = extensionSupportedWGL("WGL_EXT_swap_control");
+    _glfw.wgl.EXT_colorspace = extensionSupportedWGL("WGL_EXT_colorspace");
+    _glfw.wgl.ARB_pixel_format = extensionSupportedWGL("WGL_ARB_pixel_format");
+    _glfw.wgl.ARB_context_flush_control = extensionSupportedWGL("WGL_ARB_context_flush_control");
 
     wglMakeCurrent(pdc, prc);
     wglDeleteContext(rc);
@@ -443,14 +423,8 @@ void _glfwTerminateWGL(void)
     attribs[index++] = v; \
 }
 
-// Create the OpenGL or OpenGL ES context
-//
-GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
-                               const _GLFWctxconfig* ctxconfig,
-                               const _GLFWfbconfig* fbconfig)
+GLFWbool _glfwCreateContextWGL(_GLFWwindow* window, const _GLFWctxconfig* ctxconfig, const _GLFWfbconfig* fbconfig)
 {
-    int attribs[40];
-    int pixelFormat;
     PIXELFORMATDESCRIPTOR pfd;
 
     window->context.wgl.dc = GetDC(window->win32.handle);
@@ -460,7 +434,7 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
         return GLFW_FALSE;
     }
 
-    pixelFormat = choosePixelFormatWGL(window, ctxconfig, fbconfig);
+    int pixelFormat = choosePixelFormatWGL(window, ctxconfig, fbconfig);
     if (!pixelFormat)
         return GLFW_FALSE;
 
@@ -487,17 +461,10 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
             }
         }
     }
-    else
-    {
-        if (!_glfw.wgl.ARB_create_context || !_glfw.wgl.ARB_create_context_profile)
-        {
-            _glfwInputError(GLFW_API_UNAVAILABLE,"WGL: OpenGL ES requested but WGL_ARB_create_context_es2_profile is unavailable");
-            return GLFW_FALSE;
-        }
-    }
 
     if (_glfw.wgl.ARB_create_context)
     {
+        int attribs[40];
         int index = 0, mask = 0, flags = 0;
 
         if (ctxconfig->client == GLFW_OPENGL_API)
@@ -574,12 +541,6 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
                                     ctxconfig->major,
                                     ctxconfig->minor);
                 }
-                else
-                {
-                    _glfwInputError(GLFW_VERSION_UNAVAILABLE, "WGL: Driver does not support OpenGL ES version %i.%i",
-                                    ctxconfig->major,
-                                    ctxconfig->minor);
-                }
             }
             else if (error == (0xc0070000 | ERROR_INVALID_PROFILE_ARB))
             {
@@ -594,10 +555,6 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
                 if (ctxconfig->client == GLFW_OPENGL_API)
                 {
                     _glfwInputError(GLFW_VERSION_UNAVAILABLE, "WGL: Failed to create OpenGL context");
-                }
-                else
-                {
-                    _glfwInputError(GLFW_VERSION_UNAVAILABLE, "WGL: Failed to create OpenGL ES context");
                 }
             }
 
@@ -625,4 +582,4 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
 
 #undef SET_ATTRIB
 
-#endif // _GLFW_WIN32
+#endif
