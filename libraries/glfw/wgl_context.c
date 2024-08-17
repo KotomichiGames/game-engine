@@ -361,8 +361,7 @@ GLFWbool _glfwInitWGL(void)
 
     if (!SetPixelFormat(dc, ChoosePixelFormat(dc, &pfd), &pfd))
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "WGL: Failed to set pixel format for dummy context");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "WGL: Failed to set pixel format for dummy context");
         return GLFW_FALSE;
     }
 
@@ -373,7 +372,7 @@ GLFWbool _glfwInitWGL(void)
         return GLFW_FALSE;
     }
 
-    HDC pdc = wglGetCurrentDC();
+    HDC   pdc = wglGetCurrentDC();
     HGLRC prc = wglGetCurrentContext();
 
     if (!wglMakeCurrent(dc, rc))
