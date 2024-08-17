@@ -1,7 +1,7 @@
 #pragma once
 
-#include "window_state.hpp"
 #include "base/window_size.hpp"
+#include "window_state.hpp"
 
 namespace engine::base
 {
