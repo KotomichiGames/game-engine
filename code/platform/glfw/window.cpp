@@ -28,7 +28,6 @@ namespace engine::glfw
     void Window::update() const
     {
         glfwSwapBuffers(_handle);
-        glfwPollEvents();
     }
 
     void Window::destroy() const
