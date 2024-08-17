@@ -625,24 +625,4 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
 
 #undef SET_ATTRIB
 
-HGLRC glfwGetWGLContext(GLFWwindow* handle)
-{
-    if (_glfw.platform.platformID != GLFW_PLATFORM_WIN32)
-    {
-        _glfwInputError(GLFW_PLATFORM_UNAVAILABLE, "WGL: Platform not initialized");
-        return NULL;
-    }
-
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    if (window->context.source != GLFW_NATIVE_CONTEXT_API)
-    {
-        _glfwInputError(GLFW_NO_WINDOW_CONTEXT, NULL);
-        return NULL;
-    }
-
-    return window->context.wgl.handle;
-}
-
 #endif // _GLFW_WIN32
