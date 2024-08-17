@@ -14,12 +14,12 @@ namespace engine::base
 
         virtual ~Window() = default;
 
-        [[nodiscard]] virtual std::any     handle() const = 0;
-        [[nodiscard]] const   window_size& size()   const
+        [[nodiscard]] virtual std::any   handle()  const = 0;
+        [[nodiscard]] const   window_size& size()  const
         {
             return _size;
         }
-        [[nodiscard]]         window_state state()  const
+        [[nodiscard]]         window_state state() const
         {
             return _state;
         }
