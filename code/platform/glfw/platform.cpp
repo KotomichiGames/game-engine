@@ -2,4 +2,7 @@
 
 namespace engine::glfw
 {
+    void Platform::update() const
+    {
+    }
 }
