@@ -29,19 +29,10 @@
 
 #if defined(_GLFW_WIN32)
 
-#include <stdlib.h>
-#include <string.h>
 #include <limits.h>
 #include <wchar.h>
-#include <assert.h>
 
-
-// Callback for EnumDisplayMonitors in createMonitor
-//
-static BOOL CALLBACK monitorCallback(HMONITOR handle,
-                                     HDC dc,
-                                     RECT* rect,
-                                     LPARAM data)
+static BOOL CALLBACK monitorCallback(HMONITOR handle, HDC dc, RECT* rect, LPARAM data)
 {
     MONITORINFOEXW mi;
     ZeroMemory(&mi, sizeof(mi));
@@ -57,15 +48,10 @@ static BOOL CALLBACK monitorCallback(HMONITOR handle,
     return TRUE;
 }
 
-// Create monitor from an adapter and (optionally) a display
-//
-static _GLFWmonitor* createMonitor(DISPLAY_DEVICEW* adapter,
-                                   DISPLAY_DEVICEW* display)
+static _GLFWmonitor* createMonitor(DISPLAY_DEVICEW* adapter, DISPLAY_DEVICEW* display)
 {
-    _GLFWmonitor* monitor;
     int widthMM, heightMM;
     char* name;
-    HDC dc;
     DEVMODEW dm;
     RECT rect;
 
@@ -80,7 +66,7 @@ static _GLFWmonitor* createMonitor(DISPLAY_DEVICEW* adapter,
     dm.dmSize = sizeof(dm);
     EnumDisplaySettingsW(adapter->DeviceName, ENUM_CURRENT_SETTINGS, &dm);
 
-    dc = CreateDCW(L"DISPLAY", adapter->DeviceName, NULL, NULL);
+    HDC dc = CreateDCW(L"DISPLAY", adapter->DeviceName, NULL, NULL);
 
     if (IsWindows8Point1OrGreater())
     {
@@ -95,7 +81,7 @@ static _GLFWmonitor* createMonitor(DISPLAY_DEVICEW* adapter,
 
     DeleteDC(dc);
 
-    monitor = _glfwAllocMonitor(name, widthMM, heightMM);
+    _GLFWmonitor* monitor = _glfwAllocMonitor(name, widthMM, heightMM);
     _glfw_free(name);
 
     if (adapter->StateFlags & DISPLAY_DEVICE_MODESPRUNED)
@@ -127,22 +113,15 @@ static _GLFWmonitor* createMonitor(DISPLAY_DEVICEW* adapter,
     return monitor;
 }
 
-
-//////////////////////////////////////////////////////////////////////////
-//////                       GLFW internal API                      //////
-//////////////////////////////////////////////////////////////////////////
-
-// Poll for changes in the set of connected monitors
-//
 void _glfwPollMonitorsWin32(void)
 {
-    int i, disconnectedCount;
+    int i;
     _GLFWmonitor** disconnected = NULL;
-    DWORD adapterIndex, displayIndex;
+    DWORD displayIndex;
     DISPLAY_DEVICEW adapter, display;
     _GLFWmonitor* monitor;
 
-    disconnectedCount = _glfw.monitorCount;
+    int disconnectedCount = _glfw.monitorCount;
     if (disconnectedCount)
     {
         disconnected = _glfw_calloc(_glfw.monitorCount, sizeof(_GLFWmonitor*));
@@ -151,7 +130,7 @@ void _glfwPollMonitorsWin32(void)
                _glfw.monitorCount * sizeof(_GLFWmonitor*));
     }
 
-    for (adapterIndex = 0;  ;  adapterIndex++)
+    for (DWORD adapterIndex = 0;; adapterIndex++)
     {
         int type = _GLFW_INSERT_LAST;
 
@@ -244,8 +223,6 @@ void _glfwPollMonitorsWin32(void)
     _glfw_free(disconnected);
 }
 
-// Change the current video mode
-//
 void _glfwSetVideoModeWin32(_GLFWmonitor* monitor, const GLFWvidmode* desired)
 {
     GLFWvidmode current;
@@ -270,11 +247,7 @@ void _glfwSetVideoModeWin32(_GLFWmonitor* monitor, const GLFWvidmode* desired)
     if (dm.dmBitsPerPel < 15 || dm.dmBitsPerPel >= 24)
         dm.dmBitsPerPel = 32;
 
-    result = ChangeDisplaySettingsExW(monitor->win32.adapterName,
-                                      &dm,
-                                      NULL,
-                                      CDS_FULLSCREEN,
-                                      NULL);
+    result = ChangeDisplaySettingsExW(monitor->win32.adapterName, &dm, NULL, CDS_FULLSCREEN, NULL);
     if (result == DISP_CHANGE_SUCCESSFUL)
         monitor->win32.modeChanged = GLFW_TRUE;
     else
@@ -302,14 +275,11 @@ void _glfwSetVideoModeWin32(_GLFWmonitor* monitor, const GLFWvidmode* desired)
     }
 }
 
-// Restore the previously saved (original) video mode
-//
 void _glfwRestoreVideoModeWin32(_GLFWmonitor* monitor)
 {
     if (monitor->win32.modeChanged)
     {
-        ChangeDisplaySettingsExW(monitor->win32.adapterName,
-                                 NULL, NULL, CDS_FULLSCREEN, NULL);
+        ChangeDisplaySettingsExW(monitor->win32.adapterName, NULL, NULL, CDS_FULLSCREEN, NULL);
         monitor->win32.modeChanged = GLFW_FALSE;
     }
 }
@@ -466,40 +436,9 @@ GLFWbool _glfwGetVideoModeWin32(_GLFWmonitor* monitor, GLFWvidmode* mode)
     mode->width  = dm.dmPelsWidth;
     mode->height = dm.dmPelsHeight;
     mode->refreshRate = dm.dmDisplayFrequency;
-    _glfwSplitBPP(dm.dmBitsPerPel,
-                  &mode->redBits,
-                  &mode->greenBits,
-                  &mode->blueBits);
+    _glfwSplitBPP(dm.dmBitsPerPel, &mode->redBits, &mode->greenBits, &mode->blueBits);
 
     return GLFW_TRUE;
 }
 
-const char* glfwGetWin32Adapter(GLFWmonitor* handle)
-{
-    if (_glfw.platform.platformID != GLFW_PLATFORM_WIN32)
-    {
-        _glfwInputError(GLFW_PLATFORM_UNAVAILABLE, "Win32: Platform not initialized");
-        return NULL;
-    }
-
-    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
-    assert(monitor != NULL);
-
-    return monitor->win32.publicAdapterName;
-}
-
-const char* glfwGetWin32Monitor(GLFWmonitor* handle)
-{
-    if (_glfw.platform.platformID != GLFW_PLATFORM_WIN32)
-    {
-        _glfwInputError(GLFW_PLATFORM_UNAVAILABLE, "Win32: Platform not initialized");
-        return NULL;
-    }
-
-    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
-    assert(monitor != NULL);
-
-    return monitor->win32.publicDisplayName;
-}
-
-#endif // _GLFW_WIN32
+#endif
