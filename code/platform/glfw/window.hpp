@@ -11,6 +11,8 @@ namespace engine::glfw
         void update()  const override;
         void destroy() const override;
 
+        [[nodiscard]] std::any handle() const override;
+
     private:
         GLFWwindow* _handle { };
     };

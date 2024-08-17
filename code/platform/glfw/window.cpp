@@ -17,7 +17,7 @@ namespace engine::glfw
             std::exit(EXIT_FAILURE);
         }
 
-        glfwSetWindowCloseCallback(_handle, [](GLFWwindow* handle)
+        glfwSetWindowCloseCallback(_handle, []
         {
             WindowInstance::instance().close();
         });
@@ -35,5 +35,10 @@ namespace engine::glfw
     {
         glfwDestroyWindow(_handle);
         glfwTerminate();
+    }
+
+    std::any Window::handle() const
+    {
+        return _handle;
     }
 }
