@@ -10,17 +10,17 @@ namespace engine
         _window->create(config.title);
     }
 
-    void WindowInstance::destroy()
+    void WindowInstance::destroy() const
     {
         _window->destroy();
     }
 
-    void WindowInstance::update()
+    void WindowInstance::update() const
     {
         _window->update();
     }
 
-    void WindowInstance::close()
+    void WindowInstance::close() const
     {
         _window->state(base::window_state::closed);
     }
