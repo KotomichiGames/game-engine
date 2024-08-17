@@ -17,7 +17,7 @@ namespace engine::glfw
             std::exit(EXIT_FAILURE);
         }
 
-        glfwSetWindowCloseCallback(_handle, Platform::close_callback);
+        glfwSetWindowCloseCallback(_handle, Platform::on_close_event);
 
         glfwMakeContextCurrent(_handle);
     }

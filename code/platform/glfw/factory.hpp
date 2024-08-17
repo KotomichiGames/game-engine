@@ -9,5 +9,6 @@ namespace engine::glfw
     public:
         std::unique_ptr<base::Window>   create_window()   override;
         std::unique_ptr<base::Platform> create_platform() override;
+        std::unique_ptr<base::Context>  create_context()  override;
     };
 }

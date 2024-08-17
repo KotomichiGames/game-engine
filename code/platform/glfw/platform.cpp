@@ -3,7 +3,7 @@
 
 namespace engine::glfw
 {
-    void Platform::close_callback()
+    void Platform::on_close_event()
     {
         WindowInstance::instance().close();
     }
