@@ -7,7 +7,7 @@ namespace engine::glfw
     class Platform final : public base::Platform
     {
     public:
-        static void close_callback();
+        static void on_close_event();
 
         void update() const override;
     };
