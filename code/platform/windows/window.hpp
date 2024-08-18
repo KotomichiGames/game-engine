@@ -4,7 +4,16 @@
 
 namespace engine::win32
 {
-    class Window
+    class Window final : public base::Window
     {
+    public:
+        void create(const std::string& title) override;
+        void destroy()                  const override;
+        void update()                   const override;
+
+        [[nodiscard]] std::any handle() const override;
+
+    private:
+        HWND _handle;
     };
 }
