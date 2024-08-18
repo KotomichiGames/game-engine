@@ -1,4 +1,4 @@
 #=======================================================================================================================
 target_precompile_headers(${PROJECT_NAME} PRIVATE private.hpp)
-target_sources(${PROJECT_NAME}            PRIVATE window.cpp)
+target_sources(${PROJECT_NAME}            PRIVATE window.cpp context.cpp platform.cpp factory.cpp)
 #=======================================================================================================================
