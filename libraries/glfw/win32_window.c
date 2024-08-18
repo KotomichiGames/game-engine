@@ -1471,11 +1471,6 @@ void _glfwSetWindowSizeWin32(_GLFWwindow* window, int width, int height)
         {
             AdjustWindowRectExForDpi(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window), GetDpiForWindow(window->win32.handle));
         }
-        else
-        {
-            AdjustWindowRectEx(&rect, getWindowStyle(window),
-                               FALSE, getWindowExStyle(window));
-        }
 
         SetWindowPos(window->win32.handle, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top,
                      SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOZORDER);
@@ -1508,10 +1503,6 @@ void _glfwGetWindowFrameSizeWin32(_GLFWwindow* window, int* left, int* top, int*
     if (_glfwIsWindows10Version1607OrGreaterWin32())
     {
         AdjustWindowRectExForDpi(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window), GetDpiForWindow(window->win32.handle));
-    }
-    else
-    {
-        AdjustWindowRectEx(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window));
     }
 
     if (left)
@@ -1568,10 +1559,6 @@ void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int 
             if (_glfwIsWindows10Version1607OrGreaterWin32())
             {
                 AdjustWindowRectExForDpi(&rect, getWindowStyle(window),FALSE, getWindowExStyle(window), GetDpiForWindow(window->win32.handle));
-            }
-            else
-            {
-                AdjustWindowRectEx(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window));
             }
 
             SetWindowPos(window->win32.handle, HWND_TOP,
@@ -1636,10 +1623,6 @@ void _glfwSetWindowMonitorWin32(_GLFWwindow* window, _GLFWmonitor* monitor, int 
         if (_glfwIsWindows10Version1607OrGreaterWin32())
         {
             AdjustWindowRectExForDpi(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window), GetDpiForWindow(window->win32.handle));
-        }
-        else
-        {
-            AdjustWindowRectEx(&rect, getWindowStyle(window), FALSE, getWindowExStyle(window));
         }
 
         SetWindowPos(window->win32.handle, after,
