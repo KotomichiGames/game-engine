@@ -9,11 +9,12 @@ namespace engine::win32
     public:
         void create(const std::string& title) override;
         void destroy()                  const override;
-        void update()                   const override;
+        void update()                   const override { }
 
         [[nodiscard]] std::any handle() const override;
 
     private:
-        HWND _handle;
+        HWND _handle { };
+        ATOM _class  { };
     };
 }
