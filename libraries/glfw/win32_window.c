@@ -184,8 +184,7 @@ static void applyAspectRatio(_GLFWwindow* window, int edge, RECT* area)
 
     if (_glfwIsWindows10Version1607OrGreaterWin32())
     {
-        AdjustWindowRectExForDpi(&frame, style, FALSE, exStyle,
-                                 GetDpiForWindow(window->win32.handle));
+        AdjustWindowRectExForDpi(&frame, style, FALSE, exStyle, GetDpiForWindow(window->win32.handle));
     }
     else
         AdjustWindowRectEx(&frame, style, FALSE, exStyle);
@@ -249,8 +248,7 @@ static void enableRawMouseMotion(_GLFWwindow* window)
 
     if (!RegisterRawInputDevices(&rid, 1, sizeof(rid)))
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to register raw input device");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to register raw input device");
     }
 }
 
@@ -260,8 +258,7 @@ static void disableRawMouseMotion(_GLFWwindow* window)
 
     if (!RegisterRawInputDevices(&rid, 1, sizeof(rid)))
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to remove raw input device");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to remove raw input device");
     }
 }
 
