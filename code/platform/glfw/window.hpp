@@ -8,7 +8,6 @@ namespace engine::glfw
     {
     public:
         void create(const std::string& title) override;
-        void update()                   const override;
         void destroy()                  const override;
 
         [[nodiscard]] std::any handle() const override;

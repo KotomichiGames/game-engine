@@ -2,15 +2,18 @@
 
 namespace engine::glfw
 {
-    void Context::create(std::any window_handle)
+    void Context::create(const std::any handle)
     {
-    }
-
-    void Context::destroy()
-    {
+                               _handle = std::any_cast<GLFWwindow*>(handle);
+        glfwMakeContextCurrent(_handle);
     }
 
     void Context::update()
+    {
+        glfwSwapBuffers(_handle);
+    }
+
+    void Context::destroy()
     {
     }
 }
