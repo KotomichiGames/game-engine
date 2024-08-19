@@ -9,4 +9,8 @@ namespace engine::win32
     void Context::destroy()
     {
     }
+
+    void Context::update()
+    {
+    }
 }

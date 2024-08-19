@@ -9,5 +9,6 @@ namespace engine::glfw
     public:
         void create(std::any window_handle) override;
         void destroy()                      override;
+        void update()                       override;
     };
 }

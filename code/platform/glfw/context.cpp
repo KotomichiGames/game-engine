@@ -9,4 +9,8 @@ namespace engine::glfw
     void Context::destroy()
     {
     }
+
+    void Context::update()
+    {
+    }
 }
