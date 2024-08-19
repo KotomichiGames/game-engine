@@ -25,9 +25,24 @@ namespace engine
         _window->state(base::window_state::closed);
     }
 
+    std::any WindowInstance::handle() const
+    {
+        return _window->handle();
+    }
+
     bool WindowInstance::is_active() const
     {
         return _window->state() == base::window_state::active;
+    }
+
+    int32_t WindowInstance::width() const
+    {
+        return _window->size().width;
+    }
+
+    int32_t WindowInstance::height() const
+    {
+        return _window->size().height;
     }
 
     WindowInstance& WindowInstance::instance()

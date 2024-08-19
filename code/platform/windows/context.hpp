@@ -6,5 +6,8 @@ namespace engine::win32
 {
     class Context final : public base::Context
     {
+    public:
+        void create(std::any window_handle) override;
+        void destroy()                      override;
     };
 }
