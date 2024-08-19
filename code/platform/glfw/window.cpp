@@ -18,13 +18,6 @@ namespace engine::glfw
         }
 
         glfwSetWindowCloseCallback(_handle, Platform::on_close_event);
-
-        glfwMakeContextCurrent(_handle);
-    }
-
-    void Window::update() const
-    {
-        glfwSwapBuffers(_handle);
     }
 
     void Window::destroy() const

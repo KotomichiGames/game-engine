@@ -15,11 +15,6 @@ namespace engine
         _window->destroy();
     }
 
-    void WindowInstance::update() const
-    {
-        _window->update();
-    }
-
     void WindowInstance::close() const
     {
         _window->state(base::window_state::closed);

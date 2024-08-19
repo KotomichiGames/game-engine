@@ -10,7 +10,6 @@ namespace engine::base
     public:
         virtual void create(const std::string& title) = 0;
         virtual void destroy()                  const = 0;
-        virtual void update()                   const = 0;
 
         virtual ~Window() = default;
 
