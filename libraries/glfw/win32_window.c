@@ -686,17 +686,17 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
                 // HACK: Release both Shift keys on Shift up event, as when both
                 //       are pressed the first release does not emit any event
                 // NOTE: The other half of this is in _glfwPollEventsWin32
-                _glfwInputKey(window, GLFW_KEY_LEFT_SHIFT, scancode, action, mods);
-                _glfwInputKey(window, GLFW_KEY_RIGHT_SHIFT, scancode, action, mods);
+                _glfwInputKey(window, GLFW_KEY_LEFT_SHIFT, action, mods);
+                _glfwInputKey(window, GLFW_KEY_RIGHT_SHIFT, action, mods);
             }
             else if (wParam == VK_SNAPSHOT)
             {
                 // HACK: Key down is not reported for the Print Screen key
-                _glfwInputKey(window, key, scancode, GLFW_PRESS, mods);
-                _glfwInputKey(window, key, scancode, GLFW_RELEASE, mods);
+                _glfwInputKey(window, key, GLFW_PRESS, mods);
+                _glfwInputKey(window, key, GLFW_RELEASE, mods);
             }
             else
-                _glfwInputKey(window, key, scancode, action, mods);
+                _glfwInputKey(window, key, action, mods);
 
             break;
         }
@@ -1766,16 +1766,15 @@ void _glfwPollEventsWin32(void)
 
             for (int i = 0;  i < 4;  i++)
             {
-                const int vk = keys[i][0];
+                const int vk  = keys[i][0];
                 const int key = keys[i][1];
-                const int scancode = _glfw.win32.scancodes[key];
 
                 if (GetKeyState(vk) & 0x8000)
                     continue;
                 if (window->keys[key] != GLFW_PRESS)
                     continue;
 
-                _glfwInputKey(window, key, scancode, GLFW_RELEASE, getKeyMods());
+                _glfwInputKey(window, key, GLFW_RELEASE, getKeyMods());
             }
         }
     }
@@ -1789,7 +1788,7 @@ void _glfwPollEventsWin32(void)
         // NOTE: Re-center the cursor only if it has moved since the last call,
         //       to avoid breaking glfwWaitEvents with WM_MOUSEMOVE
         // The re-center is required in order to prevent the mouse cursor stopping at the edges of the screen.
-        if (window->win32.lastCursorPosX != width / 2 ||
+        if (window->win32.lastCursorPosX != width  / 2 ||
             window->win32.lastCursorPosY != height / 2)
         {
             _glfwSetCursorPosWin32(window, width / 2, height / 2);
@@ -1857,11 +1856,6 @@ void _glfwSetCursorModeWin32(_GLFWwindow* window, int mode)
 
     if (cursorInContentArea(window))
         updateCursorImage(window);
-}
-
-int _glfwGetKeyScancodeWin32(int key)
-{
-    return _glfw.win32.scancodes[key];
 }
 
 GLFWbool _glfwCreateCursorWin32(_GLFWcursor* cursor, const GLFWimage* image, int xhot, int yhot)
