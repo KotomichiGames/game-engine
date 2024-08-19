@@ -83,7 +83,6 @@ static void freeLibraries(void)
 static void createKeyTables(void)
 {
     memset(_glfw.win32.keycodes,  -1, sizeof(_glfw.win32.keycodes));
-    memset(_glfw.win32.scancodes, -1, sizeof(_glfw.win32.scancodes));
 
     _glfw.win32.keycodes[0x00B] = GLFW_KEY_0;
     _glfw.win32.keycodes[0x002] = GLFW_KEY_1;
@@ -194,12 +193,6 @@ static void createKeyTables(void)
     _glfw.win32.keycodes[0x059] = GLFW_KEY_KP_EQUAL;
     _glfw.win32.keycodes[0x037] = GLFW_KEY_KP_MULTIPLY;
     _glfw.win32.keycodes[0x04A] = GLFW_KEY_KP_SUBTRACT;
-
-    for (int scancode = 0;  scancode < 512;  scancode++)
-    {
-        if (_glfw.win32.keycodes[scancode] > 0)
-            _glfw.win32.scancodes[_glfw.win32.keycodes[scancode]] = scancode;
-    }
 }
 
 static LRESULT CALLBACK helperWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

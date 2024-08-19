@@ -610,16 +610,15 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
         case WM_KEYUP:
         case WM_SYSKEYUP:
         {
-            int key, scancode;
-            const int action = (HIWORD(lParam) & KF_UP) ? GLFW_RELEASE : GLFW_PRESS;
-            const int mods = getKeyMods();
+            const int action = HIWORD(lParam) & KF_UP ? GLFW_RELEASE : GLFW_PRESS;
+            const int mods   = getKeyMods();
 
-            scancode = (HIWORD(lParam) & (KF_EXTENDED | 0xff));
+            int scancode = HIWORD(lParam) & (KF_EXTENDED | 0xff);
             if (!scancode)
             {
                 // NOTE: Some synthetic key messages have a scancode of zero
                 // HACK: Map the virtual key back to a usable scancode
-                scancode = MapVirtualKeyW((UINT) wParam, MAPVK_VK_TO_VSC);
+                scancode = MapVirtualKeyW(wParam, MAPVK_VK_TO_VSC);
             }
 
             // HACK: Alt+PrtSc has a different scancode than just PrtSc
@@ -634,7 +633,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
             if (scancode == 0x136)
                 scancode = 0x36;
 
-            key = _glfw.win32.keycodes[scancode];
+            int key = _glfw.win32.keycodes[scancode];
 
             // The Ctrl keys require special handling
             if (wParam == VK_CONTROL)
@@ -660,9 +659,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
                             next.message == WM_KEYUP ||
                             next.message == WM_SYSKEYUP)
                         {
-                            if (next.wParam == VK_MENU &&
-                                (HIWORD(next.lParam) & KF_EXTENDED) &&
-                                next.time == time)
+                            if (next.wParam == VK_MENU && HIWORD(next.lParam) & KF_EXTENDED && next.time == time)
                             {
                                 // Next message is Right Alt down so discard this
                                 break;
