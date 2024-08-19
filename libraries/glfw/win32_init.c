@@ -360,7 +360,6 @@ GLFWbool _glfwConnectWin32(int platformID, _GLFWplatform* platform)
         .createStandardCursor = _glfwCreateStandardCursorWin32,
         .destroyCursor = _glfwDestroyCursorWin32,
         .setCursor = _glfwSetCursorWin32,
-        .getKeyScancode = _glfwGetKeyScancodeWin32,
         .setClipboardString = _glfwSetClipboardStringWin32,
         .getClipboardString = _glfwGetClipboardStringWin32,
         .getMonitorPos = _glfwGetMonitorPosWin32,
