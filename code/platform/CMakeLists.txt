@@ -8,7 +8,7 @@ target_precompile_headers(${PROJECT_NAME}  PUBLIC public.hpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 #=======================================================================================================================
 target_link_libraries(${PROJECT_NAME} PRIVATE engine::core)
-target_sources(${PROJECT_NAME}        PRIVATE window_instance.cpp)
+target_sources(${PROJECT_NAME}        PRIVATE platform_factory.cpp window_instance.cpp)
 #=======================================================================================================================
 add_subdirectory(windows)
 add_subdirectory(glfw)
