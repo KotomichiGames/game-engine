@@ -24,7 +24,7 @@ namespace engine
         static WindowInstance& instance();
 
     private:
-        std::unique_ptr<base::Window> _window { };
+        std::unique_ptr<base::Window> _window;
 
         WindowInstance() = default;
     };
