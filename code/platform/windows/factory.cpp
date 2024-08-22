@@ -1,7 +1,7 @@
 #include "factory.hpp"
 #include "window.hpp"
-#include "platform.hpp"
 #include "context.hpp"
+#include "window_events.hpp"
 
 namespace engine::win32
 {
@@ -10,9 +10,9 @@ namespace engine::win32
         return std::make_unique<Window>();
     }
 
-    std::unique_ptr<base::Platform> Factory::create_platform()
+    std::unique_ptr<base::WindowEvents> Factory::create_events()
     {
-        return std::make_unique<Platform>();
+        return std::make_unique<WindowEvents>();
     }
 
     std::unique_ptr<base::Context> Factory::create_context()

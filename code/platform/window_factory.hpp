@@ -4,7 +4,7 @@
 
 namespace engine
 {
-    class PlatformFactory
+    class WindowFactory
     {
     public:
         static std::shared_ptr<base::Factory> create_factory();
