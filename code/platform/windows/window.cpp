@@ -12,7 +12,8 @@ namespace engine::win32
             .style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC,
             .lpfnWndProc   = Platform::process_events,
             .hInstance     = instance,
-            .lpszClassName = title.c_str()
+            .hCursor       = LoadCursor(instance, IDC_ARROW),
+            .lpszClassName = title.c_str(),
         };
 
         constexpr UINT extra = WS_EX_APPWINDOW;
