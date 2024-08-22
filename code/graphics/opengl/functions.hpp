@@ -1,10 +1,10 @@
 #pragma once
 
+#pragma region declaration
+
 #ifndef APIENTRY // TODO see if we can remove this at some point
 #define APIENTRY
 #endif
-
-#pragma region declaration
 
 using PFNGLCLEARCOLORPROC = void(APIENTRY*)(float red, float green, float blue, float alpha);
 using PFNGLCLEARPROC      = void(APIENTRY*)(uint32_t mask);
