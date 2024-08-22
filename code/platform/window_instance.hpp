@@ -10,6 +10,8 @@ namespace engine
     public:
         void create(const std::shared_ptr<base::Factory>& factory, const base::window_config& config);
         void destroy()    const;
+
+        void open()       const;
         void close()      const;
 
         [[nodiscard]] std::any handle() const;

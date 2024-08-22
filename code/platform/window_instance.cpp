@@ -15,6 +15,11 @@ namespace engine
         _window->destroy();
     }
 
+    void WindowInstance::open() const
+    {
+        _window->display();
+    }
+
     void WindowInstance::close() const
     {
         _window->state(base::window_state::closed);
