@@ -21,6 +21,6 @@ namespace engine::gl
 
     void Commands::draw_elements(const uint32_t primitive, const int32_t count)
     {
-        glDrawElements(primitive, count, unsigned_int, nullptr);
+        glDrawElements(primitive, count, type_uint, nullptr);
     }
 }
