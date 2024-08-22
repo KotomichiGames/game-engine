@@ -125,20 +125,6 @@ typedef struct
 #endif
 #endif /*Windows 7*/
 
-#if WINVER < 0x0600
-#define DWM_BB_ENABLE 0x00000001
-#define DWM_BB_BLURREGION 0x00000002
-typedef struct
-{
-    DWORD dwFlags;
-    BOOL fEnable;
-    HRGN hRgnBlur;
-    BOOL fTransitionOnMaximized;
-} DWM_BLURBEHIND;
-#else
- #include <dwmapi.h>
-#endif /*Windows Vista*/
-
 #ifndef DPI_ENUMS_DECLARED
 typedef enum
 {

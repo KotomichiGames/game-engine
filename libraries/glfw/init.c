@@ -84,11 +84,6 @@ int _glfw_min(int a, int b)
     return a < b ? a : b;
 }
 
-int _glfw_max(int a, int b)
-{
-    return a > b ? a : b;
-}
-
 void* _glfw_calloc(size_t count, size_t size)
 {
     if (count && size)
@@ -238,8 +233,5 @@ int glfwInit(void)
 
 void glfwTerminate(void)
 {
-    if (!_glfw.initialized)
-        return;
-
     terminate();
 }
