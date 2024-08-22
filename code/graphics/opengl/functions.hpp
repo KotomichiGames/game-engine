@@ -1,20 +1,21 @@
 #pragma once
 
-#ifndef APIENTRY
+#ifndef APIENTRY // TODO see if we can remove this at some point
 #define APIENTRY
 #endif
 
-using GLfloat    = float;
-using GLbitfield = uint32_t;
+#pragma region declaration
 
-using PFNGLCLEARCOLORPROC = void(APIENTRY*)(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-using PFNGLCLEARPROC      = void(APIENTRY*)(GLbitfield mask);
+using PFNGLCLEARCOLORPROC = void(APIENTRY*)(float red, float green, float blue, float alpha);
+using PFNGLCLEARPROC      = void(APIENTRY*)(uint32_t mask);
+
+inline PFNGLCLEARCOLORPROC glClearColor;
+inline PFNGLCLEARPROC      glClear;
+
+#pragma endregion
 
 namespace engine::gl
 {
-    inline PFNGLCLEARCOLORPROC glClearColor;
-    inline PFNGLCLEARPROC      glClear;
-
     class Functions
     {
     public:

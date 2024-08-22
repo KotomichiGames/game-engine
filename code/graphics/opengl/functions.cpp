@@ -4,7 +4,11 @@ namespace engine::gl
 {
     void Functions::load()
     {
-        glClearColor = reinterpret_cast<PFNGLCLEARCOLORPROC>(wglGetProcAddress("glClearColor"));
-        glClear      = reinterpret_cast<PFNGLCLEARPROC>(wglGetProcAddress("glClear"));
+        const HINSTANCE instance = LoadLibrary("opengl32.dll");
+
+        glClearColor = reinterpret_cast<PFNGLCLEARCOLORPROC>(GetProcAddress(instance, "glClearColor"));
+        glClear      = reinterpret_cast<PFNGLCLEARPROC>(GetProcAddress(instance, "glClear"));
+
+        FreeLibrary(instance);
     }
 }
