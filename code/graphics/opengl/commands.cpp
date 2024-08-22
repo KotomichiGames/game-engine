@@ -1,4 +1,5 @@
 #include "commands.hpp"
+#include "functions.hpp"
 
 namespace engine::gl
 {

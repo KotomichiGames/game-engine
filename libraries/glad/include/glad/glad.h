@@ -1530,12 +1530,6 @@ GLAPI PFNGLTEXIMAGE2DPROC glad_glTexImage2D;
 typedef void (APIENTRYP PFNGLDRAWBUFFERPROC)(GLenum buf);
 GLAPI PFNGLDRAWBUFFERPROC glad_glDrawBuffer;
 #define glDrawBuffer glad_glDrawBuffer
-typedef void (APIENTRYP PFNGLCLEARPROC)(GLbitfield mask);
-GLAPI PFNGLCLEARPROC glad_glClear;
-#define glClear glad_glClear
-typedef void (APIENTRYP PFNGLCLEARCOLORPROC)(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-GLAPI PFNGLCLEARCOLORPROC glad_glClearColor;
-#define glClearColor glad_glClearColor
 typedef void (APIENTRYP PFNGLCLEARSTENCILPROC)(GLint s);
 GLAPI PFNGLCLEARSTENCILPROC glad_glClearStencil;
 #define glClearStencil glad_glClearStencil

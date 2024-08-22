@@ -4,9 +4,7 @@ namespace engine::gl
 {
     void Functions::load()
     {
-        if (gladLoadGL() == 0)
-        {
-            std::exit(EXIT_FAILURE);
-        }
+        glClearColor = reinterpret_cast<PFNGLCLEARCOLORPROC>(wglGetProcAddress("glClearColor"));
+        glClear      = reinterpret_cast<PFNGLCLEARPROC>(wglGetProcAddress("glClear"));
     }
 }
