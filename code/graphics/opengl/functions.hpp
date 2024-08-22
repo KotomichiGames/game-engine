@@ -16,6 +16,14 @@ inline PFNGLCLEARPROC        glClear;
 inline PFNGLDRAWARRAYSPROC   glDrawArrays;
 inline PFNGLDRAWELEMENTSPROC glDrawElements;
 
+using PFNGLCREATEVERTEXARRAYSPROC = void(APIENTRY*)(int32_t n, uint32_t* arrays);
+using PFNGLBINDVERTEXARRAYPROC    = void(APIENTRY*)(uint32_t array);
+using PFNGLDELETEVERTEXARRAYSPROC = void(APIENTRY*)(int32_t n, const uint32_t* arrays);
+
+inline PFNGLCREATEVERTEXARRAYSPROC glCreateVertexArrays;
+inline PFNGLBINDVERTEXARRAYPROC    glBindVertexArray;
+inline PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays;
+
 #pragma endregion
 
 namespace engine::gl

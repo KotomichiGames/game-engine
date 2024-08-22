@@ -2334,15 +2334,6 @@ GLAPI PFNGLMAPBUFFERRANGEPROC glad_glMapBufferRange;
 typedef void (APIENTRYP PFNGLFLUSHMAPPEDBUFFERRANGEPROC)(GLenum target, GLintptr offset, GLsizeiptr length);
 GLAPI PFNGLFLUSHMAPPEDBUFFERRANGEPROC glad_glFlushMappedBufferRange;
 #define glFlushMappedBufferRange glad_glFlushMappedBufferRange
-typedef void (APIENTRYP PFNGLBINDVERTEXARRAYPROC)(GLuint array);
-GLAPI PFNGLBINDVERTEXARRAYPROC glad_glBindVertexArray;
-#define glBindVertexArray glad_glBindVertexArray
-typedef void (APIENTRYP PFNGLDELETEVERTEXARRAYSPROC)(GLsizei n, const GLuint *arrays);
-GLAPI PFNGLDELETEVERTEXARRAYSPROC glad_glDeleteVertexArrays;
-#define glDeleteVertexArrays glad_glDeleteVertexArrays
-typedef void (APIENTRYP PFNGLGENVERTEXARRAYSPROC)(GLsizei n, GLuint *arrays);
-GLAPI PFNGLGENVERTEXARRAYSPROC glad_glGenVertexArrays;
-#define glGenVertexArrays glad_glGenVertexArrays
 #endif
 #ifndef GL_VERSION_3_1
 #define GL_VERSION_3_1 1
@@ -3471,9 +3462,6 @@ GLAPI PFNGLGETTEXTUREPARAMETERIUIVPROC glad_glGetTextureParameterIuiv;
 typedef void (APIENTRYP PFNGLGETTEXTUREPARAMETERIVPROC)(GLuint texture, GLenum pname, GLint *params);
 GLAPI PFNGLGETTEXTUREPARAMETERIVPROC glad_glGetTextureParameteriv;
 #define glGetTextureParameteriv glad_glGetTextureParameteriv
-typedef void (APIENTRYP PFNGLCREATEVERTEXARRAYSPROC)(GLsizei n, GLuint *arrays);
-GLAPI PFNGLCREATEVERTEXARRAYSPROC glad_glCreateVertexArrays;
-#define glCreateVertexArrays glad_glCreateVertexArrays
 typedef void (APIENTRYP PFNGLDISABLEVERTEXARRAYATTRIBPROC)(GLuint vaobj, GLuint index);
 GLAPI PFNGLDISABLEVERTEXARRAYATTRIBPROC glad_glDisableVertexArrayAttrib;
 #define glDisableVertexArrayAttrib glad_glDisableVertexArrayAttrib
