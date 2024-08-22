@@ -46,9 +46,7 @@ GLFWbool _glfwIsValidContextConfig(const _GLFWctxconfig* ctxconfig)
 {
     if (ctxconfig->source != GLFW_NATIVE_CONTEXT_API)
     {
-        _glfwInputError(GLFW_INVALID_ENUM,
-                        "Invalid context creation API 0x%08X",
-                        ctxconfig->source);
+        _glfwInputError(GLFW_INVALID_ENUM, "Invalid context creation API 0x%08X", ctxconfig->source);
         return GLFW_FALSE;
     }
 
