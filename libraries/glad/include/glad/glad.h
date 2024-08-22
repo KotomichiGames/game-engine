@@ -114,7 +114,6 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_LINES 0x0001
 #define GL_LINE_LOOP 0x0002
 #define GL_LINE_STRIP 0x0003
-#define GL_TRIANGLES 0x0004
 #define GL_TRIANGLE_STRIP 0x0005
 #define GL_TRIANGLE_FAN 0x0006
 #define GL_NEVER 0x0200
@@ -223,7 +222,6 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_SHORT 0x1402
 #define GL_UNSIGNED_SHORT 0x1403
 #define GL_INT 0x1404
-#define GL_UNSIGNED_INT 0x1405
 #define GL_FLOAT 0x1406
 #define GL_CLEAR 0x1500
 #define GL_AND 0x1501
@@ -1630,12 +1628,6 @@ GLAPI PFNGLVIEWPORTPROC glad_glViewport;
 #ifndef GL_VERSION_1_1
 #define GL_VERSION_1_1 1
 GLAPI int GLAD_GL_VERSION_1_1;
-typedef void (APIENTRYP PFNGLDRAWARRAYSPROC)(GLenum mode, GLint first, GLsizei count);
-GLAPI PFNGLDRAWARRAYSPROC glad_glDrawArrays;
-#define glDrawArrays glad_glDrawArrays
-typedef void (APIENTRYP PFNGLDRAWELEMENTSPROC)(GLenum mode, GLsizei count, GLenum type, const void *indices);
-GLAPI PFNGLDRAWELEMENTSPROC glad_glDrawElements;
-#define glDrawElements glad_glDrawElements
 typedef void (APIENTRYP PFNGLPOLYGONOFFSETPROC)(GLfloat factor, GLfloat units);
 GLAPI PFNGLPOLYGONOFFSETPROC glad_glPolygonOffset;
 #define glPolygonOffset glad_glPolygonOffset
