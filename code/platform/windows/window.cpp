@@ -1,5 +1,5 @@
 #include "window.hpp"
-#include "platform.hpp"
+#include "window_events.hpp"
 
 namespace engine::win32
 {
@@ -37,7 +37,7 @@ namespace engine::win32
         {
             .cbSize        = sizeof(WNDCLASSEX),
             .style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC,
-            .lpfnWndProc   = Platform::process_events,
+            .lpfnWndProc   = WindowEvents::process,
             .hInstance     = GetModuleHandle(nullptr),
             .hCursor       = LoadCursor(nullptr, IDC_ARROW),
             .lpszClassName = "KotomichiGameEngine",

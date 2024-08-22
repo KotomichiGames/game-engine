@@ -5,11 +5,12 @@
 
 namespace engine
 {
-    class WindowInstance
+    class WindowManager
     {
     public:
         void create(const std::shared_ptr<base::Factory>& factory, const base::window_config& config);
         void destroy()    const;
+        void update()     const;
 
         void open()       const;
         void close()      const;
@@ -20,14 +21,16 @@ namespace engine
         [[nodiscard]] int32_t   width() const;
         [[nodiscard]] int32_t  height() const;
 
-        WindowInstance& operator=(const WindowInstance&) = delete;
-        WindowInstance(const WindowInstance&)            = delete;
+        WindowManager& operator=(const WindowManager&) = delete;
+        WindowManager(const WindowManager&)            = delete;
 
-        static WindowInstance& instance();
+        static WindowManager& instance();
 
     private:
-        std::unique_ptr<base::Window> _window;
+        std::unique_ptr<base::Window>       _window;
+        std::unique_ptr<base::WindowEvents> _events;
+        std::unique_ptr<base::Context>     _context;
 
-        WindowInstance() = default;
+        WindowManager() = default;
     };
 }

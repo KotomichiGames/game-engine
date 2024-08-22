@@ -1,5 +1,5 @@
 #include "window.hpp"
-#include "platform.hpp"
+#include "window_events.hpp"
 
 namespace engine::glfw
 {
@@ -15,7 +15,7 @@ namespace engine::glfw
             std::exit(EXIT_FAILURE);
         }
 
-        glfwSetWindowCloseCallback(_handle, Platform::on_close_event);
+        glfwSetWindowCloseCallback(_handle, WindowEvents::on_close);
     }
 
     void Window::destroy() const

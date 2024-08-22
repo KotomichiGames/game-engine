@@ -1,15 +1,15 @@
-#include "platform.hpp"
-#include "window_instance.hpp"
+#include "window_events.hpp"
+#include "window_manager.hpp"
 
 namespace engine::win32
 {
-    LRESULT Platform::process_events(const HWND hwnd, const UINT msg, const WPARAM wparam, const LPARAM lparam)
+    LRESULT WindowEvents::process(const HWND hwnd, const UINT msg, const WPARAM wparam, const LPARAM lparam)
     {
         switch (msg)
         {
             case WM_CLOSE:
             {
-                WindowInstance::instance().close();
+                WindowManager::instance().close();
                 return 0;
             }
         }
@@ -17,7 +17,7 @@ namespace engine::win32
         return DefWindowProc(hwnd, msg, wparam, lparam);
     }
 
-    void Platform::update() const
+    void WindowEvents::update() const
     {
         MSG msg;
 
@@ -25,7 +25,7 @@ namespace engine::win32
         {
             if (msg.message == WM_QUIT)
             {
-                WindowInstance::instance().close();
+                WindowManager::instance().close();
             }
             else
             {
