@@ -10,5 +10,9 @@ namespace engine::win32
         void create(std::any handle) override;
         void destroy()               override;
         void update()                override;
+
+    private:
+        HGLRC _handle { };
+        HDC   _hdc    { };
     };
 }

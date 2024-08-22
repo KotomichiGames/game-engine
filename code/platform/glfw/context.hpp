@@ -8,8 +8,8 @@ namespace engine::glfw
     {
     public:
         void create(std::any handle) override;
-        void update()                override;
         void destroy()               override;
+        void update()                override;
 
     private:
         GLFWwindow* _handle { };
