@@ -14,7 +14,10 @@ namespace engine::win32
         [[nodiscard]] std::any handle() const override;
 
     private:
-        HWND _handle { };
-        ATOM _class  { };
+        void    register_window_class();
+        void unregister_windows_class() const;
+
+        ATOM _wndclass { };
+        HWND _handle   { };
     };
 }
