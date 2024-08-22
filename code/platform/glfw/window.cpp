@@ -24,6 +24,10 @@ namespace engine::glfw
         glfwTerminate();
     }
 
+    void Window::display() const
+    {
+    }
+
     std::any Window::handle() const
     {
         return _handle;

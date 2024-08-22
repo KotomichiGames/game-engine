@@ -22,7 +22,6 @@ namespace engine::win32
         _class  = RegisterClassEx(&window_class);
         _handle = CreateWindowEx(extra, MAKEINTATOM(_class), title.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT,
                                                               _size.width, _size.height, nullptr, nullptr, instance, nullptr);
-        ShowWindow(_handle, SW_SHOW);
     }
 
     void Window::destroy() const
@@ -30,6 +29,11 @@ namespace engine::win32
         DestroyWindow(_handle);
 
         UnregisterClass(MAKEINTATOM(_class), GetModuleHandle(nullptr));
+    }
+
+    void Window::display() const
+    {
+        ShowWindow(_handle, SW_SHOW);
     }
 
     std::any Window::handle() const
