@@ -1,19 +1,19 @@
 #pragma once
 
-#include "base/context.hpp"
-
 #pragma region
 
 using  PFNWGLCREATECONTEXTATTRIBSARBPROC = HGLRC(WINAPI*)(HDC, HGLRC, const int32_t*);
 using  PFNWGLCHOOSEPIXELFORMATARBPROC    = BOOL(WINAPI*)(HDC   hdc,   const int32_t*, const float*, uint32_t, int32_t*, uint32_t*);
 
-inline PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
-inline PFNWGLCHOOSEPIXELFORMATARBPROC    wglChoosePixelFormatARB;
-
 #pragma endregion
+
+#include "base/context.hpp"
 
 namespace engine::win32
 {
+    inline PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
+    inline PFNWGLCHOOSEPIXELFORMATARBPROC    wglChoosePixelFormatARB;
+
     class Context final : public base::Context
     {
     public:

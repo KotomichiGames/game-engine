@@ -8,13 +8,17 @@ namespace engine::base
     class Window
     {
     public:
-        virtual void create(const std::string& title) = 0;
-        virtual void destroy()                  const = 0;
-        virtual void display()                  const = 0;
+        virtual void create()        = 0;
+        virtual void destroy() const = 0;
+        virtual void display() const = 0;
 
         virtual ~Window() = default;
 
-        [[nodiscard]] virtual std::any   handle()  const = 0;
+        [[nodiscard]] virtual std::any    handle() const = 0;
+        [[nodiscard]] const   std::string& title() const
+        {
+            return _title;
+        }
         [[nodiscard]] const   window_size& size()  const
         {
             return _size;
@@ -24,6 +28,10 @@ namespace engine::base
             return _state;
         }
 
+        void title(const std::string& title)
+        {
+            _title = title;
+        }
         void state(const window_state state)
         {
             _state = state;
@@ -36,5 +44,7 @@ namespace engine::base
     protected:
         window_state _state { };
         window_size  _size  { };
+
+        std::string  _title { };
     };
 }

@@ -12,20 +12,20 @@ namespace engine::win32
             .lpfnWndProc   = WindowEvents::process,
             .hInstance     = GetModuleHandle(nullptr),
             .hCursor       = LoadCursor(nullptr, IDC_ARROW),
-            .lpszClassName = "KotomichiGames",
+            .lpszClassName = _title.c_str(),
         };
 
         _wndclass = RegisterClassEx(&wndclassex);
     }
 
-    void Window::create(const std::string& title)
+    void Window::create()
     {
         register_window_class();
 
         constexpr UINT extra = WS_EX_APPWINDOW;
         constexpr UINT style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPEDWINDOW;
 
-        _handle = CreateWindowEx(extra, MAKEINTATOM(_wndclass), title.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT, _size.width, _size.height, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
+        _handle = CreateWindowEx(extra, MAKEINTATOM(_wndclass), _title.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT, _size.width, _size.height, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
     }
 
     void Window::destroy() const

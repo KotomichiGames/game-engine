@@ -9,7 +9,8 @@ namespace engine
         _events  = factory->create_events();
 
         _window->size(config.size);
-        _window->create(config.title);
+        _window->title(config.title);
+        _window->create();
 
         _context->create(_window->handle());
     }

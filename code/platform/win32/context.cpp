@@ -1,22 +1,15 @@
 #include "context.hpp"
 #include "macros.hpp"
+#include "window.hpp"
 
 namespace engine::win32
 {
     void Context::init_wgl_functions()
     {
-        const WNDCLASSEX   wndclassex // TODO maybe use our window here?
-        {
-            .cbSize        = sizeof(WNDCLASSEX),
-            .style         = CS_OWNDC,
-            .lpfnWndProc   = DefWindowProc,
-            .hInstance     = GetModuleHandle(nullptr),
-            .lpszClassName = "KotomichiGamesDummy",
-        };
-
-        const ATOM wc   = RegisterClassEx(&wndclassex);
-        const HWND hwnd = CreateWindowEx(0, MAKEINTATOM(wc), "KotomichiGamesDummy" , 0, 0, 0, 0, 0, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
-        const HDC  hdc  = GetDC(hwnd);
+        Window window;
+        window.size({ 0, 0 });
+        window.title("KotomichiGamesDummy");
+        window.create();
 
         constexpr PIXELFORMATDESCRIPTOR pfd
         {
@@ -26,8 +19,8 @@ namespace engine::win32
             .iPixelType   = PFD_TYPE_RGBA,
             .cColorBits   = 24
         };
-
-        if (!SetPixelFormat(hdc, ChoosePixelFormat(hdc, &pfd), &pfd))
+                  const HDC hdc = GetDC(std::any_cast<HWND>(window.handle()));
+        if (!SetPixelFormat(hdc,  ChoosePixelFormat(hdc, &pfd), &pfd))
         {
             std::exit(EXIT_FAILURE);
         }
@@ -41,10 +34,7 @@ namespace engine::win32
         wglMakeCurrent(nullptr, nullptr);
         wglDeleteContext(context);
 
-        ReleaseDC(hwnd, hdc);
-        DestroyWindow(hwnd);
-
-        UnregisterClass(MAKEINTATOM(wc), GetModuleHandle(nullptr));
+        window.destroy();
     }
 
     void Context::create(const std::any handle)
@@ -64,8 +54,7 @@ namespace engine::win32
         };
 
         int32_t  format;
-        uint32_t formats;
-                                     _hdc = GetDC(std::any_cast<HWND>(handle));
+        uint32_t formats;            _hdc = GetDC(std::any_cast<HWND>(handle));
         if (!wglChoosePixelFormatARB(_hdc,  pixel_attributes, nullptr, 1, &format, &formats) || formats == 0)
         {
             std::exit(EXIT_FAILURE);
