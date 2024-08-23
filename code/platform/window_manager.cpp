@@ -30,6 +30,7 @@ namespace engine
     void WindowManager::open() const
     {
         _window->display();
+        _window->state(base::window_state::active);
     }
 
     void WindowManager::close() const
