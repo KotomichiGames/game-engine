@@ -48,7 +48,7 @@ namespace engine::win32
             double_buffer_arb,  1,
             acceleration_arb,   full_acceleration_arb,
             pixel_type_arb,     type_rgba_arb,
-            color_bits_arb,     32,
+            color_bits_arb,     24,
             depth_bits_arb,     24,
             stencil_bits_arb,   8,
             0
