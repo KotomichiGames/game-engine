@@ -7,9 +7,7 @@ namespace engine::win32
     void Context::init_wgl_functions()
     {
         Window window;
-        window.size({ 0, 0 });
-        window.title("KotomichiGamesDummy");
-        window.create();
+        window.title("KotomichiGamesDummy").size({ 0, 0 }).create();
 
         constexpr PIXELFORMATDESCRIPTOR pfd
         {

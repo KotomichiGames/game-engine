@@ -28,17 +28,20 @@ namespace engine::base
             return _state;
         }
 
-        void title(const std::string& title)
+        Window& title(const std::string& title)
         {
             _title = title;
+            return *this;
         }
-        void state(const window_state state)
+        Window& state(const window_state state)
         {
             _state = state;
+            return *this;
         }
-        void size(const  window_size& size)
+        Window& size(const  window_size& size)
         {
             _size = size;
+            return *this;
         }
 
     protected:

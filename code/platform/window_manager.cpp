@@ -8,9 +8,7 @@ namespace engine
         _context = factory->create_context();
         _events  = factory->create_events();
 
-        _window->size(config.size);
-        _window->title(config.title);
-        _window->create();
+        _window->title(config.title).size(config.size).create();
 
         _context->create(_window->handle());
     }
