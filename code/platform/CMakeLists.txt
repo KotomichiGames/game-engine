@@ -10,6 +10,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(${PROJECT_NAME} PRIVATE engine::core)
 target_sources(${PROJECT_NAME}        PRIVATE window_factory.cpp window_manager.cpp)
 #=======================================================================================================================
-add_subdirectory(windows)
+add_subdirectory(win32)
 add_subdirectory(glfw)
 #=======================================================================================================================
