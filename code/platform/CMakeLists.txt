@@ -11,5 +11,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE engine::core)
 target_sources(${PROJECT_NAME}        PRIVATE window_factory.cpp window_manager.cpp)
 #=======================================================================================================================
 add_subdirectory(win32)
-add_subdirectory(glfw)
+#add_subdirectory(glfw)
 #=======================================================================================================================
