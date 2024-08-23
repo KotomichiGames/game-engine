@@ -22,7 +22,7 @@ namespace engine::win32
         void update()                override;
 
     private:
-        void init_wgl_functions();
+        static void init_wgl_functions();
 
         HGLRC _handle { };
         HDC   _hdc    { };
