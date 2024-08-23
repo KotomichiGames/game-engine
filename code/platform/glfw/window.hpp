@@ -7,9 +7,9 @@ namespace engine::glfw
     class Window final : public base::Window
     {
     public:
-        void create(const std::string& title) override;
-        void destroy()                  const override;
-        void display()                  const override;
+        void create()        override;
+        void destroy() const override;
+        void display() const override;
 
         [[nodiscard]] std::any handle() const override;
 
