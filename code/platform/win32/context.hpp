@@ -2,14 +2,15 @@
 
 #include "base/context.hpp"
 
-#define WGL_CONTEXT_MAJOR_VERSION_ARB    0x2091
-#define WGL_CONTEXT_MINOR_VERSION_ARB    0x2092
-#define WGL_CONTEXT_PROFILE_MASK_ARB     0x9126
-#define WGL_CONTEXT_CORE_PROFILE_BIT_ARB 0x00000001
+#pragma region
 
-using PFNWGLCREATECONTEXTATTRIBSARBPROC = HGLRC(WINAPI*)(HDC, HGLRC, const int32_t*);
+using  PFNWGLCREATECONTEXTATTRIBSARBPROC = HGLRC(WINAPI*)(HDC, HGLRC, const int32_t*);
+using  PFNWGLCHOOSEPIXELFORMATARBPROC    = BOOL(WINAPI*)(HDC   hdc,   const int32_t*, const float*, uint32_t, int32_t*, uint32_t*);
 
 inline PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
+inline PFNWGLCHOOSEPIXELFORMATARBPROC    wglChoosePixelFormatARB;
+
+#pragma endregion
 
 namespace engine::win32
 {

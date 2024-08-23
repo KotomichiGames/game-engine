@@ -1,48 +1,97 @@
 #include "context.hpp"
+#include "macros.hpp"
 
 namespace engine::win32
 {
-    void Context::create(const std::any handle)
+    void Context::init_wgl_functions()
     {
-        init_wgl_functions();
+        const WNDCLASSEX   wndclassex // TODO maybe use our window here?
+        {
+            .cbSize        = sizeof(WNDCLASSEX),
+            .style         = CS_OWNDC,
+            .lpfnWndProc   = DefWindowProc,
+            .hInstance     = GetModuleHandle(nullptr),
+            .lpszClassName = "KotomichiGamesDummy",
+        };
 
-        constexpr PIXELFORMATDESCRIPTOR pixel_descriptor
+        const ATOM wc   = RegisterClassEx(&wndclassex);
+        const HWND hwnd = CreateWindowEx(0, MAKEINTATOM(wc), "KotomichiGamesDummy" , 0, 0, 0, 0, 0, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
+        const HDC  hdc  = GetDC(hwnd);
+
+        constexpr PIXELFORMATDESCRIPTOR pfd
         {
             .nSize        = sizeof(PIXELFORMATDESCRIPTOR),
             .nVersion     = 1,
             .dwFlags      = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
             .iPixelType   = PFD_TYPE_RGBA,
-            .cColorBits   = 24,
-            .cDepthBits   = 24,
-            .cStencilBits = 8,
-            .iLayerType   = PFD_MAIN_PLANE
+            .cColorBits   = 24
         };
 
-        _hdc = GetDC(std::any_cast<HWND>(handle));
-
-        if (const int pixel_format =       ChoosePixelFormat(_hdc, &pixel_descriptor);
-                      pixel_format == 0 || SetPixelFormat(_hdc, pixel_format, &pixel_descriptor) == 0) {
+        if (!SetPixelFormat(hdc, ChoosePixelFormat(hdc, &pfd), &pfd))
+        {
             std::exit(EXIT_FAILURE);
         }
 
-        _handle = wglCreateContext(_hdc);
-                    wglMakeCurrent(_hdc, _handle);
+        const HGLRC context = wglCreateContext(hdc);
+                              wglMakeCurrent(hdc, context);
 
-        /*
         wglCreateContextAttribsARB = reinterpret_cast<PFNWGLCREATECONTEXTATTRIBSARBPROC>(wglGetProcAddress("wglCreateContextAttribsARB"));
+        wglChoosePixelFormatARB    = reinterpret_cast<PFNWGLCHOOSEPIXELFORMATARBPROC>(wglGetProcAddress("wglChoosePixelFormatARB"));
 
+        wglMakeCurrent(nullptr, nullptr);
+        wglDeleteContext(context);
 
-        constexpr int32_t attributes[]
+        ReleaseDC(hwnd, hdc);
+        DestroyWindow(hwnd);
+
+        UnregisterClass(MAKEINTATOM(wc), GetModuleHandle(nullptr));
+    }
+
+    void Context::create(const std::any handle)
+    {
+        init_wgl_functions();
+
+        constexpr int pixel_attributes[]
         {
-            WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
-            WGL_CONTEXT_MINOR_VERSION_ARB, 6,
-            WGL_CONTEXT_PROFILE_MASK_ARB,  WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+            draw_to_window_arb, 1,
+            support_opengl_arb, 1,
+            double_buffer_arb,  1,
+            pixel_type_arb,     type_rgba_arb,
+            color_bits_arb,     32,
+            depth_bits_arb,     24,
+            stencil_bits_arb,   8,
             0
         };
 
-        _handle = wglCreateContextAttribsARB(_hdc, nullptr, attributes);
-        wglMakeCurrent(_hdc, _handle);
-        */
+        int32_t  format;
+        uint32_t formats;
+                                     _hdc = GetDC(std::any_cast<HWND>(handle));
+        if (!wglChoosePixelFormatARB(_hdc,  pixel_attributes, nullptr, 1, &format, &formats) || formats == 0)
+        {
+            std::exit(EXIT_FAILURE);
+        }
+
+        PIXELFORMATDESCRIPTOR pfd;
+        if (!DescribePixelFormat(_hdc, format, sizeof(PIXELFORMATDESCRIPTOR), &pfd))
+        {
+            std::exit(EXIT_FAILURE);
+        }
+
+        if (!SetPixelFormat(_hdc, format, &pfd))
+        {
+            std::exit(EXIT_FAILURE);
+        }
+
+        constexpr int32_t context_attributes[]
+        {
+            context_major_version_arb, 4,
+            context_minor_version_arb, 6,
+            context_profile_mask_arb,  context_core_profile_bit_arb,
+            0
+        };
+
+        _handle = wglCreateContextAttribsARB(_hdc, nullptr, context_attributes);
+                  wglMakeCurrent(_hdc, _handle);
     }
 
     void Context::destroy()
@@ -54,9 +103,5 @@ namespace engine::win32
     void Context::update()
     {
         SwapBuffers(_hdc);
-    }
-
-    void Context::init_wgl_functions()
-    {
     }
 }

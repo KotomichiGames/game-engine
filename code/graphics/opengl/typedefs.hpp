@@ -1,6 +1,6 @@
 #pragma once
 
-#pragma region defines
+#pragma region
 
 #ifndef APIENTRY // TODO see if we can remove this at some point
 #define APIENTRY
