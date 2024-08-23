@@ -60,8 +60,6 @@ static DWORD getWindowStyle(const _GLFWwindow* window)
     return style;
 }
 
-// Returns the extended window style for the specified window
-//
 static DWORD getWindowExStyle(const _GLFWwindow* window)
 {
     DWORD style = WS_EX_APPWINDOW;
@@ -72,8 +70,6 @@ static DWORD getWindowExStyle(const _GLFWwindow* window)
     return style;
 }
 
-// Returns the image whose area most closely matches the desired one
-//
 static const GLFWimage* chooseImage(int count, const GLFWimage* images,
                                     int width, int height)
 {
@@ -124,16 +120,14 @@ static HICON createIcon(const GLFWimage* image, int xhot, int yhot, GLFWbool ico
 
     if (!color)
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to create RGBA bitmap");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to create RGBA bitmap");
         return NULL;
     }
 
     HBITMAP mask = CreateBitmap(image->width, image->height, 1, 1, NULL);
     if (!mask)
     {
-        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to create mask bitmap");
+        _glfwInputErrorWin32(GLFW_PLATFORM_ERROR, "Win32: Failed to create mask bitmap");
         DeleteObject(color);
         return NULL;
     }
@@ -186,8 +180,6 @@ static void applyAspectRatio(_GLFWwindow* window, int edge, RECT* area)
     {
         AdjustWindowRectExForDpi(&frame, style, FALSE, exStyle, GetDpiForWindow(window->win32.handle));
     }
-    else
-        AdjustWindowRectEx(&frame, style, FALSE, exStyle);
 
     if (edge == WMSZ_LEFT  || edge == WMSZ_BOTTOMLEFT ||
         edge == WMSZ_RIGHT || edge == WMSZ_BOTTOMRIGHT)
@@ -320,8 +312,6 @@ static void updateWindowStyles(const _GLFWwindow* window)
     {
         AdjustWindowRectExForDpi(&rect, style, FALSE, getWindowExStyle(window), GetDpiForWindow(window->win32.handle));
     }
-    else
-        AdjustWindowRectEx(&rect, style, FALSE, getWindowExStyle(window));
 
     ClientToScreen(window->win32.handle, (POINT*) &rect.left);
     ClientToScreen(window->win32.handle, (POINT*) &rect.right);
@@ -401,8 +391,6 @@ static void releaseMonitor(_GLFWwindow* window)
     _glfwRestoreVideoModeWin32(window->monitor);
 }
 
-// Manually maximize the window, for when SW_MAXIMIZE cannot be used
-//
 static void maximizeWindowManually(_GLFWwindow* window)
 {
     RECT rect;
@@ -449,8 +437,6 @@ static void maximizeWindowManually(_GLFWwindow* window)
                  SWP_NOACTIVATE | SWP_NOZORDER | SWP_FRAMECHANGED);
 }
 
-// Window procedure for user-created windows
-//
 static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     _GLFWwindow* window = GetPropW(hWnd, L"GLFW");
