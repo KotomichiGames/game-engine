@@ -2,8 +2,9 @@
 
 namespace engine::base
 {
-    enum class window_state : uint8_t
+    enum class window_state
     {
+        hidden,
         active,
         closed
     };
