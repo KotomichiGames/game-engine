@@ -39,4 +39,9 @@ using PFNGLLINKPROGRAMPROC   =     void(APIENTRY*)(uint32_t program);
 using PFNGLUSEPROGRAMPROC        = void(APIENTRY*)(uint32_t program);
 using PFNGLDELETEPROGRAMPROC     = void(APIENTRY*)(uint32_t program);
 
+using PFNGLCREATEBUFFERSPROC   = void(APIENTRY*)(int32_t n, uint32_t* buffers);
+using PFNGLDELETEBUFFERSPROC   = void(APIENTRY*)(int32_t n, const uint32_t* buffers);
+using PFNGLBINDBUFFERPROC      = void(APIENTRY*)(uint32_t target, uint32_t buffer);
+using PFNGLNAMEDBUFFERDATAPROC = void(APIENTRY*)(uint32_t buffer, int64_t size, const void* data, uint32_t usage);
+
 #pragma endregion
