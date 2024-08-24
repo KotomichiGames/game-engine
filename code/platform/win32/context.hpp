@@ -11,8 +11,8 @@ using  PFNWGLCHOOSEPIXELFORMATARBPROC    = BOOL(WINAPI*)(HDC   hdc,   const int3
 
 namespace engine::win32
 {
-    inline PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
-    inline PFNWGLCHOOSEPIXELFORMATARBPROC    wglChoosePixelFormatARB;
+    inline PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribs;
+    inline PFNWGLCHOOSEPIXELFORMATARBPROC    wglChoosePixelFormat;
 
     class Context final : public base::Context
     {
