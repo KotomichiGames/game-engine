@@ -1,7 +1,7 @@
 #include "window_factory.hpp"
 #include "win32/factory.hpp"
 
-namespace engine
+namespace engine::core
 {
     std::shared_ptr<base::Factory> WindowFactory::create_factory()
     {

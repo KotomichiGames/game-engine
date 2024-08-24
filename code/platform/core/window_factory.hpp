@@ -2,7 +2,7 @@
 
 #include "base/factory.hpp"
 
-namespace engine
+namespace engine::core
 {
     class WindowFactory
     {

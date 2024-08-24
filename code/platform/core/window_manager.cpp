@@ -1,6 +1,6 @@
 #include "window_manager.hpp"
 
-namespace engine
+namespace engine::core
 {
     void WindowManager::create(const std::shared_ptr<base::Factory>& factory, const base::window_config& config)
     {

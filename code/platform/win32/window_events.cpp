@@ -1,5 +1,5 @@
 #include "window_events.hpp"
-#include "window_manager.hpp"
+#include "core/window_manager.hpp"
 
 namespace engine::win32
 {
@@ -9,7 +9,7 @@ namespace engine::win32
         {
             case WM_CLOSE:
             {
-                WindowManager::instance().close();
+                core::WindowManager::instance().close();
                 return 0;
             }
         }
@@ -25,7 +25,7 @@ namespace engine::win32
         {
             if (msg.message == WM_QUIT)
             {
-                WindowManager::instance().close();
+                core::WindowManager::instance().close();
             }
             else
             {

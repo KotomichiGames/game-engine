@@ -3,7 +3,7 @@
 #include "base/factory.hpp"
 #include "base/window_config.hpp"
 
-namespace engine
+namespace engine::core
 {
     class WindowManager
     {
