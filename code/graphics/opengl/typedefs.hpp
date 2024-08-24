@@ -1,16 +1,9 @@
 #pragma once
 
-#pragma region
-
-#ifndef APIENTRY // TODO see if we can remove this at some point
-#define APIENTRY
-#endif
-
-#pragma endregion
 #pragma region core
 
-using PFNGLCLEARCOLORPROC   = void(APIENTRY*)(float red, float green, float blue, float alpha);
 using PFNGLCLEARPROC        = void(APIENTRY*)(uint32_t mask);
+using PFNGLCLEARCOLORPROC   = void(APIENTRY*)(float red, float green, float blue, float alpha);
 using PFNGLDRAWARRAYSPROC   = void(APIENTRY*)(uint32_t mode, int32_t first, int32_t count);
 using PFNGLDRAWELEMENTSPROC = void(APIENTRY*)(uint32_t mode, int32_t count, uint32_t type, const void* indices);
 

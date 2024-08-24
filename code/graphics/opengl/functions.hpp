@@ -6,8 +6,8 @@ namespace engine::gl
 {
     #pragma region core
 
-    inline PFNGLCLEARCOLORPROC   glClearColor;
     inline PFNGLCLEARPROC        glClear;
+    inline PFNGLCLEARCOLORPROC   glClearColor;
     inline PFNGLDRAWARRAYSPROC   glDrawArrays;
     inline PFNGLDRAWELEMENTSPROC glDrawElements;
 

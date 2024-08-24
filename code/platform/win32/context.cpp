@@ -35,7 +35,7 @@ namespace engine::win32
         window.destroy();
     }
 
-    void Context::create(const std::any handle)
+    void Context::create(const std::any window)
     {
         init_wgl_functions();
 
@@ -53,7 +53,7 @@ namespace engine::win32
         };
 
         int32_t  format;
-        uint32_t formats;         _hdc = GetDC(std::any_cast<HWND>(handle));
+        uint32_t formats;         _hdc = GetDC(std::any_cast<HWND>(window));
         if (!wglChoosePixelFormat(_hdc,  pixel_attributes, nullptr, 1, &format, &formats) || formats == 0)
         {
             std::exit(EXIT_FAILURE);

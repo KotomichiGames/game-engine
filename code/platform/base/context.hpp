@@ -5,7 +5,7 @@ namespace engine::base
     class Context
     {
     public:
-        virtual void create(std::any handle) = 0;
+        virtual void create(std::any window) = 0;
         virtual void destroy()               = 0;
         virtual void update()                = 0;
 
