@@ -1756,12 +1756,6 @@ GLAPI PFNGLGETQUERYOBJECTIVPROC glad_glGetQueryObjectiv;
 typedef void (APIENTRYP PFNGLGETQUERYOBJECTUIVPROC)(GLuint id, GLenum pname, GLuint *params);
 GLAPI PFNGLGETQUERYOBJECTUIVPROC glad_glGetQueryObjectuiv;
 #define glGetQueryObjectuiv glad_glGetQueryObjectuiv
-typedef void (APIENTRYP PFNGLBINDBUFFERPROC)(GLenum target, GLuint buffer);
-GLAPI PFNGLBINDBUFFERPROC glad_glBindBuffer;
-#define glBindBuffer glad_glBindBuffer
-typedef void (APIENTRYP PFNGLDELETEBUFFERSPROC)(GLsizei n, const GLuint *buffers);
-GLAPI PFNGLDELETEBUFFERSPROC glad_glDeleteBuffers;
-#define glDeleteBuffers glad_glDeleteBuffers
 typedef void (APIENTRYP PFNGLBUFFERSUBDATAPROC)(GLenum target, GLintptr offset, GLsizeiptr size, const void *data);
 GLAPI PFNGLBUFFERSUBDATAPROC glad_glBufferSubData;
 #define glBufferSubData glad_glBufferSubData
@@ -3241,15 +3235,9 @@ GLAPI PFNGLGETTRANSFORMFEEDBACKI_VPROC glad_glGetTransformFeedbacki_v;
 typedef void (APIENTRYP PFNGLGETTRANSFORMFEEDBACKI64_VPROC)(GLuint xfb, GLenum pname, GLuint index, GLint64 *param);
 GLAPI PFNGLGETTRANSFORMFEEDBACKI64_VPROC glad_glGetTransformFeedbacki64_v;
 #define glGetTransformFeedbacki64_v glad_glGetTransformFeedbacki64_v
-typedef void (APIENTRYP PFNGLCREATEBUFFERSPROC)(GLsizei n, GLuint *buffers);
-GLAPI PFNGLCREATEBUFFERSPROC glad_glCreateBuffers;
-#define glCreateBuffers glad_glCreateBuffers
 typedef void (APIENTRYP PFNGLNAMEDBUFFERSTORAGEPROC)(GLuint buffer, GLsizeiptr size, const void *data, GLbitfield flags);
 GLAPI PFNGLNAMEDBUFFERSTORAGEPROC glad_glNamedBufferStorage;
 #define glNamedBufferStorage glad_glNamedBufferStorage
-typedef void (APIENTRYP PFNGLNAMEDBUFFERDATAPROC)(GLuint buffer, GLsizeiptr size, const void *data, GLenum usage);
-GLAPI PFNGLNAMEDBUFFERDATAPROC glad_glNamedBufferData;
-#define glNamedBufferData glad_glNamedBufferData
 typedef void (APIENTRYP PFNGLNAMEDBUFFERSUBDATAPROC)(GLuint buffer, GLintptr offset, GLsizeiptr size, const void *data);
 GLAPI PFNGLNAMEDBUFFERSUBDATAPROC glad_glNamedBufferSubData;
 #define glNamedBufferSubData glad_glNamedBufferSubData

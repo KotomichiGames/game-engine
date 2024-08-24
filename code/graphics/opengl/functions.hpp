@@ -18,6 +18,11 @@ namespace engine::gl
     inline PFNGLBINDVERTEXARRAYPROC    glBindVertexArray;
     inline PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays;
 
+    inline PFNGLCREATEBUFFERSPROC   glCreateBuffers;
+    inline PFNGLDELETEBUFFERSPROC   glDeleteBuffers;
+    inline PFNGLBINDBUFFERPROC      glBindBuffer;
+    inline PFNGLNAMEDBUFFERDATAPROC glNamedBufferData;
+
     #pragma endregion
 
     class Functions
