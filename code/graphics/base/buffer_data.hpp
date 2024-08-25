@@ -9,6 +9,10 @@ namespace engine::base
         {
             return { buffer.data(), static_cast<uint32_t>(buffer.size() * sizeof(type)) };
         }
+        template <typename type> static buffer_data create_from(const type* data)
+        {
+            return { data, static_cast<uint32_t>(sizeof(type)) };
+        }
 
         [[nodiscard]] const void* data() const
         {
