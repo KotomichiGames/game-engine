@@ -10,9 +10,13 @@ using PFNGLDRAWELEMENTSPROC = void(APIENTRY*)(uint32_t mode, int32_t count, uint
 #pragma endregion
 #pragma region extended
 
-using PFNGLCREATEVERTEXARRAYSPROC = void(APIENTRY*)(int32_t n, uint32_t* arrays);
-using PFNGLBINDVERTEXARRAYPROC    = void(APIENTRY*)(uint32_t array);
-using PFNGLDELETEVERTEXARRAYSPROC = void(APIENTRY*)(int32_t n, const uint32_t* arrays);
+using PFNGLBINDVERTEXARRAYPROC          = void(APIENTRY*)(uint32_t array);
+using PFNGLCREATEVERTEXARRAYSPROC       = void(APIENTRY*)(int32_t n, uint32_t* arrays);
+using PFNGLDELETEVERTEXARRAYSPROC       = void(APIENTRY*)(int32_t n, const uint32_t* arrays);
+using PFNGLENABLEVERTEXARRAYATTRIBPROC  = void(APIENTRY*)(uint32_t vaobj, uint32_t index);
+using PFNGLVERTEXARRAYATTRIBFORMATPROC  = void(APIENTRY*)(uint32_t vaobj, uint32_t attribindex,  int32_t size, uint32_t type, uint8_t normalized, uint32_t relativeoffset);
+using PFNGLVERTEXARRAYATTRIBBINDINGPROC = void(APIENTRY*)(uint32_t vaobj, uint32_t attribindex,  uint32_t bindingindex);
+using PFNGLVERTEXARRAYVERTEXBUFFERPROC  = void(APIENTRY*)(uint32_t vaobj, uint32_t bindingindex, uint32_t buffer, int64_t offset, int32_t stride);
 
 using PFNGLCREATEBUFFERSPROC   = void(APIENTRY*)(int32_t n, uint32_t* buffers);
 using PFNGLDELETEBUFFERSPROC   = void(APIENTRY*)(int32_t n, const uint32_t* buffers);

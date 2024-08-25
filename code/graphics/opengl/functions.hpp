@@ -14,9 +14,13 @@ namespace engine::gl
     #pragma endregion
     #pragma region extended
 
-    inline PFNGLCREATEVERTEXARRAYSPROC glCreateVertexArrays;
-    inline PFNGLBINDVERTEXARRAYPROC    glBindVertexArray;
-    inline PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays;
+    inline PFNGLBINDVERTEXARRAYPROC          glBindVertexArray;
+    inline PFNGLCREATEVERTEXARRAYSPROC       glCreateVertexArrays;
+    inline PFNGLDELETEVERTEXARRAYSPROC       glDeleteVertexArrays;
+    inline PFNGLENABLEVERTEXARRAYATTRIBPROC  glEnableVertexArrayAttrib;
+    inline PFNGLVERTEXARRAYATTRIBFORMATPROC  glVertexArrayAttribFormat;
+    inline PFNGLVERTEXARRAYATTRIBBINDINGPROC glVertexArrayAttribBinding;
+    inline PFNGLVERTEXARRAYVERTEXBUFFERPROC  glVertexArrayVertexBuffer;
 
     inline PFNGLCREATEBUFFERSPROC   glCreateBuffers;
     inline PFNGLDELETEBUFFERSPROC   glDeleteBuffers;
