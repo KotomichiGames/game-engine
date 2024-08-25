@@ -48,6 +48,6 @@ namespace engine::base
         window_state _state { window_state::hidden };
         window_size  _size  { };
 
-        std::string  _title { };
+        std::string  _title;
     };
 }
