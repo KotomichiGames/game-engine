@@ -4,6 +4,9 @@ namespace engine::gl
 {
     constexpr uint32_t color_buffer_bit = 0x00004000;
 
+    constexpr uint32_t vertex_shader    = 0x8B31;
+    constexpr uint32_t fragment_shader  = 0x8B30;
+
     constexpr uint32_t static_draw = 0x88E4;
 
     constexpr uint32_t triangles   = 0x0004;

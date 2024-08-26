@@ -23,4 +23,7 @@ using PFNGLCREATEBUFFERSPROC   = void(APIENTRY*)(int32_t n, uint32_t* buffers);
 using PFNGLDELETEBUFFERSPROC   = void(APIENTRY*)(int32_t n, const uint32_t* buffers);
 using PFNGLNAMEDBUFFERDATAPROC = void(APIENTRY*)(uint32_t buffer, int64_t size, const void* data, uint32_t usage);
 
+using PFNGLCREATESHADERPROC = uint32_t(APIENTRY*)(uint32_t type);
+using PFNGLDELETESHADERPROC =     void(APIENTRY*)(uint32_t shader);
+
 #pragma endregion
