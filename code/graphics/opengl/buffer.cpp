@@ -13,11 +13,6 @@ namespace engine::gl
         glDeleteBuffers(1, &_handle);
     }
 
-    void Buffer::bind(const uint32_t target) const
-    {
-        glBindBuffer(target, _handle);
-    }
-
     void Buffer::data(const base::buffer_data& buffer, const uint32_t usage) const
     {
         glNamedBufferData(_handle, buffer.size(), buffer.data(), usage);

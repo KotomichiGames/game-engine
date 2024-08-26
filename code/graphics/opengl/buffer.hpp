@@ -12,7 +12,6 @@ namespace engine::gl
         void create()  override;
         void destroy() override;
 
-        void bind(uint32_t target)                                 const;
         void data(const base::buffer_data& buffer, uint32_t usage) const;
     };
 }

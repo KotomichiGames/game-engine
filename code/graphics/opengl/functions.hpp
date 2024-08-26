@@ -21,10 +21,10 @@ namespace engine::gl
     inline PFNGLVERTEXARRAYATTRIBFORMATPROC  glVertexArrayAttribFormat;
     inline PFNGLVERTEXARRAYATTRIBBINDINGPROC glVertexArrayAttribBinding;
     inline PFNGLVERTEXARRAYVERTEXBUFFERPROC  glVertexArrayVertexBuffer;
+    inline PFNGLVERTEXARRAYELEMENTBUFFERPROC glVertexArrayElementBuffer;
 
     inline PFNGLCREATEBUFFERSPROC   glCreateBuffers;
     inline PFNGLDELETEBUFFERSPROC   glDeleteBuffers;
-    inline PFNGLBINDBUFFERPROC      glBindBuffer;
     inline PFNGLNAMEDBUFFERDATAPROC glNamedBufferData;
 
     #pragma endregion
