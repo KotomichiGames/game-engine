@@ -22,7 +22,7 @@ namespace engine::core
         [[nodiscard]] int32_t  height() const;
 
         WindowManager& operator=(const WindowManager&) = delete;
-        WindowManager(const WindowManager&)            = delete;
+        WindowManager           (const WindowManager&) = delete;
 
         static WindowManager& instance();
 
