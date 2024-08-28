@@ -7,7 +7,7 @@ namespace engine::gl
     class ShaderStage final : public Object
     {
     public:
-        explicit ShaderStage(uint32_t type);
+    explicit ShaderStage(uint32_t type);
 
         void create()  override;
         void destroy() override;
