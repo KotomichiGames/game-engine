@@ -1,5 +1,7 @@
 #include "window_events.hpp"
+
 #include "core/window_manager.hpp"
+#include "core/input_manager.hpp"
 
 namespace engine::win32
 {

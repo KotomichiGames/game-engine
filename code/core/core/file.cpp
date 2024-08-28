@@ -2,9 +2,9 @@
 
 namespace engine::core
 {
-    std::vector<char> File::read(const std::string& file)
+    std::vector<char> File::read(const std::string& file, const int32_t read_mode)
     {
-        std::ifstream stream(file, std::ios::ate);
+        std::ifstream stream(file, std::ios::ate | read_mode);
         assert(stream.is_open());
 
         const auto size = stream.tellg();

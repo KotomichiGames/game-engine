@@ -4,9 +4,9 @@
 
 namespace engine::gl
 {
-    void Commands::clear(const float red, const float green, const float blue, const float alpha)
+    void Commands::clear(const core::rgb& color, const float alpha)
     {
-        glClearColor(red, green, blue, alpha);
+        glClearColor(color.r, color.g, color.b, alpha);
     }
 
     void Commands::clear(const uint32_t flags)

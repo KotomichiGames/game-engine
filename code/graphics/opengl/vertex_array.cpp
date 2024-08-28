@@ -23,7 +23,7 @@ namespace engine::gl
         glVertexArrayElementBuffer(_handle, buffer.handle());
     }
 
-    void VertexArray::attribute(const base::vertex_attribute& attribute) const
+    void VertexArray::attribute(const core::vertex_attribute& attribute) const
     {
         glEnableVertexArrayAttrib(_handle, attribute.index);
 

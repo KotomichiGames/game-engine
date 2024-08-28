@@ -2,7 +2,7 @@
 
 #include "object.hpp"
 
-#include "base/buffer_data.hpp"
+#include "core/buffer_data.hpp"
 
 namespace engine::gl
 {
@@ -12,6 +12,6 @@ namespace engine::gl
         void create()  override;
         void destroy() override;
 
-        void data(const base::buffer_data& buffer, uint32_t usage) const;
+        void data(const core::buffer_data& buffer, uint32_t usage) const;
     };
 }
