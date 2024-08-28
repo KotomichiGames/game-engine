@@ -705,9 +705,7 @@ PFNGLSCISSORINDEXEDPROC glad_glScissorIndexed = NULL;
 PFNGLSCISSORINDEXEDVPROC glad_glScissorIndexedv = NULL;
 PFNGLSECONDARYCOLORP3UIPROC glad_glSecondaryColorP3ui = NULL;
 PFNGLSECONDARYCOLORP3UIVPROC glad_glSecondaryColorP3uiv = NULL;
-PFNGLSHADERBINARYPROC glad_glShaderBinary = NULL;
 PFNGLSHADERSTORAGEBLOCKBINDINGPROC glad_glShaderStorageBlockBinding = NULL;
-PFNGLSPECIALIZESHADERPROC glad_glSpecializeShader = NULL;
 PFNGLSTENCILFUNCPROC glad_glStencilFunc = NULL;
 PFNGLSTENCILFUNCSEPARATEPROC glad_glStencilFuncSeparate = NULL;
 PFNGLSTENCILMASKPROC glad_glStencilMask = NULL;
@@ -1356,7 +1354,6 @@ static void load_GL_VERSION_4_0(GLADloadproc load) {
 static void load_GL_VERSION_4_1(GLADloadproc load) {
 	if(!GLAD_GL_VERSION_4_1) return;
 	glad_glReleaseShaderCompiler = (PFNGLRELEASESHADERCOMPILERPROC)load("glReleaseShaderCompiler");
-	glad_glShaderBinary = (PFNGLSHADERBINARYPROC)load("glShaderBinary");
 	glad_glGetShaderPrecisionFormat = (PFNGLGETSHADERPRECISIONFORMATPROC)load("glGetShaderPrecisionFormat");
 	glad_glDepthRangef = (PFNGLDEPTHRANGEFPROC)load("glDepthRangef");
 	glad_glClearDepthf = (PFNGLCLEARDEPTHFPROC)load("glClearDepthf");
@@ -1637,7 +1634,6 @@ static void load_GL_VERSION_4_5(GLADloadproc load) {
 }
 static void load_GL_VERSION_4_6(GLADloadproc load) {
 	if(!GLAD_GL_VERSION_4_6) return;
-	glad_glSpecializeShader = (PFNGLSPECIALIZESHADERPROC)load("glSpecializeShader");
 	glad_glMultiDrawArraysIndirectCount = (PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC)load("glMultiDrawArraysIndirectCount");
 	glad_glMultiDrawElementsIndirectCount = (PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC)load("glMultiDrawElementsIndirectCount");
 	glad_glPolygonOffsetClamp = (PFNGLPOLYGONOFFSETCLAMPPROC)load("glPolygonOffsetClamp");

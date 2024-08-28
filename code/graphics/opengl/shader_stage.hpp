@@ -12,6 +12,8 @@ namespace engine::gl
         void create()  override;
         void destroy() override;
 
+        void source(const std::vector<char>& source) const;
+
     private:
         uint32_t _type;
     };

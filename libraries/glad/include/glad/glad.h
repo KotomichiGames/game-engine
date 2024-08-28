@@ -2714,9 +2714,6 @@ GLAPI int GLAD_GL_VERSION_4_1;
 typedef void (APIENTRYP PFNGLRELEASESHADERCOMPILERPROC)(void);
 GLAPI PFNGLRELEASESHADERCOMPILERPROC glad_glReleaseShaderCompiler;
 #define glReleaseShaderCompiler glad_glReleaseShaderCompiler
-typedef void (APIENTRYP PFNGLSHADERBINARYPROC)(GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);
-GLAPI PFNGLSHADERBINARYPROC glad_glShaderBinary;
-#define glShaderBinary glad_glShaderBinary
 typedef void (APIENTRYP PFNGLGETSHADERPRECISIONFORMATPROC)(GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision);
 GLAPI PFNGLGETSHADERPRECISIONFORMATPROC glad_glGetShaderPrecisionFormat;
 #define glGetShaderPrecisionFormat glad_glGetShaderPrecisionFormat
@@ -3529,9 +3526,6 @@ GLAPI PFNGLTEXTUREBARRIERPROC glad_glTextureBarrier;
 #ifndef GL_VERSION_4_6
 #define GL_VERSION_4_6 1
 GLAPI int GLAD_GL_VERSION_4_6;
-typedef void (APIENTRYP PFNGLSPECIALIZESHADERPROC)(GLuint shader, const GLchar *pEntryPoint, GLuint numSpecializationConstants, const GLuint *pConstantIndex, const GLuint *pConstantValue);
-GLAPI PFNGLSPECIALIZESHADERPROC glad_glSpecializeShader;
-#define glSpecializeShader glad_glSpecializeShader
 typedef void (APIENTRYP PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC)(GLenum mode, const void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
 GLAPI PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC glad_glMultiDrawArraysIndirectCount;
 #define glMultiDrawArraysIndirectCount glad_glMultiDrawArraysIndirectCount
