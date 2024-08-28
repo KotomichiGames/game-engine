@@ -46,5 +46,7 @@ using PFNGLNAMEDBUFFERDATAPROC = void(APIENTRY*)(uint32_t buffer, int64_t size, 
 
 using PFNGLCREATESHADERPROC = uint32_t(APIENTRY*)(uint32_t type);
 using PFNGLDELETESHADERPROC =     void(APIENTRY*)(uint32_t shader);
+using PFNGLSHADERBINARYPROC =     void(APIENTRY*)(int32_t count, const uint32_t *shaders, uint32_t binary_format, const void* binary, int32_t length);
+using PFNGLSPECIALIZESHADERPROC = void(APIENTRY*)(uint32_t shader, const char* entry_point, uint32_t constants, const uint32_t* constant_index, const uint32_t* constant_value);
 
 #pragma endregion

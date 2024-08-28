@@ -44,8 +44,10 @@ namespace engine::gl
     inline PFNGLBINDBUFFERPROC      glBindBuffer;
     inline PFNGLNAMEDBUFFERDATAPROC glNamedBufferData;
 
-    inline PFNGLCREATESHADERPROC glCreateShader;
-    inline PFNGLDELETESHADERPROC glDeleteShader;
+    inline PFNGLCREATESHADERPROC     glCreateShader;
+    inline PFNGLDELETESHADERPROC     glDeleteShader;
+    inline PFNGLSHADERBINARYPROC     glShaderBinary;
+    inline PFNGLSPECIALIZESHADERPROC glSpecializeShader;
 
     #pragma endregion
 
