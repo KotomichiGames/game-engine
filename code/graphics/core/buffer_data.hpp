@@ -16,6 +16,7 @@ namespace engine::core
 
         [[nodiscard]] const void* data() const
         {
+            assert(_data);
             return _data;
         }
         [[nodiscard]] uint32_t    size() const
