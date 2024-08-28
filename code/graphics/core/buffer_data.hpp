@@ -5,13 +5,13 @@ namespace engine::core
     class buffer_data
     {
     public:
-        template <typename type> static buffer_data create_from(const std::vector<type>& buffer)
+        template <typename T> static buffer_data create_from(const std::vector<T>& buffer)
         {
-            return { buffer.data(), static_cast<uint32_t>(buffer.size() * sizeof(type)) };
+            return { buffer.data(), static_cast<uint32_t>(buffer.size() * sizeof(T)) };
         }
-        template <typename type> static buffer_data create_from(const type* data)
+        template <typename T> static buffer_data create_from(const T* data)
         {
-            return { data, static_cast<uint32_t>(sizeof(type)) };
+            return { data, static_cast<uint32_t>(sizeof(T)) };
         }
 
         [[nodiscard]] const void* data() const

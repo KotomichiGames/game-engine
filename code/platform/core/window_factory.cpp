@@ -3,8 +3,8 @@
 
 namespace engine::core
 {
-    std::shared_ptr<base::Factory> WindowFactory::create_factory()
+    std::unique_ptr<base::Factory> WindowFactory::create_factory()
     {
-        return std::make_shared<win32::Factory>();
+        return std::make_unique<win32::Factory>();
     }
 }

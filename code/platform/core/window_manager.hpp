@@ -1,14 +1,15 @@
 #pragma once
 
 #include "base/factory.hpp"
+#include "base/singleton.hpp"
 #include "base/window_config.hpp"
 
 namespace engine::core
 {
-    class WindowManager
+    class WindowManager final : public base::Singleton<WindowManager>
     {
     public:
-        void create(const std::shared_ptr<base::Factory>& factory, const base::window_config& config);
+        void create(const base::window_config& config);
         void destroy()    const;
         void update()     const;
 
@@ -21,16 +22,9 @@ namespace engine::core
         [[nodiscard]] int32_t   width() const;
         [[nodiscard]] int32_t  height() const;
 
-        WindowManager& operator=(const WindowManager&) = delete;
-        WindowManager           (const WindowManager&) = delete;
-
-        static WindowManager& instance();
-
     private:
         std::unique_ptr<base::Window>       _window;
         std::unique_ptr<base::WindowEvents> _events;
         std::unique_ptr<base::Context>     _context;
-
-        WindowManager() = default;
     };
 }

@@ -7,6 +7,6 @@ namespace engine::core
     class WindowFactory
     {
     public:
-        static std::shared_ptr<base::Factory> create_factory();
+        static std::unique_ptr<base::Factory> create_factory();
     };
 }
