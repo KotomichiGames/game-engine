@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef APIENTRY
+#define APIENTRY
+#endif
+
 #pragma region core
 
 using PFNGLCLEARPROC        = void(APIENTRY*)(uint32_t mask);
