@@ -26,6 +26,7 @@ namespace engine::gl
     inline PFNGLCREATEBUFFERSPROC   glCreateBuffers;
     inline PFNGLDELETEBUFFERSPROC   glDeleteBuffers;
     inline PFNGLNAMEDBUFFERDATAPROC glNamedBufferData;
+    inline PFNGLBINDBUFFERBASEPROC  glBindBufferBase;
 
     inline PFNGLCREATESHADERPROC     glCreateShader;
     inline PFNGLDELETESHADERPROC     glDeleteShader;

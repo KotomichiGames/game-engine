@@ -26,10 +26,11 @@ using PFNGLVERTEXARRAYELEMENTBUFFERPROC = void(APIENTRY*)(uint32_t vaobj, uint32
 using PFNGLCREATEBUFFERSPROC   = void(APIENTRY*)(int32_t n, uint32_t* buffers);
 using PFNGLDELETEBUFFERSPROC   = void(APIENTRY*)(int32_t n, const uint32_t* buffers);
 using PFNGLNAMEDBUFFERDATAPROC = void(APIENTRY*)(uint32_t buffer, int64_t size, const void* data, uint32_t usage);
+using PFNGLBINDBUFFERBASEPROC  = void(APIENTRY*)(uint32_t target, uint32_t index, uint32_t buffer);
 
 using PFNGLCREATESHADERPROC = uint32_t(APIENTRY*)(uint32_t type);
 using PFNGLDELETESHADERPROC =     void(APIENTRY*)(uint32_t shader);
-using PFNGLSHADERBINARYPROC =     void(APIENTRY*)(int32_t count, const uint32_t *shaders, uint32_t binary_format, const void* binary, int32_t length);
+using PFNGLSHADERBINARYPROC =     void(APIENTRY*)(int32_t count, const uint32_t* shaders, uint32_t binary_format, const void* binary, int32_t length);
 using PFNGLSPECIALIZESHADERPROC = void(APIENTRY*)(uint32_t shader, const char* entry_point, uint32_t constants, const uint32_t* constant_index, const uint32_t* constant_value);
 
 using PFNGLCREATEPROGRAMPROC = uint32_t(APIENTRY*)();
