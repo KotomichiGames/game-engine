@@ -12,7 +12,7 @@ namespace engine::base
         virtual void destroy() const = 0;
         virtual void display() const = 0;
 
-        virtual ~Window() = default;
+        virtual ~Window() =  default;
 
         [[nodiscard]] virtual std::any    handle() const = 0;
         [[nodiscard]] const   std::string& title() const
