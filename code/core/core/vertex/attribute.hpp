@@ -2,7 +2,7 @@
 
 namespace engine::core
 {
-    struct vertex_attribute
+    struct attribute
     {
         uint32_t index;
          int32_t size;

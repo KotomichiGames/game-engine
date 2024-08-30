@@ -1,8 +1,8 @@
 #pragma once
 
-namespace engine::base
+namespace engine::core
 {
-    struct window_size
+    struct size
     {
         int32_t width  { default_width };
         int32_t height { default_height };

@@ -2,14 +2,15 @@
 
 #include "base/factory.hpp"
 #include "base/singleton.hpp"
-#include "base/window_config.hpp"
+
+#include "core/window/config.hpp"
 
 namespace engine::core
 {
     class WindowManager final : public base::Singleton<WindowManager>
     {
     public:
-        void create(const base::window_config& config);
+        void create(const config& config);
         void destroy()    const;
         void update()     const;
 

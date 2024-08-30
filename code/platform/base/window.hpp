@@ -1,7 +1,7 @@
 #pragma once
 
-#include "base/window_size.hpp"
-#include "base/window_state.hpp"
+#include "core/window/size.hpp"
+#include "core/window/state.hpp"
 
 namespace engine::base
 {
@@ -19,11 +19,11 @@ namespace engine::base
         {
             return _title;
         }
-        [[nodiscard]] const   window_size& size()  const
+        [[nodiscard]] const   core::size& size()   const
         {
             return _size;
         }
-        [[nodiscard]]         window_state state() const
+        [[nodiscard]]         core::state state()  const
         {
             return _state;
         }
@@ -33,21 +33,21 @@ namespace engine::base
             _title = title;
             return *this;
         }
-        Window& state(const window_state state)
+        Window& state(const core::state  state)
         {
             _state = state;
             return *this;
         }
-        Window& size(const  window_size& size)
+        Window& size(const  core::size&  size)
         {
             _size = size;
             return *this;
         }
 
     protected:
-        window_state _state { window_state::hidden };
-        window_size  _size  { };
+        core::state _state { core::state::hidden };
+        core::size  _size  { };
 
-        std::string  _title;
+        std::string _title;
     };
 }
