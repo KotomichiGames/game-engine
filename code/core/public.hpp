@@ -4,5 +4,3 @@
 #include <ios>
 
 #include <vector>
-
-#include <cassert>

@@ -14,22 +14,11 @@ namespace engine::core
             return { data, static_cast<uint32_t>(sizeof(T)) };
         }
 
-        [[nodiscard]] const void* data() const
-        {
-            assert(_data);
-            return _data;
-        }
-        [[nodiscard]] uint32_t    size() const
-        {
-            return _size;
-        }
+        [[nodiscard]] const void* data() const;
+        [[nodiscard]] uint32_t    size() const;
 
     private:
-        buffer_data(const void* data, const uint32_t size)
-            : _data { data }
-            , _size { size }
-        {
-        }
+        buffer_data(const void* data, uint32_t size);
 
         const void* _data { };
         uint32_t    _size { };
