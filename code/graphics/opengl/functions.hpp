@@ -39,22 +39,6 @@ namespace engine::gl
     inline PFNGLUSEPROGRAMPROC        glUseProgram;
     inline PFNGLDELETEPROGRAMPROC     glDeleteProgram;
 
-    inline PFNGLCREATEBUFFERSPROC   glCreateBuffers;
-    inline PFNGLDELETEBUFFERSPROC   glDeleteBuffers;
-    inline PFNGLBINDBUFFERPROC      glBindBuffer;
-    inline PFNGLNAMEDBUFFERDATAPROC glNamedBufferData;
-
-    inline PFNGLCREATESHADERPROC     glCreateShader;
-    inline PFNGLDELETESHADERPROC     glDeleteShader;
-    inline PFNGLSHADERBINARYPROC     glShaderBinary;
-    inline PFNGLSPECIALIZESHADERPROC glSpecializeShader;
-
-    inline PFNGLCREATEPROGRAMPROC     glCreateProgram;
-    inline PFNGLATTACHSHADERPROC      glAttachShader;
-    inline PFNGLLINKPROGRAMPROC       glLinkProgram;
-    inline PFNGLUSEPROGRAMPROC        glUseProgram;
-    inline PFNGLDELETEPROGRAMPROC     glDeleteProgram;
-
     #pragma endregion
 
     class Functions
