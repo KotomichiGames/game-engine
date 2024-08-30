@@ -21,7 +21,7 @@ namespace engine::gl
 
     void ShaderStage::source(const std::vector<char>& source) const
     {
-        glShaderBinary(1, &_handle, shader_binary_format, source.data(), source.size());
+        glShaderBinary(1, &_handle, shader_binary_format, source.data(), static_cast<int32_t>(source.size()));
         glSpecializeShader(_handle, "main", 0, nullptr, nullptr);
     }
 }
