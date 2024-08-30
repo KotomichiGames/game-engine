@@ -7,4 +7,5 @@ add_subdirectory(core)
 add_subdirectory(win32)
 #=======================================================================================================================
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_precompile_headers(${PROJECT_NAME}  PUBLIC public.hpp)
 #=======================================================================================================================
