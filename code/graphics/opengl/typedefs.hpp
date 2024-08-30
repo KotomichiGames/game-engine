@@ -39,20 +39,4 @@ using PFNGLLINKPROGRAMPROC   =     void(APIENTRY*)(uint32_t program);
 using PFNGLUSEPROGRAMPROC        = void(APIENTRY*)(uint32_t program);
 using PFNGLDELETEPROGRAMPROC     = void(APIENTRY*)(uint32_t program);
 
-using PFNGLCREATEBUFFERSPROC   = void(APIENTRY*)(int32_t n, uint32_t* buffers);
-using PFNGLDELETEBUFFERSPROC   = void(APIENTRY*)(int32_t n, const uint32_t* buffers);
-using PFNGLBINDBUFFERPROC      = void(APIENTRY*)(uint32_t target, uint32_t buffer);
-using PFNGLNAMEDBUFFERDATAPROC = void(APIENTRY*)(uint32_t buffer, int64_t size, const void* data, uint32_t usage);
-
-using PFNGLCREATESHADERPROC = uint32_t(APIENTRY*)(uint32_t type);
-using PFNGLDELETESHADERPROC =     void(APIENTRY*)(uint32_t shader);
-using PFNGLSHADERBINARYPROC =     void(APIENTRY*)(int32_t count, const uint32_t *shaders, uint32_t binary_format, const void* binary, int32_t length);
-using PFNGLSPECIALIZESHADERPROC = void(APIENTRY*)(uint32_t shader, const char* entry_point, uint32_t constants, const uint32_t* constant_index, const uint32_t* constant_value);
-
-using PFNGLCREATEPROGRAMPROC = uint32_t(APIENTRY*)();
-using PFNGLATTACHSHADERPROC  =     void(APIENTRY*)(uint32_t program, uint32_t shader);
-using PFNGLLINKPROGRAMPROC   =     void(APIENTRY*)(uint32_t program);
-using PFNGLUSEPROGRAMPROC        = void(APIENTRY*)(uint32_t program);
-using PFNGLDELETEPROGRAMPROC     = void(APIENTRY*)(uint32_t program);
-
 #pragma endregion
