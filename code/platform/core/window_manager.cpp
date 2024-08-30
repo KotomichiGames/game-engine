@@ -1,16 +1,17 @@
 #include "window_manager.hpp"
+#include "window_factory.hpp"
 
-namespace engine
+namespace engine::core
 {
-    void WindowManager::create(const std::shared_ptr<base::Factory>& factory, const base::window_config& config)
+    void WindowManager::create(const base::window_config& config)
     {
+        const auto factory = WindowFactory::create_factory();
+
         _window  = factory->create_window();
         _context = factory->create_context();
         _events  = factory->create_events();
 
-        _window->size(config.size);
-        _window->title(config.title);
-        _window->create();
+        _window->title(config.title).size(config.size).create();
 
         _context->create(_window->handle());
     }
@@ -56,11 +57,5 @@ namespace engine
     int32_t WindowManager::height() const
     {
         return _window->size().height;
-    }
-
-    WindowManager& WindowManager::instance()
-    {
-        static WindowManager instance;
-        return instance;
     }
 }
