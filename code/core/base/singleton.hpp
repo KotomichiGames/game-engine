@@ -5,14 +5,14 @@ namespace engine::base
     template <typename T> class Singleton
     {
     public:
+        Singleton& operator=(const Singleton&) = delete;
+        Singleton           (const Singleton&) = delete;
+
         static T& instance()
         {
             static T instance;
             return   instance;
         }
-
-        Singleton& operator=(const Singleton&) = delete;
-        Singleton           (const Singleton&) = delete;
 
     protected:
         virtual ~Singleton() = default;
