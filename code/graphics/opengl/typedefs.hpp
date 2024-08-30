@@ -23,10 +23,11 @@ using PFNGLVERTEXARRAYATTRIBBINDINGPROC = void(APIENTRY*)(uint32_t vaobj, uint32
 using PFNGLVERTEXARRAYVERTEXBUFFERPROC  = void(APIENTRY*)(uint32_t vaobj, uint32_t bindingindex, uint32_t buffer, int64_t offset, int32_t stride);
 using PFNGLVERTEXARRAYELEMENTBUFFERPROC = void(APIENTRY*)(uint32_t vaobj, uint32_t buffer);
 
-using PFNGLCREATEBUFFERSPROC   = void(APIENTRY*)(int32_t n, uint32_t* buffers);
-using PFNGLDELETEBUFFERSPROC   = void(APIENTRY*)(int32_t n, const uint32_t* buffers);
-using PFNGLNAMEDBUFFERDATAPROC = void(APIENTRY*)(uint32_t buffer, int64_t size, const void* data, uint32_t usage);
-using PFNGLBINDBUFFERBASEPROC  = void(APIENTRY*)(uint32_t target, uint32_t index, uint32_t buffer);
+using PFNGLCREATEBUFFERSPROC      = void(APIENTRY*)(int32_t n, uint32_t* buffers);
+using PFNGLDELETEBUFFERSPROC      = void(APIENTRY*)(int32_t n, const uint32_t* buffers);
+using PFNGLNAMEDBUFFERDATAPROC    = void(APIENTRY*)(uint32_t buffer, int64_t size, const void* data, uint32_t usage);
+using PFNGLBINDBUFFERBASEPROC     = void(APIENTRY*)(uint32_t target, uint32_t index, uint32_t buffer);
+using PFNGLNAMEDBUFFERSUBDATAPROC = void(APIENTRY*)(uint32_t buffer, int64_t offset, int64_t size, const void* data);
 
 using PFNGLCREATESHADERPROC = uint32_t(APIENTRY*)(uint32_t type);
 using PFNGLDELETESHADERPROC =     void(APIENTRY*)(uint32_t shader);

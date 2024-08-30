@@ -23,10 +23,11 @@ namespace engine::gl
     inline PFNGLVERTEXARRAYVERTEXBUFFERPROC  glVertexArrayVertexBuffer;
     inline PFNGLVERTEXARRAYELEMENTBUFFERPROC glVertexArrayElementBuffer;
 
-    inline PFNGLCREATEBUFFERSPROC   glCreateBuffers;
-    inline PFNGLDELETEBUFFERSPROC   glDeleteBuffers;
-    inline PFNGLNAMEDBUFFERDATAPROC glNamedBufferData;
-    inline PFNGLBINDBUFFERBASEPROC  glBindBufferBase;
+    inline PFNGLCREATEBUFFERSPROC      glCreateBuffers;
+    inline PFNGLDELETEBUFFERSPROC      glDeleteBuffers;
+    inline PFNGLNAMEDBUFFERDATAPROC    glNamedBufferData;
+    inline PFNGLBINDBUFFERBASEPROC     glBindBufferBase;
+    inline PFNGLNAMEDBUFFERSUBDATAPROC glNamedBufferSubData;
 
     inline PFNGLCREATESHADERPROC     glCreateShader;
     inline PFNGLDELETESHADERPROC     glDeleteShader;

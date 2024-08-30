@@ -10,7 +10,8 @@ namespace engine::gl
 
     constexpr uint32_t uniform_buffer       = 0x8A11;
 
-    constexpr uint32_t static_draw = 0x88E4;
+    constexpr uint32_t static_draw  = 0x88E4;
+    constexpr uint32_t dynamic_draw = 0x88E8;
 
     constexpr uint32_t triangles   = 0x0004;
     constexpr uint32_t type_uint   = 0x1405;
