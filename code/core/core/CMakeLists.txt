@@ -1,4 +1,4 @@
 #=======================================================================================================================
-target_precompile_headers(${PROJECT_NAME} PUBLIC public.hpp PRIVATE private.hpp)
+target_precompile_headers(${PROJECT_NAME} PUBLIC public.hpp PRIVATE )
 target_sources(${PROJECT_NAME}                              PRIVATE file.cpp time.cpp)
 #=======================================================================================================================
