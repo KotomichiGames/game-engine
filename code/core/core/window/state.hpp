@@ -2,7 +2,7 @@
 
 namespace engine::core
 {
-    enum class state
+    enum class state : uint8_t
     {
         hidden,
         active,
