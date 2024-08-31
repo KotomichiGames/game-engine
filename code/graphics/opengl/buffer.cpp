@@ -28,4 +28,9 @@ namespace engine::gl
     {
         glBindBufferBase(uniform_buffer, location, _handle);
     }
+
+    void Buffer::bind(const core::buffer_location location) const
+    {
+        bind(static_cast<int32_t>(location));
+    }
 }

@@ -17,6 +17,7 @@ namespace engine::gl
         void     data(const core::buffer_data& buffer, uint32_t usage = static_draw) const;
         void sub_data(const core::buffer_data& buffer, int32_t offset = 0)           const;
 
-        void bind(uint32_t location) const;
+        void bind(core::buffer_location location) const;
+        void bind(uint32_t location)    const;
     };
 }
