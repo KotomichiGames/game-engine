@@ -1,4 +1,9 @@
 #=======================================================================================================================
-target_precompile_headers(${PROJECT_NAME} PUBLIC public.hpp PRIVATE )
-target_sources(${PROJECT_NAME}                              PRIVATE file.cpp time.cpp)
+add_library(${PROJECT_NAME})
+#=======================================================================================================================
+target_include_directories(${PROJECT_NAME} PUBLIC ..)
+target_precompile_headers(${PROJECT_NAME}  PUBLIC public.hpp)
+#=======================================================================================================================
+target_precompile_headers(${PROJECT_NAME} PRIVATE private.hpp)
+target_sources(${PROJECT_NAME}            PRIVATE time.cpp file.cpp)
 #=======================================================================================================================
