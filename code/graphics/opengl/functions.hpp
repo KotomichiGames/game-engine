@@ -34,11 +34,12 @@ namespace engine::gl
     inline PFNGLSHADERBINARYPROC     glShaderBinary;
     inline PFNGLSPECIALIZESHADERPROC glSpecializeShader;
 
-    inline PFNGLCREATEPROGRAMPROC     glCreateProgram;
-    inline PFNGLATTACHSHADERPROC      glAttachShader;
-    inline PFNGLLINKPROGRAMPROC       glLinkProgram;
-    inline PFNGLUSEPROGRAMPROC        glUseProgram;
-    inline PFNGLDELETEPROGRAMPROC     glDeleteProgram;
+    inline PFNGLCREATEPROGRAMPROC           glCreateProgram;
+    inline PFNGLATTACHSHADERPROC            glAttachShader;
+    inline PFNGLLINKPROGRAMPROC             glLinkProgram;
+    inline PFNGLUSEPROGRAMPROC              glUseProgram;
+    inline PFNGLDELETEPROGRAMPROC           glDeleteProgram;
+    inline PFNGLPROGRAMUNIFORMMATRIX4FVPROC glProgramUniformMatrix4fv;
 
     #pragma endregion
 

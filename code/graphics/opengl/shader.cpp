@@ -27,4 +27,9 @@ namespace engine::gl
     {
         glUseProgram(_handle);
     }
+
+    void Shader::push_matrix4(const int32_t location, const float* data) const
+    {
+        glProgramUniformMatrix4fv(_handle, location, 1, 0, data);
+    }
 }

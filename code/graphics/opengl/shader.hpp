@@ -13,5 +13,7 @@ namespace engine::gl
         void attach(const ShaderStage& stage) const;
         void compile()    const;
         void bind()       const;
+
+        [[maybe_unused]] void push_matrix4(int32_t location, const float* data) const;
     };
 }

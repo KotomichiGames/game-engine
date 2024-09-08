@@ -37,7 +37,8 @@ using PFNGLSPECIALIZESHADERPROC = void(APIENTRY*)(uint32_t shader, const char* e
 using PFNGLCREATEPROGRAMPROC = uint32_t(APIENTRY*)();
 using PFNGLATTACHSHADERPROC  =     void(APIENTRY*)(uint32_t program, uint32_t shader);
 using PFNGLLINKPROGRAMPROC   =     void(APIENTRY*)(uint32_t program);
-using PFNGLUSEPROGRAMPROC        = void(APIENTRY*)(uint32_t program);
-using PFNGLDELETEPROGRAMPROC     = void(APIENTRY*)(uint32_t program);
+using PFNGLUSEPROGRAMPROC              = void(APIENTRY*)(uint32_t program);
+using PFNGLDELETEPROGRAMPROC           = void(APIENTRY*)(uint32_t program);
+using PFNGLPROGRAMUNIFORMMATRIX4FVPROC = void(APIENTRY*)(uint32_t program, int32_t location, int32_t count, uint8_t transpose, const float* value);
 
 #pragma endregion
